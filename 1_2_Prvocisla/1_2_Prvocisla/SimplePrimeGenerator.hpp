@@ -1,6 +1,7 @@
 #ifndef SimplePrimeGenerator_hpp
 #define SimplePrimeGenerator_hpp
 
+#include <cmath>
 #include <limits.h>
 #include "PrimeGenerator.hpp"
 

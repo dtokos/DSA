@@ -14,7 +14,9 @@ int SimplePrimeGenerator::nth(int n) {
 }
 
 bool SimplePrimeGenerator::isPrime(int number) {
-	for (int j = 2; j < number; j++)
+	int limit = (int)sqrt(number + 1);
+	
+	for (int j = 2; j <= limit; j++)
 		if (number % j == 0)
 			return false;
 	

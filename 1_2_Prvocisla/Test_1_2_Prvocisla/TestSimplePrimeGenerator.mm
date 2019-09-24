@@ -47,4 +47,8 @@
 	XCTAssertEqual(self.generator.nth(1000), 7919);
 }
 
+- (void)testHighPrime6 {
+	XCTAssertEqual(self.generator.nth(100000), 1299709);
+}
+
 @end
