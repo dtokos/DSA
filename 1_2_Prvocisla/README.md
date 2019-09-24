@@ -5,16 +5,16 @@
 
 >Štandardný vstup obsahuje niekoľko riadkov, na každom z nich bude jedno číslo K. Pre každý riadok na vstupe vypíšte na štandardný výstup práve jedno číslo -- K-te prvočíslo.
 
->**Ukážka vstupu:**
->1
->2
->3
->4
+>**Ukážka vstupu:** \
+>1 \
+>2 \
+>3 \
+>4 \
 >10
 
->**Výstup pre ukážkový vstup:**
->2
->3
->5
->7
+>**Výstup pre ukážkový vstup:** \
+>2 \
+>3 \
+>5 \
+>7 \
 >29

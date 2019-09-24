@@ -1,5 +1,5 @@
 # DSA
-This repository contains for the DSA course.
+This repository contains for the 2019/2020 DSA course.
 
 **Included excercises**
 - [1-1: Paprika](./1_1_Paprika)

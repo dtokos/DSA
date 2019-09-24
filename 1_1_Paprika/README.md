@@ -9,9 +9,9 @@
 
 >**Výstup:** Pre každý scenár vypočítajte maximálny zisk, ktorý Jakubko dokáže dosiahnuť. Môžete predpokladať, že počiatočné vreckové bude stačiť na nákup akejkoľvek drahej papriky. Toto vreckové sa do výsledku nezapočítava.
 
->**Ukážka vstupu:**
->1
+>**Ukážka vstupu:** \
+>1 \
 >2 1 3
 
->**Výstup pre ukážkový vstup:**
+>**Výstup pre ukážkový vstup:** \
 >2
