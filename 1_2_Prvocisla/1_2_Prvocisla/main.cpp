@@ -1,10 +1,4 @@
-#include <iostream>
-#include <limits.h>
-
-using namespace std;
-
-long getPrime(int primeIndex);
-bool isPrime(long number);
+#include "main.hpp"
 
 int main(int argc, const char * argv[]) {
 	while (true) {

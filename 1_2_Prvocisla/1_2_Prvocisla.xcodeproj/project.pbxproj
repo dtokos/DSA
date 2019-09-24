@@ -8,7 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		9871C53C2338B05700DB081C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C53B2338B05700DB081C /* main.cpp */; };
+		98B3C012233A77F1006A4DAE /* Test_1_2_Prvocisla.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C011233A77F1006A4DAE /* Test_1_2_Prvocisla.mm */; };
+		98B3C01A233A799F006A4DAE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C53B2338B05700DB081C /* main.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		98B3C018233A7848006A4DAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9871C5302338B05700DB081C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9871C5372338B05700DB081C;
+			remoteInfo = 1_2_Prvocisla;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9871C5362338B05700DB081C /* CopyFiles */ = {
@@ -25,10 +37,21 @@
 /* Begin PBXFileReference section */
 		9871C5382338B05700DB081C /* 1_2_Prvocisla */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 1_2_Prvocisla; sourceTree = BUILT_PRODUCTS_DIR; };
 		9871C53B2338B05700DB081C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		98B3C00F233A77F1006A4DAE /* Test_1_2_Prvocisla.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_1_2_Prvocisla.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98B3C011233A77F1006A4DAE /* Test_1_2_Prvocisla.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Test_1_2_Prvocisla.mm; sourceTree = "<group>"; };
+		98B3C013233A77F1006A4DAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98B3C017233A782E006A4DAE /* main.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = main.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9871C5352338B05700DB081C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98B3C00C233A77F1006A4DAE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				9871C53A2338B05700DB081C /* 1_2_Prvocisla */,
+				98B3C010233A77F1006A4DAE /* Test_1_2_Prvocisla */,
 				9871C5392338B05700DB081C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				9871C5382338B05700DB081C /* 1_2_Prvocisla */,
+				98B3C00F233A77F1006A4DAE /* Test_1_2_Prvocisla.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,9 +82,19 @@
 		9871C53A2338B05700DB081C /* 1_2_Prvocisla */ = {
 			isa = PBXGroup;
 			children = (
+				98B3C017233A782E006A4DAE /* main.hpp */,
 				9871C53B2338B05700DB081C /* main.cpp */,
 			);
 			path = 1_2_Prvocisla;
+			sourceTree = "<group>";
+		};
+		98B3C010233A77F1006A4DAE /* Test_1_2_Prvocisla */ = {
+			isa = PBXGroup;
+			children = (
+				98B3C011233A77F1006A4DAE /* Test_1_2_Prvocisla.mm */,
+				98B3C013233A77F1006A4DAE /* Info.plist */,
+			);
+			path = Test_1_2_Prvocisla;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +117,24 @@
 			productReference = 9871C5382338B05700DB081C /* 1_2_Prvocisla */;
 			productType = "com.apple.product-type.tool";
 		};
+		98B3C00E233A77F1006A4DAE /* Test_1_2_Prvocisla */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98B3C016233A77F1006A4DAE /* Build configuration list for PBXNativeTarget "Test_1_2_Prvocisla" */;
+			buildPhases = (
+				98B3C00B233A77F1006A4DAE /* Sources */,
+				98B3C00C233A77F1006A4DAE /* Frameworks */,
+				98B3C00D233A77F1006A4DAE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				98B3C019233A7848006A4DAE /* PBXTargetDependency */,
+			);
+			name = Test_1_2_Prvocisla;
+			productName = Test_1_2_Prvocisla;
+			productReference = 98B3C00F233A77F1006A4DAE /* Test_1_2_Prvocisla.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -92,6 +145,9 @@
 				ORGANIZATIONNAME = dtokos;
 				TargetAttributes = {
 					9871C5372338B05700DB081C = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					98B3C00E233A77F1006A4DAE = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
@@ -109,9 +165,20 @@
 			projectRoot = "";
 			targets = (
 				9871C5372338B05700DB081C /* 1_2_Prvocisla */,
+				98B3C00E233A77F1006A4DAE /* Test_1_2_Prvocisla */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98B3C00D233A77F1006A4DAE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9871C5342338B05700DB081C /* Sources */ = {
@@ -122,7 +189,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		98B3C00B233A77F1006A4DAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98B3C01A233A799F006A4DAE /* main.cpp in Sources */,
+				98B3C012233A77F1006A4DAE /* Test_1_2_Prvocisla.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		98B3C019233A7848006A4DAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9871C5372338B05700DB081C /* 1_2_Prvocisla */;
+			targetProxy = 98B3C018233A7848006A4DAE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9871C53D2338B05700DB081C /* Debug */ = {
@@ -252,6 +336,38 @@
 			};
 			name = Release;
 		};
+		98B3C014233A77F1006A4DAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_2_Prvocisla/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-2-Prvocisla";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		98B3C015233A77F1006A4DAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_2_Prvocisla/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-2-Prvocisla";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -269,6 +385,15 @@
 			buildConfigurations = (
 				9871C5402338B05700DB081C /* Debug */,
 				9871C5412338B05700DB081C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98B3C016233A77F1006A4DAE /* Build configuration list for PBXNativeTarget "Test_1_2_Prvocisla" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98B3C014233A77F1006A4DAE /* Debug */,
+				98B3C015233A77F1006A4DAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
