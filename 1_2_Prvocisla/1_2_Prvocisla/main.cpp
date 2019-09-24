@@ -1,10 +1,10 @@
 #include <iostream>
-#include "SimplePrimeGenerator.hpp"
+#include "SievePrimeGenerator.hpp"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-	SimplePrimeGenerator generator;
+	SievePrimeGenerator generator;
 	
 	while (true) {
 		int primeIndex;
