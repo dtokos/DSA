@@ -15,8 +15,10 @@ public:
 private:
 	array<uint8_t, 162464> crossedOut = {0};
 	int calculateLimit(int n);
+	long maxValue();
 	bool notCrossed(int number);
 	void crossOutMultiples(int number);
+	void cross(int number);
 };
 
 #endif

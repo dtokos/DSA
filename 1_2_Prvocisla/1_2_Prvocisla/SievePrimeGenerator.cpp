@@ -22,7 +22,11 @@ int SievePrimeGenerator::nth(int n) {
 }
 
 int SievePrimeGenerator::calculateLimit(int n) {
-	return (int)sqrt(crossedOut.size() * 8);
+	return sqrt(maxValue());
+}
+
+long SievePrimeGenerator::maxValue() {
+	return crossedOut.size() * 8;
 }
 
 bool SievePrimeGenerator::notCrossed(int number) {
@@ -33,10 +37,15 @@ bool SievePrimeGenerator::notCrossed(int number) {
 }
 
 void SievePrimeGenerator::crossOutMultiples(int number) {
-	for (int multiple = number * 2; multiple < crossedOut.size() * 8; multiple += number) {
-		int arrayIndex = multiple / 8;
-		int bitIndex = multiple % 8;
-		
-		crossedOut[arrayIndex] |= (1 << bitIndex);
-	}
+	long limit = maxValue();
+	
+	for (int multiple = number * 2; multiple < limit; multiple += number)
+		cross(multiple);
+}
+
+void SievePrimeGenerator::cross(int number) {
+	int arrayIndex = number / 8;
+	int bitIndex = number % 8;
+	
+	crossedOut[arrayIndex] |= (1 << bitIndex);
 }
