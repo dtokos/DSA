@@ -14,6 +14,9 @@
 		98B3C021233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */; };
 		98B3C022233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */; };
 		98B3C024233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C023233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm */; };
+		98B3C029233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */; };
+		98B3C02A233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */; };
+		98B3C02E233A8717006A4DAE /* TestSievePrimeGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C02D233A8717006A4DAE /* TestSievePrimeGenerator.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SimplePrimeGenerator.cpp; sourceTree = "<group>"; };
 		98B3C020233A7B9A006A4DAE /* SimplePrimeGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimplePrimeGenerator.hpp; sourceTree = "<group>"; };
 		98B3C023233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestSimplePrimeGenerator.mm; sourceTree = "<group>"; };
+		98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SievePrimeGenerator.cpp; sourceTree = "<group>"; };
+		98B3C028233A8206006A4DAE /* SievePrimeGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SievePrimeGenerator.hpp; sourceTree = "<group>"; };
+		98B3C02D233A8717006A4DAE /* TestSievePrimeGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestSievePrimeGenerator.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,8 @@
 				98B3C01B233A7B1C006A4DAE /* PrimeGenerator.cpp */,
 				98B3C020233A7B9A006A4DAE /* SimplePrimeGenerator.hpp */,
 				98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */,
+				98B3C028233A8206006A4DAE /* SievePrimeGenerator.hpp */,
+				98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */,
 			);
 			path = 1_2_Prvocisla;
 			sourceTree = "<group>";
@@ -102,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				98B3C023233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm */,
+				98B3C02D233A8717006A4DAE /* TestSievePrimeGenerator.mm */,
 				98B3C013233A77F1006A4DAE /* Info.plist */,
 			);
 			path = Test_1_2_Prvocisla;
@@ -195,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98B3C029233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */,
 				9871C53C2338B05700DB081C /* main.cpp in Sources */,
 				98B3C021233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */,
 				98B3C01D233A7B1C006A4DAE /* PrimeGenerator.cpp in Sources */,
@@ -207,8 +217,10 @@
 			files = (
 				98B3C01A233A799F006A4DAE /* main.cpp in Sources */,
 				98B3C01E233A7B1C006A4DAE /* PrimeGenerator.cpp in Sources */,
+				98B3C02E233A8717006A4DAE /* TestSievePrimeGenerator.mm in Sources */,
 				98B3C024233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm in Sources */,
 				98B3C022233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */,
+				98B3C02A233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +349,7 @@
 		9871C5402338B05700DB081C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -345,6 +358,7 @@
 		9871C5412338B05700DB081C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -353,6 +367,7 @@
 		98B3C014233A77F1006A4DAE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Test_1_2_Prvocisla/Info.plist;
@@ -369,6 +384,7 @@
 		98B3C015233A77F1006A4DAE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Test_1_2_Prvocisla/Info.plist;
