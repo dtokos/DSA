@@ -2,15 +2,11 @@
 
 int ProfitCalculator::calculate(const vector<int>& predictions) {
 	int balance = 0;
-	bool willSell = false;
+	bool didSell = true;
 	vector<int> psPoints = analyzePurchaseAndSellingPoints(predictions);
 	
-	for (int psPoint : psPoints) {
-		if ((willSell = !willSell))
-			balance -= psPoint;
-		else
-			balance += psPoint;
-	}
+	for (int psPoint : psPoints)
+		balance += psPoint * (-1 + 2 * (didSell = !didSell));
 	
 	return balance;
 }
