@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		9871C5292338A69800DB081C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C5282338A69800DB081C /* main.cpp */; };
-		98B3BFFC233A52F5006A4DAE /* Test_1_1_Paprika.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3BFFB233A52F5006A4DAE /* Test_1_1_Paprika.mm */; };
 		98B3C004233A5375006A4DAE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C5282338A69800DB081C /* main.cpp */; };
+		98B3C007233A575A006A4DAE /* ProfitCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C005233A575A006A4DAE /* ProfitCalculator.cpp */; };
+		98B3C008233A575A006A4DAE /* ProfitCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C005233A575A006A4DAE /* ProfitCalculator.cpp */; };
+		98B3C00A233A58A6006A4DAE /* TestProfitCalculator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C009233A58A6006A4DAE /* TestProfitCalculator.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,9 +40,10 @@
 		9871C5252338A69800DB081C /* 1_1_Paprika */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 1_1_Paprika; sourceTree = BUILT_PRODUCTS_DIR; };
 		9871C5282338A69800DB081C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		98B3BFF9233A52F5006A4DAE /* Test_1_1_Paprika.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_1_1_Paprika.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		98B3BFFB233A52F5006A4DAE /* Test_1_1_Paprika.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Test_1_1_Paprika.mm; sourceTree = "<group>"; };
 		98B3BFFD233A52F5006A4DAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98B3C001233A532C006A4DAE /* main.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = main.hpp; sourceTree = "<group>"; };
+		98B3C005233A575A006A4DAE /* ProfitCalculator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ProfitCalculator.cpp; sourceTree = "<group>"; };
+		98B3C006233A575A006A4DAE /* ProfitCalculator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ProfitCalculator.hpp; sourceTree = "<group>"; };
+		98B3C009233A58A6006A4DAE /* TestProfitCalculator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestProfitCalculator.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +85,9 @@
 		9871C5272338A69800DB081C /* 1_1_Paprika */ = {
 			isa = PBXGroup;
 			children = (
-				98B3C001233A532C006A4DAE /* main.hpp */,
 				9871C5282338A69800DB081C /* main.cpp */,
+				98B3C006233A575A006A4DAE /* ProfitCalculator.hpp */,
+				98B3C005233A575A006A4DAE /* ProfitCalculator.cpp */,
 			);
 			path = 1_1_Paprika;
 			sourceTree = "<group>";
@@ -91,7 +95,7 @@
 		98B3BFFA233A52F5006A4DAE /* Test_1_1_Paprika */ = {
 			isa = PBXGroup;
 			children = (
-				98B3BFFB233A52F5006A4DAE /* Test_1_1_Paprika.mm */,
+				98B3C009233A58A6006A4DAE /* TestProfitCalculator.mm */,
 				98B3BFFD233A52F5006A4DAE /* Info.plist */,
 			);
 			path = Test_1_1_Paprika;
@@ -186,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9871C5292338A69800DB081C /* main.cpp in Sources */,
+				98B3C007233A575A006A4DAE /* ProfitCalculator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +199,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				98B3C004233A5375006A4DAE /* main.cpp in Sources */,
-				98B3BFFC233A52F5006A4DAE /* Test_1_1_Paprika.mm in Sources */,
+				98B3C008233A575A006A4DAE /* ProfitCalculator.cpp in Sources */,
+				98B3C00A233A58A6006A4DAE /* TestProfitCalculator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
