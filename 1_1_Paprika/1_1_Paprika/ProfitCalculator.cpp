@@ -18,26 +18,37 @@ vector<int> ProfitCalculator::analyzePurchaseAndSellingPoints(const vector<int>&
 	
 	for (int prediction : predictions) {
 		if (findingPruchasePoint) {
-			if (lastPrediction < prediction) {
-				psPoints.push_back(lastPrediction);
-				findingPruchasePoint = false;
-			}
-			
-			lastPrediction = prediction;
+			if (shouldPurchase(lastPrediction, prediction))
+				purchase(psPoints, lastPrediction, findingPruchasePoint);	
 		} else if (!findingPruchasePoint) {
-			if (lastPrediction > prediction) {
-				psPoints.push_back(lastPrediction);
-				findingPruchasePoint = true;
-			}
-			
-			lastPrediction = prediction;
+			if (shouldSell(lastPrediction, prediction))
+				sell(psPoints, lastPrediction, findingPruchasePoint);
 		}
+		
+		lastPrediction = prediction;
 	}
 	
-	if (!findingPruchasePoint) {
-		psPoints.push_back(lastPrediction);
-		findingPruchasePoint = true;
-	}
+	if (!findingPruchasePoint)
+		purchase(psPoints, lastPrediction, findingPruchasePoint);
 	
 	return psPoints;
+}
+
+bool ProfitCalculator::shouldPurchase(int lastPrediction, int prediction) {
+	return lastPrediction < prediction;
+}
+
+void ProfitCalculator::purchase(vector<int>& psPoints, int prediction, bool& findingPruchasePoint) {
+	psPoints.push_back(prediction);
+	findingPruchasePoint = false;
+}
+
+
+bool ProfitCalculator::shouldSell(int lastPrediction, int prediction) {
+	return lastPrediction > prediction;
+}
+
+void ProfitCalculator::sell(vector<int>& psPoints, int prediction, bool& findingPruchasePoint) {
+	psPoints.push_back(prediction);
+	findingPruchasePoint = true;
 }
