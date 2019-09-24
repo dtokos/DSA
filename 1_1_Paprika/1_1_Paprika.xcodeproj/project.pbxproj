@@ -8,7 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		9871C5292338A69800DB081C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C5282338A69800DB081C /* main.cpp */; };
+		98B3BFFC233A52F5006A4DAE /* Test_1_1_Paprika.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3BFFB233A52F5006A4DAE /* Test_1_1_Paprika.mm */; };
+		98B3C004233A5375006A4DAE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C5282338A69800DB081C /* main.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		98B3C002233A5359006A4DAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9871C51D2338A69800DB081C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9871C5242338A69800DB081C;
+			remoteInfo = 1_1_Paprika;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9871C5232338A69800DB081C /* CopyFiles */ = {
@@ -25,10 +37,21 @@
 /* Begin PBXFileReference section */
 		9871C5252338A69800DB081C /* 1_1_Paprika */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 1_1_Paprika; sourceTree = BUILT_PRODUCTS_DIR; };
 		9871C5282338A69800DB081C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		98B3BFF9233A52F5006A4DAE /* Test_1_1_Paprika.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_1_1_Paprika.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98B3BFFB233A52F5006A4DAE /* Test_1_1_Paprika.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Test_1_1_Paprika.mm; sourceTree = "<group>"; };
+		98B3BFFD233A52F5006A4DAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98B3C001233A532C006A4DAE /* main.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = main.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9871C5222338A69800DB081C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98B3BFF6233A52F5006A4DAE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				9871C5272338A69800DB081C /* 1_1_Paprika */,
+				98B3BFFA233A52F5006A4DAE /* Test_1_1_Paprika */,
 				9871C5262338A69800DB081C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				9871C5252338A69800DB081C /* 1_1_Paprika */,
+				98B3BFF9233A52F5006A4DAE /* Test_1_1_Paprika.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,9 +82,19 @@
 		9871C5272338A69800DB081C /* 1_1_Paprika */ = {
 			isa = PBXGroup;
 			children = (
+				98B3C001233A532C006A4DAE /* main.hpp */,
 				9871C5282338A69800DB081C /* main.cpp */,
 			);
 			path = 1_1_Paprika;
+			sourceTree = "<group>";
+		};
+		98B3BFFA233A52F5006A4DAE /* Test_1_1_Paprika */ = {
+			isa = PBXGroup;
+			children = (
+				98B3BFFB233A52F5006A4DAE /* Test_1_1_Paprika.mm */,
+				98B3BFFD233A52F5006A4DAE /* Info.plist */,
+			);
+			path = Test_1_1_Paprika;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +117,24 @@
 			productReference = 9871C5252338A69800DB081C /* 1_1_Paprika */;
 			productType = "com.apple.product-type.tool";
 		};
+		98B3BFF8233A52F5006A4DAE /* Test_1_1_Paprika */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98B3C000233A52F5006A4DAE /* Build configuration list for PBXNativeTarget "Test_1_1_Paprika" */;
+			buildPhases = (
+				98B3BFF5233A52F5006A4DAE /* Sources */,
+				98B3BFF6233A52F5006A4DAE /* Frameworks */,
+				98B3BFF7233A52F5006A4DAE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				98B3C003233A5359006A4DAE /* PBXTargetDependency */,
+			);
+			name = Test_1_1_Paprika;
+			productName = Test_1_1_Paprika;
+			productReference = 98B3BFF9233A52F5006A4DAE /* Test_1_1_Paprika.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -92,6 +145,9 @@
 				ORGANIZATIONNAME = dtokos;
 				TargetAttributes = {
 					9871C5242338A69800DB081C = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					98B3BFF8233A52F5006A4DAE = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
@@ -109,9 +165,20 @@
 			projectRoot = "";
 			targets = (
 				9871C5242338A69800DB081C /* 1_1_Paprika */,
+				98B3BFF8233A52F5006A4DAE /* Test_1_1_Paprika */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98B3BFF7233A52F5006A4DAE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9871C5212338A69800DB081C /* Sources */ = {
@@ -122,7 +189,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		98B3BFF5233A52F5006A4DAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98B3C004233A5375006A4DAE /* main.cpp in Sources */,
+				98B3BFFC233A52F5006A4DAE /* Test_1_1_Paprika.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		98B3C003233A5359006A4DAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9871C5242338A69800DB081C /* 1_1_Paprika */;
+			targetProxy = 98B3C002233A5359006A4DAE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9871C52A2338A69800DB081C /* Debug */ = {
@@ -252,6 +336,38 @@
 			};
 			name = Release;
 		};
+		98B3BFFE233A52F5006A4DAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_1_Paprika/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-1-Paprika";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		98B3BFFF233A52F5006A4DAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_1_Paprika/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-1-Paprika";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -269,6 +385,15 @@
 			buildConfigurations = (
 				9871C52D2338A69800DB081C /* Debug */,
 				9871C52E2338A69800DB081C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98B3C000233A52F5006A4DAE /* Build configuration list for PBXNativeTarget "Test_1_1_Paprika" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98B3BFFE233A52F5006A4DAE /* Debug */,
+				98B3BFFF233A52F5006A4DAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,14 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <limits.h>
-
-using namespace std;
-
-int getNumOfRuns();
-void runScenario();
-vector<int> getPredictions();
-int calculateProfit(vector<int> predictions);
-vector<int> analyzePurchaseAndSellingPoints(vector<int> predictions);
+#include "main.hpp"
 
 int main(int argc, const char * argv[]) {
 	int numOfRuns = getNumOfRuns();
