@@ -7,7 +7,15 @@
 
 @implementation TestProfitCalculator
 
-- (void)testExample {
+- (void)testEmpty {
+	XCTAssertEqual(self.calc.calculate(vector<int>{}), 0);
+}
+
+- (void)testOnePrediction {
+	XCTAssertEqual(self.calc.calculate(vector<int>{1}), 0);
+}
+
+- (void)testAssignmentExample {
 	XCTAssertEqual(
 		self.calc.calculate(vector<int>{1, 3}),
 		-1 + 3
@@ -41,6 +49,20 @@
 
 - (void)testAllSame {
 	XCTAssertEqual(self.calc.calculate(vector<int>{1, 1, 1, 1}), 0);
+}
+
+- (void)testSellsLast {
+	XCTAssertEqual(
+		self.calc.calculate(vector<int>{7, 8, 3, 4, 18}),
+		-7 + 8 - 3 + 18
+	);
+}
+
+- (void)testShouldntSellLast {
+	XCTAssertEqual(
+		self.calc.calculate(vector<int>{7, 8, 3}),
+		-7 + 8
+	);
 }
 
 @end
