@@ -21,14 +21,14 @@ int calculate(int width) {
 }
 
 void calculateLoop(int width, int &patterns) {
-	if (width == 0) {
-		patterns++;
-		return;
-	}
-	
-	for (Tile tile : allTiles)
-		if (width - tile >= 0)
+	for (Tile tile : allTiles) {
+		int deltaW = width - (int)tile;
+		
+		if (deltaW > 0)
 			calculateLoop(width - (int)tile, patterns);
+		else if (deltaW == 0)
+			patterns++;
+	}
 }
 
 void printPatterns(int width) {
@@ -38,14 +38,14 @@ void printPatterns(int width) {
 }
 
 void printPatternLoop(int width, string pattern) {
-	if (width == 0) {
-		cout << pattern << endl;
-		return;
-	}
-	
-	for (Tile tile : allTiles)
-		if (width - tile >= 0)
+	for (Tile tile : allTiles) {
+		int deltaW = width - (int)tile;
+		
+		if (deltaW > 0)
 			printPatternLoop(width - (int)tile, pattern + charForTile(tile));
+		else if (deltaW == 0)
+			cout << pattern << charForTile(tile) << endl;
+	}
 }
 
 char charForTile(Tile tile) {
