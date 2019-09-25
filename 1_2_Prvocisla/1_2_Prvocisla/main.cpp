@@ -5,13 +5,10 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
 	SievePrimeGenerator generator;
+	int primeIndex;
 	
-	while (true) {
-		int primeIndex;
-		cin >> primeIndex;
-		
+	while (cin >> primeIndex)
 		cout << generator.nth(primeIndex) << endl;
-	}
 	
 	return 0;
 }
