@@ -8,7 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		98C81527233B77ED002E92C2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98C81526233B77ED002E92C2 /* main.cpp */; };
+		98C8152F233B9131002E92C2 /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98C8152D233B9131002E92C2 /* tiles.cpp */; };
+		98C8153E233B9207002E92C2 /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98C8152D233B9131002E92C2 /* tiles.cpp */; };
+		98C81542233B9257002E92C2 /* TestTiles.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98C81541233B9257002E92C2 /* TestTiles.mm */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		98C8153C233B91FE002E92C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98C8151B233B77ED002E92C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 98C81522233B77ED002E92C2;
+			remoteInfo = 1_3_Dlazdice;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		98C81521233B77ED002E92C2 /* CopyFiles */ = {
@@ -25,10 +38,22 @@
 /* Begin PBXFileReference section */
 		98C81523233B77ED002E92C2 /* 1_3_Dlazdice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 1_3_Dlazdice; sourceTree = BUILT_PRODUCTS_DIR; };
 		98C81526233B77ED002E92C2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		98C8152D233B9131002E92C2 /* tiles.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tiles.cpp; sourceTree = "<group>"; };
+		98C8152E233B9131002E92C2 /* tiles.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tiles.hpp; sourceTree = "<group>"; };
+		98C81534233B91EE002E92C2 /* Test_1_3_Dlazdice.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_1_3_Dlazdice.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98C81538233B91EE002E92C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98C81541233B9257002E92C2 /* TestTiles.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestTiles.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		98C81520233B77ED002E92C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98C81531233B91EE002E92C2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				98C81525233B77ED002E92C2 /* 1_3_Dlazdice */,
+				98C81535233B91EE002E92C2 /* Test_1_3_Dlazdice */,
 				98C81524233B77ED002E92C2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				98C81523233B77ED002E92C2 /* 1_3_Dlazdice */,
+				98C81534233B91EE002E92C2 /* Test_1_3_Dlazdice.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,8 +85,19 @@
 			isa = PBXGroup;
 			children = (
 				98C81526233B77ED002E92C2 /* main.cpp */,
+				98C8152E233B9131002E92C2 /* tiles.hpp */,
+				98C8152D233B9131002E92C2 /* tiles.cpp */,
 			);
 			path = 1_3_Dlazdice;
+			sourceTree = "<group>";
+		};
+		98C81535233B91EE002E92C2 /* Test_1_3_Dlazdice */ = {
+			isa = PBXGroup;
+			children = (
+				98C81538233B91EE002E92C2 /* Info.plist */,
+				98C81541233B9257002E92C2 /* TestTiles.mm */,
+			);
+			path = Test_1_3_Dlazdice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +120,24 @@
 			productReference = 98C81523233B77ED002E92C2 /* 1_3_Dlazdice */;
 			productType = "com.apple.product-type.tool";
 		};
+		98C81533233B91EE002E92C2 /* Test_1_3_Dlazdice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98C81539233B91EE002E92C2 /* Build configuration list for PBXNativeTarget "Test_1_3_Dlazdice" */;
+			buildPhases = (
+				98C81530233B91EE002E92C2 /* Sources */,
+				98C81531233B91EE002E92C2 /* Frameworks */,
+				98C81532233B91EE002E92C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				98C8153D233B91FE002E92C2 /* PBXTargetDependency */,
+			);
+			name = Test_1_3_Dlazdice;
+			productName = Test_1_3_Dlazdice;
+			productReference = 98C81534233B91EE002E92C2 /* Test_1_3_Dlazdice.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -92,6 +148,9 @@
 				ORGANIZATIONNAME = dtokos;
 				TargetAttributes = {
 					98C81522233B77ED002E92C2 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					98C81533233B91EE002E92C2 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
@@ -109,9 +168,20 @@
 			projectRoot = "";
 			targets = (
 				98C81522233B77ED002E92C2 /* 1_3_Dlazdice */,
+				98C81533233B91EE002E92C2 /* Test_1_3_Dlazdice */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98C81532233B91EE002E92C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		98C8151F233B77ED002E92C2 /* Sources */ = {
@@ -119,10 +189,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				98C81527233B77ED002E92C2 /* main.cpp in Sources */,
+				98C8152F233B9131002E92C2 /* tiles.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98C81530233B91EE002E92C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98C8153E233B9207002E92C2 /* tiles.cpp in Sources */,
+				98C81542233B9257002E92C2 /* TestTiles.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		98C8153D233B91FE002E92C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 98C81522233B77ED002E92C2 /* 1_3_Dlazdice */;
+			targetProxy = 98C8153C233B91FE002E92C2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		98C81528233B77ED002E92C2 /* Debug */ = {
@@ -252,6 +340,38 @@
 			};
 			name = Release;
 		};
+		98C8153A233B91EE002E92C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_3_Dlazdice/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-3-Dlazdice";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		98C8153B233B91EE002E92C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_3_Dlazdice/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-3-Dlazdice";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -269,6 +389,15 @@
 			buildConfigurations = (
 				98C8152B233B77ED002E92C2 /* Debug */,
 				98C8152C233B77ED002E92C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98C81539233B91EE002E92C2 /* Build configuration list for PBXNativeTarget "Test_1_3_Dlazdice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98C8153A233B91EE002E92C2 /* Debug */,
+				98C8153B233B91EE002E92C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
