@@ -35,4 +35,8 @@
 	XCTAssertEqual(calculate(7), 21);
 }
 
+- (void)testCalculation4 {
+	XCTAssertEqual(calculate(25), 121393);
+}
+
 @end
