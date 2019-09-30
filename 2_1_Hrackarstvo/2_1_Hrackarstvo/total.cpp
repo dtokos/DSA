@@ -1,24 +1,28 @@
 #include "total.hpp"
-#include <iostream>
-using namespace std;
-
 
 void initArray(int array[], int count);
 void insert(int *start, int *end, int value);
+long sum(int prices[], int pricesCount, int numOfBuying);
+void arrayShift(int* start, int* end);
 
 long sucet_k_najvacsich(int prices[], int pricesCount, int numOfBuying) {
-	int i = 0, sum = 0;
+	if (pricesCount == 0 || numOfBuying == 0)
+		return 0;
+	else if (pricesCount == 1)
+		return prices[0];
+	
+	return sum(prices, pricesCount, numOfBuying);
+}
+
+long sum(int prices[], int pricesCount, int numOfBuying) {
+	int sum = 0;
 	int topPrices[numOfBuying];
 	initArray(topPrices, numOfBuying);
 	
 	while (pricesCount-- >= 0) {
-		for (i = 0; i < numOfBuying; i++) {
-			if (prices[pricesCount] > topPrices[i]) {
-				sum += prices[pricesCount] - topPrices[numOfBuying - 1];
-				insert(&topPrices[i], &topPrices[numOfBuying], prices[pricesCount]);
-				
-				break;
-			}
+		if (prices[pricesCount] >= topPrices[numOfBuying - 1]) {
+			sum += prices[pricesCount] - topPrices[numOfBuying - 1];
+			insert(topPrices, &topPrices[numOfBuying], prices[pricesCount]);
 		}
 	}
 	
@@ -31,8 +35,15 @@ void initArray(int array[], int count) {
 }
 
 void insert(int *start, int *end, int value) {
-	while (end-- > start)
-		*end = *(end - 1);
+	while (value < *start)
+		start++;
+	
+	arrayShift(start, end);
 	
 	*start = value;
+}
+
+void arrayShift(int* start, int* end) {
+	while (end-- > start)
+		*end = *(end - 1);
 }
