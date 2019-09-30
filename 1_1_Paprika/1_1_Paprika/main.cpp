@@ -1,46 +1,37 @@
-#include <iostream>
-#include <vector>
-#include <limits.h>
-#include "ProfitCalculator.hpp"
+#include <stdio.h>
+#include "calculator.hpp"
 
 int getNumOfRuns(void);
-void runScenario(ProfitCalculator& calculator);
-vector<int> getPredictions();
+void runScenario(void);
+void getPredictions(int *predictions, int count);
 
 int main(int argc, const char * argv[]) {
 	int numOfRuns = getNumOfRuns();
-	ProfitCalculator calculator;
 	
 	for (int run = 0; run < numOfRuns; run++)
-		runScenario(calculator);
+		runScenario();
 	
 	return 0;
 }
 
 int getNumOfRuns() {
 	int runs;
-	cin >> runs;
+	scanf("%i", &runs);
 	
 	return runs;
 }
 
-void runScenario(ProfitCalculator& calculator) {
-	vector<int> predictions = getPredictions();
-	int profit = calculator.calculate(predictions);
+void runScenario() {
+	int count;
+	scanf("%i", &count);
+	int predictions[count];
+	getPredictions(predictions, count);
 	
-	cout << profit << endl;
+	
+	printf("%i\n", calculate(predictions, count));
 }
 
-vector<int> getPredictions() {
-	int numOfPredictions, prediction;
-	vector<int> predictions;
-	
-	cin >> numOfPredictions;
-	
-	for (int predictionNo = 0; predictionNo < numOfPredictions; predictionNo++) {
-		cin >> prediction;
-		predictions.push_back(prediction);
-	}
-
-	return predictions;
+void getPredictions(int *predictions, int count) {
+	for (int i = 0; i < count; i++)
+		scanf("%i", &predictions[i]);
 }
