@@ -42,6 +42,16 @@
 	XCTAssertEqual(sucet_k_najvacsich(prices, 5, 4), 14);
 }
 
+- (void)testMultiplePickMoreThanHalf {
+	int prices[] = {1, 2, 3, 4, 5, 6, 7};
+	XCTAssertEqual(sucet_k_najvacsich(prices, 7, 4), 22);
+}
+
+- (void)testMultiplePickLessThanHalf {
+	int prices[] = {1, 2, 3, 4, 5, 6, 7};
+	XCTAssertEqual(sucet_k_najvacsich(prices, 7, 3), 18);
+}
+
 - (void)testExample {
 	int prices[] = {18, 6, 6, 17, 5, 13, 5, 4, 5, 15};
 	XCTAssertEqual(sucet_k_najvacsich(prices, 10, 6), 75);
