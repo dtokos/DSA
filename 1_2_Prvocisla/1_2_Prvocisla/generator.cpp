@@ -8,12 +8,12 @@
 #define limit sqrt(maxValue)
 #define arrayIndex(number) (number / 8)
 #define bitIndex(number) (number % 8)
+#define notCrossed(number) !(crossedOut[arrayIndex(number)] & (1 << bitIndex(number)))
+#define cross(number) crossedOut[arrayIndex(number)] |= (1 << bitIndex(number))
 
 unsigned char crossedOut[crossedOutLength] = {0};
 
-bool notCrossed(int number);
 void crossOutMultiples(int number);
-void cross(int number);
 
 int nthPrime(int n) {
 	int i;
@@ -26,23 +26,15 @@ int nthPrime(int n) {
 		}
 	}
 	
-	while (n != 0)
-		if (notCrossed(i++))
+	while (++i)
+		if (notCrossed(i))
 			if (--n == 0)
-				return i - 1;
+				return i;
 	
 	return -1;
-}
-
-bool notCrossed(int number) {
-	return !(crossedOut[arrayIndex(number)] & (1 << bitIndex(number)));
 }
 
 void crossOutMultiples(int number) {
 	for (int multiple = number * 2; multiple < maxValue; multiple += number)
 		cross(multiple);
-}
-
-void cross(int number) {
-	crossedOut[arrayIndex(number)] |= (1 << bitIndex(number));
 }
