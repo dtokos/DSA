@@ -16,6 +16,9 @@ unsigned char crossedOut[crossedOutLength] = {0};
 void crossOutMultiples(int number);
 
 int nthPrime(int n) {
+	if (n < 1)
+		return -1;
+	
 	int i;
 	
 	for (i = 2; i <= limit; i++) {
