@@ -7,16 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		981ACDCB2343BC70006255D4 /* TestPrimeGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 981ACDCA2343BC70006255D4 /* TestPrimeGenerator.mm */; };
+		981ACDCE2343BCBE006255D4 /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 981ACDCC2343BCBE006255D4 /* generator.cpp */; };
+		981ACDCF2343BCC5006255D4 /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 981ACDCC2343BCBE006255D4 /* generator.cpp */; };
 		9871C53C2338B05700DB081C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C53B2338B05700DB081C /* main.cpp */; };
 		98B3C01A233A799F006A4DAE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9871C53B2338B05700DB081C /* main.cpp */; };
-		98B3C01D233A7B1C006A4DAE /* PrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C01B233A7B1C006A4DAE /* PrimeGenerator.cpp */; };
-		98B3C01E233A7B1C006A4DAE /* PrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C01B233A7B1C006A4DAE /* PrimeGenerator.cpp */; };
-		98B3C021233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */; };
-		98B3C022233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */; };
-		98B3C024233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C023233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm */; };
-		98B3C029233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */; };
-		98B3C02A233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */; };
-		98B3C02E233A8717006A4DAE /* TestSievePrimeGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B3C02D233A8717006A4DAE /* TestSievePrimeGenerator.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,18 +37,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		981ACDCA2343BC70006255D4 /* TestPrimeGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestPrimeGenerator.mm; sourceTree = "<group>"; };
+		981ACDCC2343BCBE006255D4 /* generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = generator.cpp; sourceTree = "<group>"; };
+		981ACDCD2343BCBE006255D4 /* generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = generator.hpp; sourceTree = "<group>"; };
 		9871C5382338B05700DB081C /* 1_2_Prvocisla */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 1_2_Prvocisla; sourceTree = BUILT_PRODUCTS_DIR; };
 		9871C53B2338B05700DB081C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		98B3C00F233A77F1006A4DAE /* Test_1_2_Prvocisla.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_1_2_Prvocisla.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98B3C013233A77F1006A4DAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98B3C01B233A7B1C006A4DAE /* PrimeGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PrimeGenerator.cpp; sourceTree = "<group>"; };
-		98B3C01C233A7B1C006A4DAE /* PrimeGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PrimeGenerator.hpp; sourceTree = "<group>"; };
-		98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SimplePrimeGenerator.cpp; sourceTree = "<group>"; };
-		98B3C020233A7B9A006A4DAE /* SimplePrimeGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimplePrimeGenerator.hpp; sourceTree = "<group>"; };
-		98B3C023233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestSimplePrimeGenerator.mm; sourceTree = "<group>"; };
-		98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SievePrimeGenerator.cpp; sourceTree = "<group>"; };
-		98B3C028233A8206006A4DAE /* SievePrimeGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SievePrimeGenerator.hpp; sourceTree = "<group>"; };
-		98B3C02D233A8717006A4DAE /* TestSievePrimeGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestSievePrimeGenerator.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,12 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				9871C53B2338B05700DB081C /* main.cpp */,
-				98B3C01C233A7B1C006A4DAE /* PrimeGenerator.hpp */,
-				98B3C01B233A7B1C006A4DAE /* PrimeGenerator.cpp */,
-				98B3C020233A7B9A006A4DAE /* SimplePrimeGenerator.hpp */,
-				98B3C01F233A7B9A006A4DAE /* SimplePrimeGenerator.cpp */,
-				98B3C028233A8206006A4DAE /* SievePrimeGenerator.hpp */,
-				98B3C027233A8206006A4DAE /* SievePrimeGenerator.cpp */,
+				981ACDCD2343BCBE006255D4 /* generator.hpp */,
+				981ACDCC2343BCBE006255D4 /* generator.cpp */,
 			);
 			path = 1_2_Prvocisla;
 			sourceTree = "<group>";
@@ -109,8 +95,7 @@
 		98B3C010233A77F1006A4DAE /* Test_1_2_Prvocisla */ = {
 			isa = PBXGroup;
 			children = (
-				98B3C023233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm */,
-				98B3C02D233A8717006A4DAE /* TestSievePrimeGenerator.mm */,
+				981ACDCA2343BC70006255D4 /* TestPrimeGenerator.mm */,
 				98B3C013233A77F1006A4DAE /* Info.plist */,
 			);
 			path = Test_1_2_Prvocisla;
@@ -204,10 +189,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98B3C029233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */,
 				9871C53C2338B05700DB081C /* main.cpp in Sources */,
-				98B3C021233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */,
-				98B3C01D233A7B1C006A4DAE /* PrimeGenerator.cpp in Sources */,
+				981ACDCE2343BCBE006255D4 /* generator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,11 +199,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				98B3C01A233A799F006A4DAE /* main.cpp in Sources */,
-				98B3C01E233A7B1C006A4DAE /* PrimeGenerator.cpp in Sources */,
-				98B3C02E233A8717006A4DAE /* TestSievePrimeGenerator.mm in Sources */,
-				98B3C024233A7DEB006A4DAE /* TestSimplePrimeGenerator.mm in Sources */,
-				98B3C022233A7B9A006A4DAE /* SimplePrimeGenerator.cpp in Sources */,
-				98B3C02A233A8206006A4DAE /* SievePrimeGenerator.cpp in Sources */,
+				981ACDCB2343BC70006255D4 /* TestPrimeGenerator.mm in Sources */,
+				981ACDCF2343BCC5006255D4 /* generator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,14 +1,11 @@
-#include <iostream>
-#include "SievePrimeGenerator.hpp"
-
-using namespace std;
+#include <stdio.h>
+#include "generator.hpp"
 
 int main(int argc, const char * argv[]) {
-	SievePrimeGenerator generator;
-	int primeIndex;
+	int n;
 	
-	while (cin >> primeIndex)
-		cout << generator.nth(primeIndex) << endl;
+	while (scanf("%i", &n) != EOF)
+		printf("%i\n", nthPrime(n));
 	
 	return 0;
 }
