@@ -1,13 +1,11 @@
-#include <iostream>
+#include <stdio.h>
 #include "tiles.hpp"
-
-using namespace std;
 
 int main(int argc, const char * argv[]) {
 	int width;
 	
-	while (cin >> width) {
-		cout << calculate(width) << endl;
+	while (scanf("%i", &width) != EOF) {
+		printf("%i\n", calculate(width));
 		printPatterns(width);
 	}
 	

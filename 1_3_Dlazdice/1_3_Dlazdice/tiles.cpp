@@ -1,38 +1,13 @@
 #include "tiles.hpp"
-#define USE_RECURSIVE_CALCULATION 0
 
-enum Tile : int {
+typedef enum Tile {
 	OneByTwo = 1,
 	TwoByTwo = 2,
-};
-static const Tile allTiles[] = {TwoByTwo, OneByTwo};
+} Tile;
 
-void calculateLoop(int width, int &patterns);
-void printPatternLoop(int width, string pattern);
-char charForTile(Tile tile);
+void printPatternLoop(int width, char *pattern, int patternLength);
+char charForTile(int tile);
 
-#if USE_RECURSIVE_CALCULATION
-int calculate(int width) {
-	if (width < 0)
-		return 0;
-	
-	int patterns = 0;
-	calculateLoop(width, patterns);
-	
-	return patterns;
-}
-
-void calculateLoop(int width, int &patterns) {
-	for (Tile tile : allTiles) {
-		int deltaW = width - (int)tile;
-		
-		if (deltaW > 0)
-			calculateLoop(width - (int)tile, patterns);
-		else if (deltaW == 0)
-			patterns++;
-	}
-}
-#else
 int calculate(int width) {
 	if (width < 1)
 		return 0;
@@ -49,31 +24,35 @@ int calculate(int width) {
 	
 	return last;
 }
-#endif
 
 void printPatterns(int width) {
-	string pattern;
+	char pattern[26] = {'\0'};
 	
-	printPatternLoop(width, pattern);
+	printPatternLoop(width, pattern, 0);
 }
 
-void printPatternLoop(int width, string pattern) {
-	for (Tile tile : allTiles) {
-		int deltaW = width - (int)tile;
+void printPatternLoop(int width, char *pattern, int patternLength) {
+	for (int tile = TwoByTwo; tile >= OneByTwo; tile--) {
+		int deltaW = width - tile;
 		
-		if (deltaW > 0)
-			printPatternLoop(width - (int)tile, pattern + charForTile(tile));
-		else if (deltaW == 0)
-			cout << pattern << charForTile(tile) << endl;
+		if (deltaW > 0) {
+			pattern[patternLength] = charForTile(tile);
+			pattern[patternLength + 1] = '\0';
+			printPatternLoop(width - tile, pattern, patternLength + 1);
+		} else if (deltaW == 0)
+			printf("%s%c\n", pattern, charForTile(tile));
 	}
 }
 
-char charForTile(Tile tile) {
+char charForTile(int tile) {
 	switch (tile) {
-		case Tile::OneByTwo:
+		case OneByTwo:
 			return '|';
 		
-		case Tile::TwoByTwo:
+		case TwoByTwo:
 			return '=';
+			
+		default:
+			return '\0';
 	}
 }
