@@ -7,23 +7,23 @@
 
 @implementation TestPrimeGenerator
 
-- (void)testAssignmentExample1 {
+- (void)testExerciseExample1 {
 	XCTAssertEqual(nthPrime(1), 2);
 }
 
-- (void)testAssignmentExample2 {
+- (void)testExerciseExample2 {
 	XCTAssertEqual(nthPrime(2), 3);
 }
 
-- (void)testAssignmentExample3 {
+- (void)testExerciseExample3 {
 	XCTAssertEqual(nthPrime(3), 5);
 }
 
-- (void)testAssignmentExample4 {
+- (void)testExerciseExample4 {
 	XCTAssertEqual(nthPrime(4), 7);
 }
 
-- (void)testAssignmentExample5 {
+- (void)testExerciseExample5 {
 	XCTAssertEqual(nthPrime(10), 29);
 }
 

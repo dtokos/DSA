@@ -1,6 +1,6 @@
 # 1-1: Paprika
 
-**Assignment:**
+**Exercise:**
 >Jakubko dostal vreckové. Namiesto toho, aby ho len tak minul, však dostal geniálny nápad. Čo keby začal podnikať?
 
 >Na trhu predávajú papriku. Jakubko si všimol, že cena papriky sa každý deň mení. Zároveň sa mu podarilo vypočítať odhad cien papriky pre nasledovných N dní. Teraz už len potrebuje zistiť, ktoré dni má papriku kúpiť a ktoré ju predá. Keďže ešte nevie, či jeho odhad je správny, povedal si, že vždy bude mať nakúpenú najviac jednu papriku, teda pred tým než kúpi ďalšiu papriku, musí tú predchádajúcu predať.

@@ -7,7 +7,7 @@
 
 @implementation TestTotal
 
-- (void)testAssignmentExample {
+- (void)testExerciseExample {
 	int prices[] = {10, 9, 8, 1, 2, 3};
 	XCTAssertEqual(sucet_k_najvacsich(prices, 6, 4), 30);
 }

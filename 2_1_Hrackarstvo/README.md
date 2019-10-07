@@ -1,6 +1,6 @@
 # 2-1: Hračkárstvo
 
-**Assignment:**
+**Exercise:**
 >Jakubko sa rád hrá a potrebuje stále nové hračky. V hračkárstve si všimol, že drahšie hračky sú zvyčajne komplikovanejšie a preto sa mu viac páčia. Chcel by zistiť, či majú rodičia dosť peňazí na nákup K najdrahších hračiek v obchode. Pomôžte Jakubkovi zistiť koľko peňazí by potreboval.
 
 >Vašou úlohou je napísať funkciu, ktorá ako vstupný argument dostane pole cien hračiek v obchode, ich počet N, a číslo K -- koľko hračiek si chce Jakubko z obchodu kúpiť, a vypočíta súčet cien K najdrahších hračiek v obchode.

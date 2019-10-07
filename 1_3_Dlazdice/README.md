@@ -1,6 +1,6 @@
 # 1-3: Dlaždice
 
-**Assignment:**
+**Exercise:**
 >Pred novým školským rokom u Jakubka v škole renovovali chodbu. Chodba je tvaru N x 2 políčok a je celá pokrytá dlaždicami veľkosti 2 políčka, dlaždica môže byť na chodbe umiestnená vodorovne alebo zvislo. Existujú rôzne spôsoby pokrytia celej chodby dlaždicami veľkosti 2.
 
 >Napr. chodbu veľkosti 3x2 je možné pokryť tromi rôznymi spôsobmi:

@@ -15,7 +15,7 @@
 	XCTAssertEqual(calculate((int[]){1}, 0), 0);
 }
 
-- (void)testAssignmentExample {
+- (void)testExerciseExample {
 	XCTAssertEqual(calculate((int[]){1, 3}, 2), -1 + 3);
 }
 

@@ -7,11 +7,11 @@
 
 @implementation TestTiles
 
-- (void)testAssignmentCalculation {
+- (void)testExerciseCalculation {
 	XCTAssertEqual(calculate(3), 3);
 }
 
-- (void)testAssignmentExampleCalculation {
+- (void)testExerciseExampleCalculation {
 	XCTAssertEqual(calculate(4), 5);
 }
 
