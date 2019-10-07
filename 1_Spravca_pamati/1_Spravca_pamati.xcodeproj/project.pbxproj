@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		98ECCD6E234B1EC3006135FB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD6D234B1EC3006135FB /* main.cpp */; };
+		98ECCD7B234B279E006135FB /* Test_1_Spravca_pamati.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD7A234B279E006135FB /* Test_1_Spravca_pamati.mm */; };
+		98ECCD82234B287B006135FB /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD80234B287B006135FB /* memory.cpp */; };
+		98ECCD83234B287B006135FB /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD80234B287B006135FB /* memory.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,10 +28,22 @@
 /* Begin PBXFileReference section */
 		98ECCD6A234B1EC3006135FB /* 1_Spravca_pamati */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 1_Spravca_pamati; sourceTree = BUILT_PRODUCTS_DIR; };
 		98ECCD6D234B1EC3006135FB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		98ECCD78234B279E006135FB /* Test_1_Spravca_pamati.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_1_Spravca_pamati.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98ECCD7A234B279E006135FB /* Test_1_Spravca_pamati.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Test_1_Spravca_pamati.mm; sourceTree = "<group>"; };
+		98ECCD7C234B279E006135FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98ECCD80234B287B006135FB /* memory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = memory.cpp; sourceTree = "<group>"; };
+		98ECCD81234B287B006135FB /* memory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = memory.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		98ECCD67234B1EC3006135FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98ECCD75234B279E006135FB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				98ECCD6C234B1EC3006135FB /* 1_Spravca_pamati */,
+				98ECCD79234B279E006135FB /* Test_1_Spravca_pamati */,
 				98ECCD6B234B1EC3006135FB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				98ECCD6A234B1EC3006135FB /* 1_Spravca_pamati */,
+				98ECCD78234B279E006135FB /* Test_1_Spravca_pamati.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,8 +75,19 @@
 			isa = PBXGroup;
 			children = (
 				98ECCD6D234B1EC3006135FB /* main.cpp */,
+				98ECCD81234B287B006135FB /* memory.hpp */,
+				98ECCD80234B287B006135FB /* memory.cpp */,
 			);
 			path = 1_Spravca_pamati;
+			sourceTree = "<group>";
+		};
+		98ECCD79234B279E006135FB /* Test_1_Spravca_pamati */ = {
+			isa = PBXGroup;
+			children = (
+				98ECCD7A234B279E006135FB /* Test_1_Spravca_pamati.mm */,
+				98ECCD7C234B279E006135FB /* Info.plist */,
+			);
+			path = Test_1_Spravca_pamati;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +110,23 @@
 			productReference = 98ECCD6A234B1EC3006135FB /* 1_Spravca_pamati */;
 			productType = "com.apple.product-type.tool";
 		};
+		98ECCD77234B279E006135FB /* Test_1_Spravca_pamati */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98ECCD7D234B279E006135FB /* Build configuration list for PBXNativeTarget "Test_1_Spravca_pamati" */;
+			buildPhases = (
+				98ECCD74234B279E006135FB /* Sources */,
+				98ECCD75234B279E006135FB /* Frameworks */,
+				98ECCD76234B279E006135FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Test_1_Spravca_pamati;
+			productName = Test_1_Spravca_pamati;
+			productReference = 98ECCD78234B279E006135FB /* Test_1_Spravca_pamati.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -92,6 +137,9 @@
 				ORGANIZATIONNAME = dtokos;
 				TargetAttributes = {
 					98ECCD69234B1EC3006135FB = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					98ECCD77234B279E006135FB = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
@@ -109,16 +157,37 @@
 			projectRoot = "";
 			targets = (
 				98ECCD69234B1EC3006135FB /* 1_Spravca_pamati */,
+				98ECCD77234B279E006135FB /* Test_1_Spravca_pamati */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98ECCD76234B279E006135FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		98ECCD66234B1EC3006135FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98ECCD82234B287B006135FB /* memory.cpp in Sources */,
 				98ECCD6E234B1EC3006135FB /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98ECCD74234B279E006135FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98ECCD83234B287B006135FB /* memory.cpp in Sources */,
+				98ECCD7B234B279E006135FB /* Test_1_Spravca_pamati.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +321,38 @@
 			};
 			name = Release;
 		};
+		98ECCD7E234B279E006135FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_Spravca_pamati/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-Spravca-pamati";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		98ECCD7F234B279E006135FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Test_1_Spravca_pamati/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dtokos.Test-1-Spravca-pamati";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -269,6 +370,15 @@
 			buildConfigurations = (
 				98ECCD72234B1EC3006135FB /* Debug */,
 				98ECCD73234B1EC3006135FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98ECCD7D234B279E006135FB /* Build configuration list for PBXNativeTarget "Test_1_Spravca_pamati" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98ECCD7E234B279E006135FB /* Debug */,
+				98ECCD7F234B279E006135FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
