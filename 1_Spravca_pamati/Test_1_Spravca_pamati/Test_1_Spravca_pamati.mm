@@ -208,11 +208,12 @@
 
 - (void)testCheckInsideRange {
 	char *test = (char*)memory_alloc(10 * sizeof(char));
-	(char*)memory_alloc(10 * sizeof(char));
+	char *test2 = (char*)memory_alloc(10 * sizeof(char));
 	memory_free(test);
 	
 	XCTAssertEqual(memory_check(memory + 12), 0);
 	XCTAssertEqual(memory_check(test), 0);
+	XCTAssertEqual(memory_check(test2), 1);
 }
 
 - (void)testCheckAllocatedPointer {
