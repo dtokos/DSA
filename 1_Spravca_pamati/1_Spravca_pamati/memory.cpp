@@ -9,44 +9,43 @@ typedef struct _block Block;
 
 typedef struct Memory {
 	Block *firstFreeBlock;
+	void *firstPtr;
 	void *lastPtr;
 } __attribute__((packed)) Memory;
 
-static Memory *memory;
+static Memory memory;
 
 void advanceBlock(Block **block, unsigned bytes);
 Block* adjacendBlock(Block *block);
 
 void memory_init(void *ptr, unsigned size) {
-	Memory *m = (Memory *)ptr;
-	Block *b = (Block *)(m + 1);
+	Block *b = (Block *)ptr;
 	b->next = b;
-	b->size = size - sizeof(Memory) - sizeof(Block);
-	m->firstFreeBlock = b;
-	m->lastPtr = (char *)ptr + size - 1;
-	
-	memory = m;
+	b->size = size - sizeof(Block);
+	memory.firstFreeBlock = b;
+	memory.firstPtr = ptr;
+	memory.lastPtr = (char *)ptr + size - 1;
 }
 
 void *memory_alloc(unsigned size) {
-	Block *block, *previousBlock = memory->firstFreeBlock;
+	Block *block, *previousBlock = memory.firstFreeBlock;
 	
 	for (block = previousBlock->next; ; previousBlock = block, block = block->next) {
 		if (block->size == size) {
 			previousBlock->next = block->next;
 			
-			memory->firstFreeBlock = previousBlock;
+			memory.firstFreeBlock = previousBlock;
 			return (void *)(block + 1);
 		} else if (block->size >= size + sizeof(Block)) {
 			block->size -= size + sizeof(Block);
 			advanceBlock(&block, block->size + sizeof(Block));
 			block->size = size;
 			
-			memory->firstFreeBlock = previousBlock;
+			memory.firstFreeBlock = previousBlock;
 			return (void *)(block + 1);
 		}
 		
-		if (block == memory->firstFreeBlock)
+		if (block == memory.firstFreeBlock)
 			return NULL;
 	}
 	
@@ -60,7 +59,7 @@ void advanceBlock(Block **block, unsigned bytes) {
 int memory_free(void *ptr) {
 	Block *block, *freedBlock = (Block *)ptr - 1;
 	
-	for (block = memory->firstFreeBlock; !(freedBlock > block && freedBlock < block->next); block = block->next)
+	for (block = memory.firstFreeBlock; !(freedBlock > block && freedBlock < block->next); block = block->next)
 		if (block >= block->next && (freedBlock > block || freedBlock < block->next))
 			break;
 	
@@ -76,7 +75,7 @@ int memory_free(void *ptr) {
 	} else
 		block->next = freedBlock;
 	
-	memory->firstFreeBlock = block;
+	memory.firstFreeBlock = block;
 	
 	return 0;
 }
@@ -88,10 +87,10 @@ Block* adjacendBlock(Block *block) {
 int memory_check(void *ptr) {
 	Block *checkedBlock = (Block *)ptr - 1;
 	
-	if (checkedBlock < memory->firstFreeBlock || checkedBlock > memory->lastPtr)
+	if (checkedBlock < memory.firstPtr || checkedBlock > memory.lastPtr)
 		return 0;
 	
-	Block *block = memory->firstFreeBlock;
+	Block *block = memory.firstFreeBlock;
 	for (; block < block->next; block = block->next) {
 		if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
 			return 0;

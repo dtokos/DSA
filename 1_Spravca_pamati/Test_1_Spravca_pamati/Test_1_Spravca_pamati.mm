@@ -16,10 +16,8 @@
 }
 
 - (void)testMemoryInit {
-	XCTAssertEqual(*(char ***)memory, (char **)memory + 2);
-	XCTAssertEqual(*((char **)memory + 1), memory + MEMORY_SIZE - 1);
-	XCTAssertEqual(*((char ***)memory + 2), (char **)memory + 2);
-	XCTAssertEqual(*(int *)(memory + 24), MEMORY_SIZE - 28);
+	XCTAssertEqual(*((char ***)memory), (char **)memory);
+	XCTAssertEqual(*(int *)(memory + 8), MEMORY_SIZE - 12);
 }
 
 
@@ -208,6 +206,15 @@
 	XCTAssertEqual(memory_check(memory + MEMORY_SIZE), 0);
 }
 
+- (void)testCheckInsideRange {
+	char *test = (char*)memory_alloc(10 * sizeof(char));
+	(char*)memory_alloc(10 * sizeof(char));
+	memory_free(test);
+	
+	XCTAssertEqual(memory_check(memory + 12), 0);
+	XCTAssertEqual(memory_check(test), 0);
+}
+
 - (void)testCheckAllocatedPointer {
 	char *test = (char*)memory_alloc(10 * sizeof(char));
 	XCTAssertEqual(memory_check(test), 1);
@@ -218,12 +225,12 @@
 	XCTAssertEqual(memory_check(test + 1), 1);
 }
 
-
 - (void)testCheckAllocatedAndFreedPointer {
 	char *test = (char*)memory_alloc(10 * sizeof(char));
 	memory_free(test);
 	XCTAssertEqual(memory_check(test), 0);
 }
+
 - (void)testCheckAdvacend {
 	char *test = (char*)memory_alloc(10 * sizeof(char));
 	char *test2 = (char*)memory_alloc(10 * sizeof(char));
