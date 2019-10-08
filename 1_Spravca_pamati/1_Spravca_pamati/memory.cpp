@@ -1,10 +1,11 @@
 #include "memory.hpp"
 #include <stdio.h>
 
-typedef struct Block {
-	Block *next;
+struct _block {
+	struct _block *next;
 	unsigned size;
-} __attribute__((packed)) Block;
+} __attribute__((packed));
+typedef struct _block Block;
 
 typedef struct Memory {
 	Block *firstFreeBlock;
@@ -31,7 +32,7 @@ void *memory_alloc(unsigned size) {
 	Block *block, *previousBlock = memory->firstFreeBlock;
 	
 	for (block = previousBlock->next; ; previousBlock = block, block = block->next) {
-		if (block->size == size){
+		if (block->size == size) {
 			previousBlock->next = block->next;
 			
 			memory->firstFreeBlock = previousBlock;
@@ -91,7 +92,7 @@ int memory_check(void *ptr) {
 		return 0;
 	
 	Block *block = memory->firstFreeBlock;
-	for (block = memory->firstFreeBlock; block < block->next; block = block->next) {
+	for (; block < block->next; block = block->next) {
 		if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
 			return 0;
 	}
