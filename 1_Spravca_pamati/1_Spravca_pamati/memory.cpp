@@ -8,6 +8,7 @@ typedef struct Block {
 
 typedef struct Memory {
 	Block *firstFreeBlock;
+	void *lastPtr;
 } __attribute__((packed)) Memory;
 
 static Memory *memory;
@@ -21,6 +22,7 @@ void memory_init(void *ptr, unsigned size) {
 	b->next = b;
 	b->size = size - sizeof(Memory) - sizeof(Block);
 	m->firstFreeBlock = b;
+	m->lastPtr = (char *)ptr + size - 1;
 	
 	memory = m;
 }
@@ -80,4 +82,25 @@ int memory_free(void *ptr) {
 
 Block* adjacendBlock(Block *block) {
 	return (Block*)((char *)block + block->size + sizeof(Block));
+}
+
+int memory_check(void *ptr) {
+	Block *checkedBlock = (Block *)ptr - 1;
+	
+	if (checkedBlock < memory->firstFreeBlock || checkedBlock > memory->lastPtr)
+		return 0;
+	
+	Block *block = memory->firstFreeBlock;
+	for (block = memory->firstFreeBlock; block < block->next; block = block->next) {
+		if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
+			return 0;
+	}
+	
+	if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
+		return 0;
+	
+	if (block == block->next)
+		return !(checkedBlock >= block && checkedBlock < adjacendBlock(block));
+	
+	return 1;
 }
