@@ -35,8 +35,10 @@
 	for (int i = 0; i < 10; i++)
 		test[i] = 'a';
 	
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++) {
 		XCTAssertEqual(test[i], memory[MEMORY_SIZE - 10 + i]);
+		XCTAssertEqual(test[i], 'a');
+	}
 }
 
 - (void)testMultipleAllocs {
@@ -50,7 +52,9 @@
 	
 	for (int i = 0; i < 10; i++) {
 		XCTAssertEqual(test[i], memory[MEMORY_SIZE - 10 + i]);
+		XCTAssertEqual(test[i], 'a');
 		XCTAssertEqual(test2[i], memory[MEMORY_SIZE - 32 + i]);
+		XCTAssertEqual(test2[i], 'b');
 	}
 }
 
@@ -62,8 +66,10 @@
 	for (int i = 0; i < 2; i++)
 		test[i] = 'a';
 	
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++) {
 		XCTAssertEqual(test[i], memory[45 - 2 + i]);
+		XCTAssertEqual(test[i], 'a');
+	}
 	
 	XCTAssertTrue(test2 == NULL);
 }
@@ -85,8 +91,10 @@
 	for (int i = 0; i < 10; i++)
 		test[i] = 'b';
 	
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++) {
 		XCTAssertEqual(test[i], memory[MEMORY_SIZE - 10 + i]);
+		XCTAssertEqual(test[i], 'b');
+	}
 }
 
 -(void)testCanReuseFreedMemoryOutOfOrder {
@@ -104,10 +112,12 @@
 	test2 = (char*)memory_alloc(10 * sizeof(char));
 	
 	for (int i = 0; i < 10; i++)
-		test[i] = 'd';
+		test2[i] = 'd';
 	
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++) {
 		XCTAssertEqual(test2[i], memory[MEMORY_SIZE - 32 + i]);
+		XCTAssertEqual(test2[i], 'd');
+	}
 }
 
 -(void)testFreeMergesTailingBlock {
@@ -186,8 +196,10 @@
 	for (int i = 0; i < 30; i++)
 		test[i] = 'w';
 	
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 30; i++) {
 		XCTAssertEqual(test[i], memory[MEMORY_SIZE - 30 + i]);
+		XCTAssertEqual(test[i], 'w');
+	}
 }
 
 @end
