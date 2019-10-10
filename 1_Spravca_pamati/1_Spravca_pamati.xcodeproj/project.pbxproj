@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98B1E40C234F537C0091D58F /* BigMemoryTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98B1E40B234F537C0091D58F /* BigMemoryTests.mm */; };
+		98C114A5234F530A00BCB91C /* SmallMemoryTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98C114A4234F530A00BCB91C /* SmallMemoryTests.mm */; };
 		98ECCD6E234B1EC3006135FB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD6D234B1EC3006135FB /* main.cpp */; };
-		98ECCD7B234B279E006135FB /* Test_1_Spravca_pamati.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD7A234B279E006135FB /* Test_1_Spravca_pamati.mm */; };
 		98ECCD82234B287B006135FB /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD80234B287B006135FB /* memory.cpp */; };
 		98ECCD83234B287B006135FB /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98ECCD80234B287B006135FB /* memory.cpp */; };
 /* End PBXBuildFile section */
@@ -26,10 +27,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		98B1E40B234F537C0091D58F /* BigMemoryTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BigMemoryTests.mm; sourceTree = "<group>"; };
+		98C114A4234F530A00BCB91C /* SmallMemoryTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SmallMemoryTests.mm; sourceTree = "<group>"; };
 		98ECCD6A234B1EC3006135FB /* 1_Spravca_pamati */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 1_Spravca_pamati; sourceTree = BUILT_PRODUCTS_DIR; };
 		98ECCD6D234B1EC3006135FB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		98ECCD78234B279E006135FB /* Test_1_Spravca_pamati.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_1_Spravca_pamati.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		98ECCD7A234B279E006135FB /* Test_1_Spravca_pamati.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Test_1_Spravca_pamati.mm; sourceTree = "<group>"; };
 		98ECCD7C234B279E006135FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98ECCD80234B287B006135FB /* memory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = memory.cpp; sourceTree = "<group>"; };
 		98ECCD81234B287B006135FB /* memory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = memory.hpp; sourceTree = "<group>"; };
@@ -84,7 +86,8 @@
 		98ECCD79234B279E006135FB /* Test_1_Spravca_pamati */ = {
 			isa = PBXGroup;
 			children = (
-				98ECCD7A234B279E006135FB /* Test_1_Spravca_pamati.mm */,
+				98B1E40B234F537C0091D58F /* BigMemoryTests.mm */,
+				98C114A4234F530A00BCB91C /* SmallMemoryTests.mm */,
 				98ECCD7C234B279E006135FB /* Info.plist */,
 			);
 			path = Test_1_Spravca_pamati;
@@ -186,8 +189,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98C114A5234F530A00BCB91C /* SmallMemoryTests.mm in Sources */,
+				98B1E40C234F537C0091D58F /* BigMemoryTests.mm in Sources */,
 				98ECCD83234B287B006135FB /* memory.cpp in Sources */,
-				98ECCD7B234B279E006135FB /* Test_1_Spravca_pamati.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

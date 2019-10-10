@@ -3,13 +3,13 @@
 
 #define MEMORY_SIZE 128
 
-@interface Test_1_Spravca_pamati : XCTestCase {
+@interface SmallMemoryTests : XCTestCase {
 	char memory[MEMORY_SIZE];
 }
 
 @end
 
-@implementation Test_1_Spravca_pamati
+@implementation SmallMemoryTests
 
 - (void)setUp {
 	memory_init(memory, MEMORY_SIZE);
@@ -19,15 +19,6 @@
 	XCTAssertEqual(*((char ***)memory), (char **)memory);
 	XCTAssertEqual(*(unsigned char *)(memory + 8), MEMORY_SIZE - 9);
 }
-
-- (void)testBigMemoryInit {
-	char bigMemory[256];
-	memory_init(bigMemory, 256);
-	
-	XCTAssertEqual(*((char ***)bigMemory), (char **)bigMemory);
-	XCTAssertEqual(*(int *)(bigMemory + 9), 256 - 13);
-}
-
 
 - (void)testTooSmallAlloc {
 	memory_init(memory, 30);
@@ -46,6 +37,8 @@
 		XCTAssertEqual(test[i], memory[MEMORY_SIZE - 10 + i]);
 		XCTAssertEqual(test[i], 'a');
 	}
+	
+	XCTAssertEqual(*(memory + 8), 100);
 }
 
 - (void)testMultipleAllocs {
@@ -63,6 +56,8 @@
 		XCTAssertEqual(test2[i], memory[MEMORY_SIZE - 29 + i]);
 		XCTAssertEqual(test2[i], 'b');
 	}
+	
+	XCTAssertEqual(*(memory + 8), 81);
 }
 
 - (void)testOneFitSecondTooSmall {
@@ -84,6 +79,7 @@
 -(void)testFree {
 	char *test = (char*)memory_alloc(10 * sizeof(char));
 	XCTAssertEqual(memory_free(test), 0);
+	XCTAssertEqual(*(unsigned char *)(memory + 8), MEMORY_SIZE - 9);
 }
 
 -(void)testCanReuseFreedMemory {
