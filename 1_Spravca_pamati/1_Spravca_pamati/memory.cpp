@@ -86,6 +86,48 @@ void *memory_alloc(unsigned size) {
 	return NULL;
 }
 
+int memory_free(void *ptr) {
+	Block *block, *freedBlock = (Block *)ptr - 1;
+	
+	for (block = memory.firstFreeBlock; !(freedBlock > block && freedBlock < block->next); block = block->next)
+		if (block >= block->next && (freedBlock > block || freedBlock < block->next))
+			break;
+	
+	if (adjacendBlock(freedBlock) == blockStart(block->next)) {
+		setBlockMemorySize(freedBlock, blockMemorySize(freedBlock) + blockSegmentSize(block->next));
+		freedBlock->next = block->next->next;
+	} else
+		freedBlock->next = block->next;
+	
+	if (adjacendBlock(block) == blockStart(freedBlock)) {
+		setBlockMemorySize(block, blockMemorySize(block) + blockSegmentSize(freedBlock));
+		block->next = freedBlock->next;
+	} else
+		block->next = freedBlock;
+	
+	memory.firstFreeBlock = block;
+	
+	return 0;
+}
+
+int memory_check(void *ptr) {
+	Block *checkedBlock = (Block *)ptr - 1;
+	
+	if (checkedBlock < memory.firstPtr || checkedBlock > memory.lastPtr)
+		return 0;
+	
+	Block *block;
+	for (block = memory.firstFreeBlock->next; ; block = block->next) {
+		if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
+			return 0;
+		
+		if (block == memory.firstFreeBlock)
+			break;
+	}
+	
+	return 1;
+}
+
 unsigned neededSizeFor(unsigned size) {
 	return size < CBLOCK_LIMIT ? size + sizeof(Block) : size + sizeof(UBlock);
 }
@@ -117,54 +159,12 @@ void advanceBlock(Block **block, unsigned bytes) {
 	*(char **)block += bytes;
 }
 
-int memory_free(void *ptr) {
-	Block *block, *freedBlock = (Block *)ptr - 1;
-	
-	for (block = memory.firstFreeBlock; !(freedBlock > block && freedBlock < block->next); block = block->next)
-		if (block >= block->next && (freedBlock > block || freedBlock < block->next))
-			break;
-	
-	if (adjacendBlock(freedBlock) == blockStart(block->next)) {
-		setBlockMemorySize(freedBlock, blockMemorySize(freedBlock) + blockSegmentSize(block->next));
-		freedBlock->next = block->next->next;
-	} else
-		freedBlock->next = block->next;
-	
-	if (adjacendBlock(block) == blockStart(freedBlock)) {
-		setBlockMemorySize(block, blockMemorySize(block) + blockSegmentSize(freedBlock));
-		block->next = freedBlock->next;
-	} else
-		block->next = freedBlock;
-	
-	memory.firstFreeBlock = block;
-	
-	return 0;
-}
-
 Block* adjacendBlock(Block *block) {
 	unsigned char sizeHeader = block->sizeHeader & SIZE_HEADER_MASK;
 	
 	return sizeHeader == CBLOCK_SIZE ?
 		(Block*)((char *)block + block->sizeHeader + sizeof(Block)) :
 		(Block*)((char *)block + convertToUBlock(block)->size + sizeof(Block));
-}
-
-int memory_check(void *ptr) {
-	Block *checkedBlock = (Block *)ptr - 1;
-	
-	if (checkedBlock < memory.firstPtr || checkedBlock > memory.lastPtr)
-		return 0;
-	
-	Block *block;
-	for (block = memory.firstFreeBlock->next; ; block = block->next) {
-		if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
-			return 0;
-		
-		if (block == memory.firstFreeBlock)
-			break;
-	}
-	
-	return 1;
 }
 
 void* blockStart(Block *block) {
