@@ -90,17 +90,14 @@ int memory_check(void *ptr) {
 	if (checkedBlock < memory.firstPtr || checkedBlock > memory.lastPtr)
 		return 0;
 	
-	Block *block = memory.firstFreeBlock;
-	for (; block < block->next; block = block->next) {
+	Block *block;
+	for (block = memory.firstFreeBlock->next; ; block = block->next) {
 		if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
 			return 0;
+		
+		if (block == memory.firstFreeBlock)
+			break;
 	}
-	
-	if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
-		return 0;
-	
-	if (block == block->next)
-		return !(checkedBlock >= block && checkedBlock < adjacendBlock(block));
 	
 	return 1;
 }
