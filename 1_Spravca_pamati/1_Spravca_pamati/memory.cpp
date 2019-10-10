@@ -1,11 +1,24 @@
 #include "memory.hpp"
 #include <stdio.h>
 
+#define SIZE_HEADER_MASK (unsigned char)~((unsigned char)(~0) >> 1)
+#define CBLOCK_SIZE (unsigned char)~((unsigned char)(~0) >> 0)
+#define CBLOCK_LIMIT (unsigned char)~((unsigned char)(~0) >> 1)
+#define UBLOCK_SIZE (unsigned char)~((unsigned char)(~0) >> 1)
+#define UBLOCK_LIMIT (unsigned int)~((unsigned int)(~0) >> 1)
+
 struct _block {
 	struct _block *next;
-	unsigned size;
+	unsigned char sizeHeader;
 } __attribute__((packed));
 typedef struct _block Block;
+
+struct _ublock {
+	struct _block *next;
+	unsigned char sizeHeader;
+	unsigned int size;
+} __attribute__((packed));
+typedef struct _ublock UBlock;
 
 typedef struct Memory {
 	Block *firstFreeBlock;
@@ -15,13 +28,24 @@ typedef struct Memory {
 
 static Memory memory;
 
+unsigned neededSizeFor(unsigned size);
+unsigned blockMemorySize(Block *block);
+void setBlockMemorySize(Block *block, unsigned size);
+unsigned blockSegmentSize(Block *block);
 void advanceBlock(Block **block, unsigned bytes);
 Block* adjacendBlock(Block *block);
 
 void memory_init(void *ptr, unsigned size) {
 	Block *b = (Block *)ptr;
 	b->next = b;
-	b->size = size - sizeof(Block);
+	
+	if (size - sizeof(Block) < CBLOCK_LIMIT)
+		b->sizeHeader = size - sizeof(Block);
+	else {
+		((UBlock *)b)->sizeHeader = UBLOCK_SIZE;
+		((UBlock *)b)->size = size - sizeof(UBlock);
+	}
+	
 	memory.firstFreeBlock = b;
 	memory.firstPtr = ptr;
 	memory.lastPtr = (char *)ptr + size - 1;
@@ -29,17 +53,20 @@ void memory_init(void *ptr, unsigned size) {
 
 void *memory_alloc(unsigned size) {
 	Block *block, *previousBlock = memory.firstFreeBlock;
+	int blockSize, neededSize = neededSizeFor(size);
 	
 	for (block = previousBlock->next; ; previousBlock = block, block = block->next) {
-		if (block->size == size) {
+		blockSize = blockMemorySize(block);
+		
+		if (blockSize == size) {
 			previousBlock->next = block->next;
 			
 			memory.firstFreeBlock = previousBlock;
 			return (void *)(block + 1);
-		} else if (block->size >= size + sizeof(Block)) {
-			block->size -= size + sizeof(Block);
-			advanceBlock(&block, block->size + sizeof(Block));
-			block->size = size;
+		} else if (blockSize >= neededSize) {
+			setBlockMemorySize(block, blockSize - neededSize);
+			block = adjacendBlock(block);
+			setBlockMemorySize(block, size);
 			
 			memory.firstFreeBlock = previousBlock;
 			return (void *)(block + 1);
@@ -50,6 +77,33 @@ void *memory_alloc(unsigned size) {
 	}
 	
 	return NULL;
+}
+
+unsigned neededSizeFor(unsigned size) {
+	return size < CBLOCK_LIMIT ? size + sizeof(Block) : size + sizeof(UBlock);
+}
+
+unsigned blockMemorySize(Block *block) {
+	unsigned char sizeHeader = block->sizeHeader & SIZE_HEADER_MASK;
+	
+	return sizeHeader == CBLOCK_SIZE ? block->sizeHeader : ((UBlock *)block)->size;
+}
+
+void setBlockMemorySize(Block *block, unsigned size) {
+	if (size < CBLOCK_LIMIT)
+		block->sizeHeader = size;
+	else {
+		block->sizeHeader = UBLOCK_SIZE;
+		((UBlock *)block)->size = size;
+	}
+}
+
+unsigned blockSegmentSize(Block *block) {
+	unsigned char sizeHeader = block->sizeHeader & SIZE_HEADER_MASK;
+	
+	return sizeHeader == CBLOCK_SIZE ?
+		block->sizeHeader + sizeof(Block) :
+		((UBlock *)block)->size + sizeof(UBlock);
 }
 
 void advanceBlock(Block **block, unsigned bytes) {
@@ -64,13 +118,13 @@ int memory_free(void *ptr) {
 			break;
 	
 	if (adjacendBlock(freedBlock) == block->next) {
-		freedBlock->size += block->next->size + sizeof(Block);
+		setBlockMemorySize(freedBlock, blockMemorySize(freedBlock) + blockSegmentSize(block->next));
 		freedBlock->next = block->next->next;
 	} else
 		freedBlock->next = block->next;
 	
 	if (adjacendBlock(block) == freedBlock) {
-		block->size += freedBlock->size + sizeof(Block);
+		setBlockMemorySize(block, blockMemorySize(block) + blockSegmentSize(freedBlock));
 		block->next = freedBlock->next;
 	} else
 		block->next = freedBlock;
@@ -81,7 +135,11 @@ int memory_free(void *ptr) {
 }
 
 Block* adjacendBlock(Block *block) {
-	return (Block*)((char *)block + block->size + sizeof(Block));
+	unsigned char sizeHeader = block->sizeHeader & SIZE_HEADER_MASK;
+	
+	return sizeHeader == CBLOCK_SIZE ?
+		(Block*)((char *)block + block->sizeHeader + sizeof(Block)) :
+		(Block*)((char *)block + ((UBlock *)block)->size + sizeof(UBlock));
 }
 
 int memory_check(void *ptr) {

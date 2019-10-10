@@ -15,9 +15,17 @@
 	memory_init(memory, MEMORY_SIZE);
 }
 
-- (void)testMemoryInit {
+- (void)testSmallMemoryInit {
 	XCTAssertEqual(*((char ***)memory), (char **)memory);
-	XCTAssertEqual(*(int *)(memory + 8), MEMORY_SIZE - 12);
+	XCTAssertEqual(*(unsigned char *)(memory + 8), MEMORY_SIZE - 9);
+}
+
+- (void)testBigMemoryInit {
+	char bigMemory[256];
+	memory_init(bigMemory, 256);
+	
+	XCTAssertEqual(*((char ***)bigMemory), (char **)bigMemory);
+	XCTAssertEqual(*(int *)(bigMemory + 9), 256 - 13);
 }
 
 
@@ -52,21 +60,21 @@
 	for (int i = 0; i < 10; i++) {
 		XCTAssertEqual(test[i], memory[MEMORY_SIZE - 10 + i]);
 		XCTAssertEqual(test[i], 'a');
-		XCTAssertEqual(test2[i], memory[MEMORY_SIZE - 32 + i]);
+		XCTAssertEqual(test2[i], memory[MEMORY_SIZE - 29 + i]);
 		XCTAssertEqual(test2[i], 'b');
 	}
 }
 
 - (void)testOneFitSecondTooSmall {
 	memory_init(memory, 45);
-	char *test = (char*)memory_alloc(2 * sizeof(char));
+	char *test = (char*)memory_alloc(10 * sizeof(char));
 	char *test2 = (char*)memory_alloc(10 * sizeof(char));
 	
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 10; i++)
 		test[i] = 'a';
 	
-	for (int i = 0; i < 2; i++) {
-		XCTAssertEqual(test[i], memory[45 - 2 + i]);
+	for (int i = 0; i < 10; i++) {
+		XCTAssertEqual(test[i], memory[45 - 10 + i]);
 		XCTAssertEqual(test[i], 'a');
 	}
 	
@@ -114,7 +122,7 @@
 		test2[i] = 'd';
 	
 	for (int i = 0; i < 10; i++) {
-		XCTAssertEqual(test2[i], memory[MEMORY_SIZE - 32 + i]);
+		XCTAssertEqual(test2[i], memory[MEMORY_SIZE - 29 + i]);
 		XCTAssertEqual(test2[i], 'd');
 	}
 }
@@ -133,7 +141,7 @@
 	memory_free(test2);
 	memory_free(test);
 	
-	XCTAssertEqual(*(int *)(test2 - 4), 32);
+	XCTAssertEqual((int)*(test2 - 1), 29);
 }
 
 -(void)testFreeMergesLeadingBlock {
@@ -150,7 +158,7 @@
 	memory_free(test);
 	memory_free(test2);
 	
-	XCTAssertEqual(*(int *)(test2 - 4), 32);
+	XCTAssertEqual((int)*(test2 - 1), 29);
 }
 
 -(void)testFreeMergesLeadingAndTrailingBlocks {
@@ -170,14 +178,14 @@
 	memory_free(test3);
 	memory_free(test2);
 	
-	XCTAssertEqual(*(int *)(test3 - 4), 54);
+	XCTAssertEqual((int)*(test3 - 1), 48);
 }
 
 -(void)testCanReuseFreedMergedBlocks {
 	char *test = (char*)memory_alloc(10 * sizeof(char));
 	char *test2 = (char*)memory_alloc(10 * sizeof(char));
 	char *test3 = (char*)memory_alloc(10 * sizeof(char));
-	char *test4 = (char*)memory_alloc(10 * sizeof(char));
+	char *test4 = (char*)memory_alloc(25 * sizeof(char));
 	
 	for (int i = 0; i < 10; i++) {
 		test[i] = 'a';
