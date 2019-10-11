@@ -31,7 +31,6 @@
 	char *test = (char*)memory_alloc(450 * sizeof(char));
 	
 	XCTAssertEqual((unsigned char)*(memory + 8) & SIZE_HEADER_MASK, CBLOCK_SIZE);
-	printf("TESTED %p\n", (memory + 8));
 	XCTAssertEqual((int)*(memory + 8), 40);
 	XCTAssertEqual((unsigned char)*(test - 1) & SIZE_HEADER_MASK, UBLOCK_SIZE);
 	XCTAssertEqual(*(int *)(test - 13), 450);
