@@ -23,7 +23,7 @@ struct _ublock {
 typedef struct _ublock UBlock;
 
 typedef struct Memory {
-	Block *firstFreeBlock;
+	Block *freeBlock;
 	void *firstPtr;
 	void *lastPtr;
 } __attribute__((packed)) Memory;
@@ -44,14 +44,14 @@ void memory_init(void *ptr, unsigned size) {
 		b->next = b;
 		b->sizeHeader = size - sizeof(Block);
 		
-		memory.firstFreeBlock = b;
+		memory.freeBlock = b;
 	} else {
 		UBlock *b = (UBlock *)ptr;
 		b->next = (Block *)((char *)b + 4);
 		b->sizeHeader = UBLOCK_SIZE;
 		b->size = size - sizeof(UBlock);
 		  
-		memory.firstFreeBlock = b->next;
+		memory.freeBlock = b->next;
 	}
 	
 	memory.firstPtr = ptr;
@@ -59,7 +59,7 @@ void memory_init(void *ptr, unsigned size) {
 }
 
 void *memory_alloc(unsigned size) {
-	Block *block, *previousBlock = memory.firstFreeBlock;
+	Block *block, *previousBlock = memory.freeBlock;
 	int blockSize, neededSize = neededSizeFor(size);
 	
 	for (block = previousBlock->next; ; previousBlock = block, block = block->next) {
@@ -68,7 +68,7 @@ void *memory_alloc(unsigned size) {
 		if (blockSize == size) {
 			previousBlock->next = block->next;
 			
-			memory.firstFreeBlock = previousBlock;
+			memory.freeBlock = previousBlock;
 			return (void *)(block + 1);
 		} else if (blockSize > neededSize) {
 			if (previousBlock == block)
@@ -80,11 +80,11 @@ void *memory_alloc(unsigned size) {
 			advanceBlock(&block, blockSize + (neededSize - size));
 			setBlockMemorySize(block, size, 0);
 			
-			memory.firstFreeBlock = previousBlock;
+			memory.freeBlock = previousBlock;
 			return (void *)(block + 1);
 		}
 		
-		if (block == memory.firstFreeBlock)
+		if (block == memory.freeBlock)
 			return NULL;
 	}
 	
@@ -92,7 +92,7 @@ void *memory_alloc(unsigned size) {
 }
 
 int memory_free(void *ptr) {
-	Block *block, *previousBlock = memory.firstFreeBlock, *freedBlock = (Block *)ptr - 1;
+	Block *block, *previousBlock = memory.freeBlock, *freedBlock = (Block *)ptr - 1;
 	
 	for (block = previousBlock->next; !(freedBlock > block && freedBlock < block->next); previousBlock = block, block = block->next)
 		if (block >= block->next && (freedBlock > block || freedBlock < block->next))
@@ -116,7 +116,7 @@ int memory_free(void *ptr) {
 	} else
 		block->next = freedBlock;
 	
-	memory.firstFreeBlock = block;
+	memory.freeBlock = block;
 	
 	return 0;
 }
@@ -124,15 +124,15 @@ int memory_free(void *ptr) {
 int memory_check(void *ptr) {
 	Block *checkedBlock = (Block *)ptr - 1;
 	
-	if (checkedBlock < memory.firstPtr || checkedBlock > memory.lastPtr)
+	if ((void *)checkedBlock < memory.firstPtr || (void *)checkedBlock > memory.lastPtr)
 		return 0;
 	
 	Block *block;
-	for (block = memory.firstFreeBlock->next; ; block = block->next) {
+	for (block = memory.freeBlock->next; ; block = block->next) {
 		if (checkedBlock >= block && checkedBlock < adjacendBlock(block))
 			return 0;
 		
-		if (block == memory.firstFreeBlock)
+		if (block == memory.freeBlock)
 			break;
 	}
 	
