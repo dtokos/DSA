@@ -9,8 +9,6 @@
 
 #define convertToUBlock(block) (((UBlock *)((char *)block - sizeof(int))))
 
-//TODO: refactor sizeof(int)
-
 struct _block {
 	struct _block *next;
 	unsigned char sizeHeader;
@@ -94,9 +92,9 @@ void *memory_alloc(unsigned size) {
 }
 
 int memory_free(void *ptr) {
-	Block *block, *freedBlock = (Block *)ptr - 1;
+	Block *block, *previousBlock = memory.firstFreeBlock, *freedBlock = (Block *)ptr - 1;
 	
-	for (block = memory.firstFreeBlock; !(freedBlock > block && freedBlock < block->next); block = block->next)
+	for (block = previousBlock->next; !(freedBlock > block && freedBlock < block->next); previousBlock = block, block = block->next)
 		if (block >= block->next && (freedBlock > block || freedBlock < block->next))
 			break;
 	
@@ -107,8 +105,14 @@ int memory_free(void *ptr) {
 		freedBlock->next = block->next;
 	
 	if (adjacendBlock(block) == blockStart(freedBlock)) {
-		block = setBlockMemorySize(block, blockMemorySize(block) + blockSegmentSize(freedBlock), 1);
-		block->next = freedBlock->next;
+		if (previousBlock == block) {
+			previousBlock = block = setBlockMemorySize(block, blockMemorySize(block) + blockSegmentSize(freedBlock), 1);
+			block->next = block;
+		} else {
+			block = setBlockMemorySize(block, blockMemorySize(block) + blockSegmentSize(freedBlock), 1);
+			block->next = freedBlock->next;
+		}
+		previousBlock->next = block;
 	} else
 		block->next = freedBlock;
 	
@@ -156,26 +160,21 @@ Block* setBlockMemorySize(Block *block, unsigned size, unsigned char shouldMoveO
 	} else {
 		unsigned char sizeHeader = block->sizeHeader & SIZE_HEADER_MASK;
 		
-		if (size + 4 < CBLOCK_LIMIT) {
-			if (sizeHeader == CBLOCK_SIZE) {
+		if (sizeHeader == CBLOCK_SIZE) {
+			if (size < CBLOCK_LIMIT) {
 				block->sizeHeader = size;
-			} else {
-				advanceBlock(&block, (int)-sizeof(unsigned));
-				block->sizeHeader = size + sizeof(unsigned);
-			}
-		} else if (size - 4 >= CBLOCK_LIMIT) {
-			if (sizeHeader == UBLOCK_SIZE) {
-				block->sizeHeader = UBLOCK_SIZE;
-				convertToUBlock(block)->size = size;
 			} else {
 				advanceBlock(&block, sizeof(unsigned));
 				block->sizeHeader = UBLOCK_SIZE;
-				convertToUBlock(block)->size = size  - sizeof(unsigned);
+				convertToUBlock(block)->size = size - sizeof(unsigned);
 			}
 		} else {
-			if (size < CBLOCK_LIMIT)
-				block->sizeHeader = size;
-			else {
+			if (size + sizeof(unsigned) < CBLOCK_LIMIT) {
+				Block *next = block->next;
+				advanceBlock(&block, (int)-sizeof(unsigned));
+				block->next = next;
+				block->sizeHeader = size + sizeof(unsigned);
+			} else {
 				block->sizeHeader = UBLOCK_SIZE;
 				convertToUBlock(block)->size = size;
 			}

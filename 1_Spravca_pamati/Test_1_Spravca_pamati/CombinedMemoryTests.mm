@@ -90,6 +90,128 @@
 	XCTAssertEqual(*(int *)memory, MEMORY_SIZE - 13);
 }
 
-//TODO: Test pointer fixing and size boundary handling
+- (void)testAllocBigIntoSmallAtBoundaryShoudlStayBig {
+	char *test = (char*)memory_alloc(359 * sizeof(char));
+	
+	XCTAssertEqual((unsigned char)*(memory + 12) & SIZE_HEADER_MASK, UBLOCK_SIZE);
+	XCTAssertEqual(*(int *)memory, 127);
+	XCTAssertEqual((unsigned char)*(test - 1) & SIZE_HEADER_MASK, UBLOCK_SIZE);
+	XCTAssertEqual(*(int *)(test - 13), 359);
+}
+
+- (void)testAllocBigIntoSmallOverBoundaryShoudlBecomeSmall {
+	char *test = (char*)memory_alloc(363 * sizeof(char));
+	
+	XCTAssertEqual((unsigned char)*(memory + 8) & SIZE_HEADER_MASK, CBLOCK_SIZE);
+	XCTAssertEqual((int)*(memory + 8), 127);
+	XCTAssertEqual((unsigned char)*(test - 1) & SIZE_HEADER_MASK, UBLOCK_SIZE);
+	XCTAssertEqual(*(int *)(test - 13), 363);
+}
+
+- (void)testFreeSmallIntoBigAtBoundaryShoudlStayBig {
+	memory_init(memory, 138);
+	char *test = (char*)memory_alloc(50 * sizeof(char));
+	memory_free(test);
+	
+	XCTAssertEqual((unsigned char)*(memory + 12) & SIZE_HEADER_MASK, UBLOCK_SIZE);
+	XCTAssertEqual(*(int *)memory, 125);
+}
+
+- (void)testFreeSmallIntoBigOverBoundaryShoudlBecomeBig {
+	memory_init(memory, 141);
+	char *test = (char*)memory_alloc(50 * sizeof(char));
+	memory_free(test);
+	
+	XCTAssertEqual((unsigned char)*(memory + 12) & SIZE_HEADER_MASK, UBLOCK_SIZE);
+	XCTAssertEqual(*(int *)memory, 128);
+}
+
+- (void)testAllocPointerFixing {
+	char *test = (char*)memory_alloc(400 * sizeof(char));
+	char **block, **previousBlock = (char **)memory;
+	char **start = previousBlock;
+	
+	for (block = (char **)*previousBlock; ; previousBlock = block, block = (char **)*block)
+		if (block == start)
+			break;
+	
+	XCTAssertEqual((unsigned char)*(memory + 8) & SIZE_HEADER_MASK, CBLOCK_SIZE);
+	XCTAssertEqual((int)*(memory + 8), 90);
+	XCTAssertEqual((unsigned char)*(test - 1) & SIZE_HEADER_MASK, UBLOCK_SIZE);
+	XCTAssertEqual(*(int *)(test - 13), 400);
+}
+
+- (void)testFreePointerFixing {
+	memory_init(memory, 138);
+	char *test = (char*)memory_alloc(50 * sizeof(char));
+	memory_free(test);
+	char **block, **previousBlock = (char **)(memory + 4);
+	char **start = previousBlock;
+	
+	for (block = (char **)*previousBlock; ; previousBlock = block, block = (char **)*block)
+		if (block == start)
+			break;
+	
+	XCTAssertEqual((unsigned char)*(memory + 12) & SIZE_HEADER_MASK, UBLOCK_SIZE);
+	XCTAssertEqual(*(int *)memory, 125);
+}
+
+- (void)testFreePointerChain {
+	char *test = (char*)memory_alloc(100 * sizeof(char));
+	char *test2 = (char*)memory_alloc(30 * sizeof(char));
+	char *test3 = (char*)memory_alloc(10 * sizeof(char));
+	memory_free(test);
+	memory_free(test2);
+	char **block, **previousBlock = (char **)(memory + 4);
+	char **start = previousBlock;
+	
+	for (block = (char **)*previousBlock; ; previousBlock = block, block = (char **)*block)
+		if (block == start)
+			break;
+	
+	XCTAssertEqual((unsigned char)*(test3 - 1) & SIZE_HEADER_MASK, CBLOCK_SIZE);
+	XCTAssertEqual(*(int *)(test3 - 1), 10);
+}
+
+- (void)testFreePointerChain2 {
+	char *test = (char*)memory_alloc(100 * sizeof(char));
+	char *test2 = (char*)memory_alloc(30 * sizeof(char));
+	char *test3 = (char*)memory_alloc(10 * sizeof(char));
+	char *test4 = (char*)memory_alloc(10 * sizeof(char));
+	memory_free(test);
+	memory_free(test3);
+	char **block, **previousBlock = (char **)(memory + 4);
+	char **start = previousBlock;
+	
+	for (block = (char **)*previousBlock; ; previousBlock = block, block = (char **)*block)
+		if (block == start)
+			break;
+	
+	memory_free(test2);
+	previousBlock = (char **)(memory + 4);
+	
+	for (block = (char **)*previousBlock; ; previousBlock = block, block = (char **)*block)
+		if (block == start)
+			break;
+	
+	XCTAssertEqual((unsigned char)*(test4 - 1) & SIZE_HEADER_MASK, CBLOCK_SIZE);
+	XCTAssertEqual(*(int *)(test4 - 1), 10);
+}
+
+- (void)testAllocFreePointerChain {
+	char *test = (char*)memory_alloc(300 * sizeof(char));
+	char *test2 = (char*)memory_alloc(10 * sizeof(char));
+	memory_free(test);
+	test = (char*)memory_alloc(200 * sizeof(char));
+	char **block, **previousBlock = (char **)(memory + 4);
+	char **start = previousBlock;
+	
+	for (block = (char **)*previousBlock; ; previousBlock = block, block = (char **)*block)
+		if (block == start)
+			break;
+	
+	XCTAssertEqual((unsigned char)*(test2 - 1) & SIZE_HEADER_MASK, CBLOCK_SIZE);
+	XCTAssertEqual(*(int *)(test2 - 1), 10);
+}
 
 @end
