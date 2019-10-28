@@ -9,3 +9,4 @@ This repository contains exercises and assignments for the 2019/2020 DSA course.
 
 **Included assignments**
 - [1: Správca pamäti](./1_Spravca_pamati)
+- [2: Vyhľadávanie v dynamických množinách](./2_Vyhladavanie_v_dynamickych_mnozinach)
