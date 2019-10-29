@@ -3,9 +3,11 @@
 
 #include <stdlib.h>
 
+#define bstHeight(node) (node == NULL ? 0 : node->height)
+
 struct BSTNode {
 	int value;
-	unsigned count;
+	unsigned count, height;
 	struct BSTNode *left;
 	struct BSTNode *right;
 };
