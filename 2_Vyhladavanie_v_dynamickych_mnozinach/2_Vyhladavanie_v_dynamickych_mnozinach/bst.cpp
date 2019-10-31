@@ -1,9 +1,5 @@
 #include "bst.hpp"
 
-#define max(a, b) (a < b ? b : a)
-
-BSTNode *newNode(int value);
-
 BSTNode *bstInsert(BSTNode *root, int value) {
 	if (root == NULL)
 		return newNode(value);
@@ -18,7 +14,7 @@ BSTNode *bstInsert(BSTNode *root, int value) {
 	else
 		root->right = bstInsert(root->right, value);
 	
-	root->height = max(bstHeight(root->left), bstHeight(root->right)) + 1;
+	root->height = calculateHeight(root);
 	
 	return root;
 }

@@ -82,29 +82,29 @@
 }
 
 - (void)testInsertRandomPerformance {
-	BSTNode *tree = bstInsert(NULL, rand());
-	
 	[self measureBlock:^{
+		BSTNode *tree = bstInsert(NULL, rand());
+		
 		for (int i = 0; i < 100000; i++)
-			bstInsert(tree, rand());
+			tree = bstInsert(tree, rand());
     }];
 }
 
 - (void)testInsertAscendingPerformance {
-	BSTNode *tree = bstInsert(NULL, 0);
-	
 	[self measureBlock:^{
+		BSTNode *tree = bstInsert(NULL, 0);
+		
 		for (int i = 1; i < 1000; i++)
-			bstInsert(tree, i);
+			tree = bstInsert(tree, i);
 	}];
 }
 
 - (void)testInsertDescendingPerformance {
-	BSTNode *tree = bstInsert(NULL, 1000);
-	
 	[self measureBlock:^{
+		BSTNode *tree = bstInsert(NULL, 1000);
+		
 		for (int i = 999; i > 0; i--)
-			bstInsert(tree, i);
+			tree = bstInsert(tree, i);
 	}];
 }
 

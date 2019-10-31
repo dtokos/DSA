@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98165E982368BE8200E5772E /* avl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98165E962368BE8200E5772E /* avl.cpp */; };
+		98165E992368BE8200E5772E /* avl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98165E962368BE8200E5772E /* avl.cpp */; };
+		98455FFD236B5BF900E64E02 /* TestAVLSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98455FFC236B5BF900E64E02 /* TestAVLSearch.mm */; };
+		9849DA04236975F700D5E962 /* TestAVLInsert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9849DA03236975F700D5E962 /* TestAVLInsert.mm */; };
 		9861F1252366DAE30079F8A8 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9861F1242366DAE30079F8A8 /* main.c */; };
 		9861F1392366DB0D0079F8A8 /* bst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9861F1372366DB0D0079F8A8 /* bst.cpp */; };
 		9861F13A2366DB0D0079F8A8 /* bst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9861F1372366DB0D0079F8A8 /* bst.cpp */; };
@@ -27,6 +31,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		98165E962368BE8200E5772E /* avl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = avl.cpp; sourceTree = "<group>"; };
+		98165E972368BE8200E5772E /* avl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = avl.hpp; sourceTree = "<group>"; };
+		98455FFC236B5BF900E64E02 /* TestAVLSearch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestAVLSearch.mm; sourceTree = "<group>"; };
+		9849DA03236975F700D5E962 /* TestAVLInsert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestAVLInsert.mm; sourceTree = "<group>"; };
 		9861F1212366DAE30079F8A8 /* 2_Vyhladavanie_v_dynamickych_mnozinach */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 2_Vyhladavanie_v_dynamickych_mnozinach; sourceTree = BUILT_PRODUCTS_DIR; };
 		9861F1242366DAE30079F8A8 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		9861F12F2366DAFA0079F8A8 /* Test_2_Vyhladavanie_v_dynamickych_mnozinach.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_2_Vyhladavanie_v_dynamickych_mnozinach.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +87,8 @@
 				9861F1242366DAE30079F8A8 /* main.c */,
 				9861F1382366DB0D0079F8A8 /* bst.hpp */,
 				9861F1372366DB0D0079F8A8 /* bst.cpp */,
+				98165E972368BE8200E5772E /* avl.hpp */,
+				98165E962368BE8200E5772E /* avl.cpp */,
 			);
 			path = 2_Vyhladavanie_v_dynamickych_mnozinach;
 			sourceTree = "<group>";
@@ -88,6 +98,8 @@
 			children = (
 				9861F13B2366DF190079F8A8 /* TestBSTInsert.mm */,
 				9861F13D2366E6F70079F8A8 /* TestBSTSearch.mm */,
+				9849DA03236975F700D5E962 /* TestAVLInsert.mm */,
+				98455FFC236B5BF900E64E02 /* TestAVLSearch.mm */,
 				9861F1332366DAFA0079F8A8 /* Info.plist */,
 			);
 			path = Test_2_Vyhladavanie_v_dynamickych_mnozinach;
@@ -180,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98165E982368BE8200E5772E /* avl.cpp in Sources */,
 				9861F1252366DAE30079F8A8 /* main.c in Sources */,
 				9861F1392366DB0D0079F8A8 /* bst.cpp in Sources */,
 			);
@@ -190,8 +203,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9861F13E2366E6F70079F8A8 /* TestBSTSearch.mm in Sources */,
+				98455FFD236B5BF900E64E02 /* TestAVLSearch.mm in Sources */,
+				9849DA04236975F700D5E962 /* TestAVLInsert.mm in Sources */,
 				9861F13A2366DB0D0079F8A8 /* bst.cpp in Sources */,
 				9861F13C2366DF190079F8A8 /* TestBSTInsert.mm in Sources */,
+				98165E992368BE8200E5772E /* avl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
