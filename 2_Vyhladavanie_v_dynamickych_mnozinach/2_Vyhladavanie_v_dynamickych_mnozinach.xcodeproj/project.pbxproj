@@ -16,6 +16,11 @@
 		9861F13A2366DB0D0079F8A8 /* bst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9861F1372366DB0D0079F8A8 /* bst.cpp */; };
 		9861F13C2366DF190079F8A8 /* TestBSTInsert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9861F13B2366DF190079F8A8 /* TestBSTInsert.mm */; };
 		9861F13E2366E6F70079F8A8 /* TestBSTSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9861F13D2366E6F70079F8A8 /* TestBSTSearch.mm */; };
+		98DF75D9236C98A200CBC038 /* rbt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98DF75D7236C98A200CBC038 /* rbt.cpp */; };
+		98DF75DA236C98A200CBC038 /* rbt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98DF75D7236C98A200CBC038 /* rbt.cpp */; };
+		98DF75DC236C9C0D00CBC038 /* TestRBTInsert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98DF75DB236C9C0D00CBC038 /* TestRBTInsert.mm */; };
+		98DF75DE236CB62500CBC038 /* TestRBTSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98DF75DD236CB62500CBC038 /* TestRBTSearch.mm */; };
+		98DF75E0236CBB9B00CBC038 /* TestPerformance.mm in Sources */ = {isa = PBXBuildFile; fileRef = 98DF75DF236CBB9B00CBC038 /* TestPerformance.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +48,11 @@
 		9861F1382366DB0D0079F8A8 /* bst.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bst.hpp; sourceTree = "<group>"; };
 		9861F13B2366DF190079F8A8 /* TestBSTInsert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestBSTInsert.mm; sourceTree = "<group>"; };
 		9861F13D2366E6F70079F8A8 /* TestBSTSearch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestBSTSearch.mm; sourceTree = "<group>"; };
+		98DF75D7236C98A200CBC038 /* rbt.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = rbt.cpp; sourceTree = "<group>"; };
+		98DF75D8236C98A200CBC038 /* rbt.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = rbt.hpp; sourceTree = "<group>"; };
+		98DF75DB236C9C0D00CBC038 /* TestRBTInsert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestRBTInsert.mm; sourceTree = "<group>"; };
+		98DF75DD236CB62500CBC038 /* TestRBTSearch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestRBTSearch.mm; sourceTree = "<group>"; };
+		98DF75DF236CBB9B00CBC038 /* TestPerformance.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestPerformance.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +99,8 @@
 				9861F1372366DB0D0079F8A8 /* bst.cpp */,
 				98165E972368BE8200E5772E /* avl.hpp */,
 				98165E962368BE8200E5772E /* avl.cpp */,
+				98DF75D8236C98A200CBC038 /* rbt.hpp */,
+				98DF75D7236C98A200CBC038 /* rbt.cpp */,
 			);
 			path = 2_Vyhladavanie_v_dynamickych_mnozinach;
 			sourceTree = "<group>";
@@ -100,6 +112,9 @@
 				9861F13D2366E6F70079F8A8 /* TestBSTSearch.mm */,
 				9849DA03236975F700D5E962 /* TestAVLInsert.mm */,
 				98455FFC236B5BF900E64E02 /* TestAVLSearch.mm */,
+				98DF75DB236C9C0D00CBC038 /* TestRBTInsert.mm */,
+				98DF75DD236CB62500CBC038 /* TestRBTSearch.mm */,
+				98DF75DF236CBB9B00CBC038 /* TestPerformance.mm */,
 				9861F1332366DAFA0079F8A8 /* Info.plist */,
 			);
 			path = Test_2_Vyhladavanie_v_dynamickych_mnozinach;
@@ -192,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98DF75D9236C98A200CBC038 /* rbt.cpp in Sources */,
 				98165E982368BE8200E5772E /* avl.cpp in Sources */,
 				9861F1252366DAE30079F8A8 /* main.c in Sources */,
 				9861F1392366DB0D0079F8A8 /* bst.cpp in Sources */,
@@ -204,10 +220,14 @@
 			files = (
 				9861F13E2366E6F70079F8A8 /* TestBSTSearch.mm in Sources */,
 				98455FFD236B5BF900E64E02 /* TestAVLSearch.mm in Sources */,
+				98DF75DA236C98A200CBC038 /* rbt.cpp in Sources */,
 				9849DA04236975F700D5E962 /* TestAVLInsert.mm in Sources */,
 				9861F13A2366DB0D0079F8A8 /* bst.cpp in Sources */,
 				9861F13C2366DF190079F8A8 /* TestBSTInsert.mm in Sources */,
+				98DF75E0236CBB9B00CBC038 /* TestPerformance.mm in Sources */,
+				98DF75DE236CB62500CBC038 /* TestRBTSearch.mm in Sources */,
 				98165E992368BE8200E5772E /* avl.cpp in Sources */,
+				98DF75DC236C9C0D00CBC038 /* TestRBTInsert.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
