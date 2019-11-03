@@ -109,7 +109,7 @@
 		redBlackInsert(&tree, i);
 	
 	[self measureBlock:^{
-		for (int i = 1000; i > 1000; i--)
+		for (int i = 1000; i > 0; i--)
 			redBlackSearch(tree, i);
 	}];
 }
