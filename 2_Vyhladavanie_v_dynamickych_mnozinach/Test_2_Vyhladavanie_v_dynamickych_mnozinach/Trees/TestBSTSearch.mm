@@ -87,11 +87,11 @@
 
 - (void)testSearchRandomPerformance {
 	BSTNode *tree = bstInsert(NULL, rand());
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 1000; i++)
 		bstInsert(tree, rand());
 	
 	[self measureBlock:^{
-		for (int i = 0; i < 10000; i++)
+		for (int i = 0; i < 1000; i++)
 			bstSearch(tree, rand());
 	}];
 }

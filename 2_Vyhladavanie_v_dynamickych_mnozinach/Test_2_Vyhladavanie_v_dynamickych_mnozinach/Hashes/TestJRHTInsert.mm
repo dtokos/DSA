@@ -56,7 +56,7 @@
 		ht_hash_table *table = ht_new();
 		char key[12], value[12];
 		
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 1000; i++) {
 			sprintf(key, "%d", rand());
 			sprintf(value, "%d", i);
 			ht_insert(table, key, value);

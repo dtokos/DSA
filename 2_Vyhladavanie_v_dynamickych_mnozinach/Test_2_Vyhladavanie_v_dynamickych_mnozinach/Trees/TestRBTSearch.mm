@@ -83,11 +83,11 @@
 - (void)testSearchRandomPerformance {
 	Node *tree = T_Nil;
 	redBlackInsert(&tree, rand());
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 1000; i++)
 		redBlackInsert(&tree, rand());
 	
 	[self measureBlock:^{
-		for (int i = 0; i < 10000; i++)
+		for (int i = 0; i < 1000; i++)
 			redBlackSearch(tree, rand());
 	}];
 }

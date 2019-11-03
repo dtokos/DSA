@@ -32,11 +32,11 @@
 
 - (void)testSearchRandomPerformance {
 	HashTable *table = htMake();
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 1000; i++)
 		htInsert(table, rand(), i);
 	
 	[self measureBlock:^{
-		for (int i = 0; i < 10000; i++)
+		for (int i = 0; i < 1000; i++)
 			htSearch(table, rand());
 	}];
 }

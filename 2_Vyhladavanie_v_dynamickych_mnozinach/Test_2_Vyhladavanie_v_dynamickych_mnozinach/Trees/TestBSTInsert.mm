@@ -85,7 +85,7 @@
 	[self measureBlock:^{
 		BSTNode *tree = bstInsert(NULL, rand());
 		
-		for (int i = 0; i < 100000; i++)
+		for (int i = 0; i < 1000; i++)
 			tree = bstInsert(tree, rand());
     }];
 }

@@ -32,14 +32,14 @@
 	ht_hash_table *table = ht_new();
 	char keyBuffer[12], valueBuffer[12];
 	char *key = keyBuffer, *value = valueBuffer;
-	for (int i = 0; i < 100000; i++) {
+	for (int i = 0; i < 1000; i++) {
 		sprintf(key, "%d", rand());
 		sprintf(value, "%d", i);
 		ht_insert(table, key, value);
 	}
 	
 	[self measureBlock:^{
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 1000; i++) {
 			sprintf(key, "%d", rand());
 			ht_search(table, key);
 		}
