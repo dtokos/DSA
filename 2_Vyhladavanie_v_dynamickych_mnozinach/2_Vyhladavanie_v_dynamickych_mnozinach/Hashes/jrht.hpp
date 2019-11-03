@@ -1,6 +1,8 @@
 #ifndef jrht_hpp
 #define jrht_hpp
 
+// Source: https://github.com/jamesroutley/algorithms-and-data-structures/blob/master/hash-table/src/hash_table.c
+
 typedef struct ht_item {
 	char* key;
 	char* value;
