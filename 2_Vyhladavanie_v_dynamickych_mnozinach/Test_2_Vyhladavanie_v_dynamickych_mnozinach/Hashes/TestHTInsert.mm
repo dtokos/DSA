@@ -25,6 +25,17 @@
 	XCTAssertTrue(pair->next == NULL);
 }
 
+- (void)testInsertSameKey {
+	HashTable *table = htMake();
+	htInsert(table, 1, 5);
+	htInsert(table, 1, 6);
+	KeyValuePair *pair = table->pairs[htCalculateIndex(1, table->size)];
+	XCTAssertEqual(table->count, 1);
+	XCTAssertEqual(pair->key, 1);
+	XCTAssertEqual(pair->value, 6);
+	XCTAssertTrue(pair->next == NULL);
+}
+
 - (void)testInsertCollision {
 	HashTable *table = htMake();
 	htInsert(table, 1, 5);

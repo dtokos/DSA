@@ -33,14 +33,17 @@ void htInsert(HashTable *table, int key, int value) {
 	if (shouldResize(table))
 		resize(table);
 	
-	table->count++;
 	unsigned index = htCalculateIndex(key, table->size);
 	KeyValuePair **insertPosition = &table->pairs[index];
 	
-	while (*insertPosition != NULL)
+	while (*insertPosition != NULL && (*insertPosition)->key != key)
 		insertPosition = &(*insertPosition)->next;
 	
-	*insertPosition = newKeyValuePair(key, value);
+	if (*insertPosition == NULL) {
+		*insertPosition = newKeyValuePair(key, value);
+		table->count++;
+	} else
+		(*insertPosition)->value = value;
 }
 
 void resize(HashTable *table) {
