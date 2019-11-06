@@ -30,37 +30,4 @@
 	XCTAssertEqual(pair->value, 6);
 }
 
-- (void)testSearchRandomPerformance {
-	HashTable *table = htMake();
-	for (int i = 0; i < 1000; i++)
-		htInsert(table, rand(), i);
-	
-	[self measureBlock:^{
-		for (int i = 0; i < 1000; i++)
-			htSearch(table, rand());
-	}];
-}
-
-- (void)testSearchAscendingPerformance {
-	HashTable *table = htMake();
-	for (int i = 0; i < 1000; i++)
-		htInsert(table, i, i);
-	
-	[self measureBlock:^{
-		for (int i = 0; i < 1000; i++)
-			htSearch(table, i);
-	}];
-}
-
-- (void)testSearchDescendingPerformance {
-	HashTable *table = htMake();
-	for (int i = 1000; i > 0; i--)
-		htInsert(table, i, i);
-	
-	[self measureBlock:^{
-		for (int i = 1000; i > 0; i--)
-			htSearch(table, i);
-	}];
-}
-
 @end

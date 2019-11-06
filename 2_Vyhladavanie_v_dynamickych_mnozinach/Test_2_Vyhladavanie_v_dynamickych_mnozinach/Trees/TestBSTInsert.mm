@@ -81,31 +81,4 @@
 	XCTAssertEqual(tree->right->left->right->left->height, 0);
 }
 
-- (void)testInsertRandomPerformance {
-	[self measureBlock:^{
-		BSTNode *tree = bstInsert(NULL, rand());
-		
-		for (int i = 0; i < 1000; i++)
-			tree = bstInsert(tree, rand());
-    }];
-}
-
-- (void)testInsertAscendingPerformance {
-	[self measureBlock:^{
-		BSTNode *tree = bstInsert(NULL, 0);
-		
-		for (int i = 1; i < 1000; i++)
-			tree = bstInsert(tree, i);
-	}];
-}
-
-- (void)testInsertDescendingPerformance {
-	[self measureBlock:^{
-		BSTNode *tree = bstInsert(NULL, 1000);
-		
-		for (int i = 999; i > 0; i--)
-			tree = bstInsert(tree, i);
-	}];
-}
-
 @end
