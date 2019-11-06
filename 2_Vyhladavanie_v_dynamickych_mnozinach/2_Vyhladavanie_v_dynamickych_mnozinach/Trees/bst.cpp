@@ -1,29 +1,41 @@
 #include "bst.hpp"
 
+#define getStackSize(node) (max(getHeight(node) + 1, 1))
+
 BSTNode *bstInsert(BSTNode *root, int value) {
 	if (root == NULL)
 		return newNode(value);
 	
-	if (root->value == value) {
-		root->count++;
-		return root;
+	BSTNode* stack[getStackSize(root)];
+	int stackIndex = 0;
+	
+	while (root != NULL) {
+		stack[stackIndex++] = root;
+		if (root->value == value)
+			break;
+		root = value < root->value ? root->left : root->right;
 	}
 	
-	if (value < root->value)
-		root->left = bstInsert(root->left, value);
+	stackIndex--;
+	
+	if (root != NULL && root->value == value)
+		root->count++;
+	else if (value < stack[stackIndex]->value)
+		stack[stackIndex]->left = newNode(value);
 	else
-		root->right = bstInsert(root->right, value);
+		stack[stackIndex]->right = newNode(value);
 	
-	root->height = calculateHeight(root);
+	for (; stackIndex >= 0; stackIndex--)
+		stack[stackIndex]->height = calculateHeight(stack[stackIndex]);
 	
-	return root;
+	return stack[0];
 }
 
 BSTNode *bstSearch(BSTNode *root, int value) {
-	if (root == NULL || root->value == value)
-		return root;
+	while (root != NULL && root->value != value)
+		root = value < root->value ? root->left : root->right;
 	
-	return value < root->value ? bstSearch(root->left, value) : bstSearch(root->right, value);
+	return root;
 }
 
 BSTNode *newNode(int value) {

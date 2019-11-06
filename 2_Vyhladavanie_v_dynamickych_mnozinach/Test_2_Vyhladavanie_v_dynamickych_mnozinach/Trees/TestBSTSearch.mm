@@ -38,7 +38,7 @@
 
 - (void)testSearchDuplicateNumber {
 	BSTNode *tree = bstInsert(NULL, 5);
-	bstInsert(tree, 5);
+	tree = bstInsert(tree, 5);
 	BSTNode *result = bstSearch(tree, 5);
 	XCTAssertEqual(result->value, 5);
 	XCTAssertEqual(result->count, 2);
