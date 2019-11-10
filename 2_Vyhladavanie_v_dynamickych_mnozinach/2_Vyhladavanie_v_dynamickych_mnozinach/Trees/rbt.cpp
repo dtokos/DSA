@@ -183,8 +183,8 @@ void redBlackTreePrint(Node* Root)
 
 Node* redBlackSearch(Node* Root, int key)
 {
-	if (Root == NULL || Root->key == key)
-		return Root;
+	while (Root != NULL && Root->key != key)
+		Root = key < Root->key ? Root->left : Root->right;
 	
-	return key < Root->key ? redBlackSearch(Root->left, key) : redBlackSearch(Root->right, key);
+	return Root;
 }

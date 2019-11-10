@@ -43,7 +43,7 @@
 - (BSTNode *)createRandom:(int)limit {
 	BSTNode *tree = NULL;
 	for (int i = 0; i < limit; i++)
-		bstInsert(tree, rand());
+		tree = bstInsert(tree, rand());
 	
 	return tree;
 }
@@ -88,7 +88,7 @@
 - (BSTNode *)createAscending:(int)limit {
 	BSTNode *tree = NULL;
 	for (int i = 0; i < limit; i++)
-		bstInsert(tree, i);
+		tree = bstInsert(tree, i);
 	
 	return tree;
 }
@@ -133,7 +133,7 @@
 - (BSTNode *)createDescending:(int)limit {
 	BSTNode *tree = NULL;
 	for (int i = limit; i > 0; i--)
-		bstInsert(tree, i);
+		tree = bstInsert(tree, i);
 	
 	return tree;
 }
@@ -178,7 +178,7 @@
 - (BSTNode *)createFixed:(int)limit {
 	BSTNode *tree = NULL;
 	for (int i = 0; i < limit; i++)
-		bstInsert(tree, numbers[i]);
+		tree = bstInsert(tree, numbers[i]);
 	
 	return tree;
 }
