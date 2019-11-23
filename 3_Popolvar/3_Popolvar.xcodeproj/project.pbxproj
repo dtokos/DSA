@@ -11,6 +11,9 @@
 		984EC9C223894FC4003E075A /* Test_3_Popolvar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 984EC9C123894FC4003E075A /* Test_3_Popolvar.mm */; };
 		984EC9C923894FED003E075A /* path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 984EC9C723894FED003E075A /* path.cpp */; };
 		984EC9CA23894FED003E075A /* path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 984EC9C723894FED003E075A /* path.cpp */; };
+		984EC9CD23896C59003E075A /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 984EC9CB23896C59003E075A /* types.cpp */; };
+		984EC9CE23896C59003E075A /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 984EC9CB23896C59003E075A /* types.cpp */; };
+		984EC9D023896CDD003E075A /* Test_Types.mm in Sources */ = {isa = PBXBuildFile; fileRef = 984EC9CF23896CDD003E075A /* Test_Types.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +36,9 @@
 		984EC9C323894FC4003E075A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		984EC9C723894FED003E075A /* path.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = path.cpp; sourceTree = "<group>"; };
 		984EC9C823894FED003E075A /* path.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = path.hpp; sourceTree = "<group>"; };
+		984EC9CB23896C59003E075A /* types.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
+		984EC9CC23896C59003E075A /* types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		984EC9CF23896CDD003E075A /* Test_Types.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Test_Types.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,8 @@
 				984EC9B423894F8B003E075A /* main.cpp */,
 				984EC9C823894FED003E075A /* path.hpp */,
 				984EC9C723894FED003E075A /* path.cpp */,
+				984EC9CC23896C59003E075A /* types.hpp */,
+				984EC9CB23896C59003E075A /* types.cpp */,
 			);
 			path = 3_Popolvar;
 			sourceTree = "<group>";
@@ -84,6 +92,7 @@
 		984EC9C023894FC4003E075A /* Test_3_Popolvar */ = {
 			isa = PBXGroup;
 			children = (
+				984EC9CF23896CDD003E075A /* Test_Types.mm */,
 				984EC9C123894FC4003E075A /* Test_3_Popolvar.mm */,
 				984EC9C323894FC4003E075A /* Info.plist */,
 			);
@@ -179,6 +188,7 @@
 			files = (
 				984EC9C923894FED003E075A /* path.cpp in Sources */,
 				984EC9B523894F8B003E075A /* main.cpp in Sources */,
+				984EC9CD23896C59003E075A /* types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +198,8 @@
 			files = (
 				984EC9CA23894FED003E075A /* path.cpp in Sources */,
 				984EC9C223894FC4003E075A /* Test_3_Popolvar.mm in Sources */,
+				984EC9CE23896C59003E075A /* types.cpp in Sources */,
+				984EC9D023896CDD003E075A /* Test_Types.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
