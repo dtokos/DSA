@@ -22,7 +22,7 @@ void addTileToMap(Map *map, char tile, Point2D point) {
 	if (type == Teleport) {
 		TeleportNode *teleport = newTeleportNode(point, (int)(tile - '0'));
 		linkTeleports(map->teleports, teleport);
-		appendToList(map->teleports, newNodeListItem((Node *)teleport));
+		appendToNodeList(map->teleports, newNodeListItem((Node *)teleport));
 	} else {
 		Node *node = newNode(type, point);
 		
@@ -32,7 +32,7 @@ void addTileToMap(Map *map, char tile, Point2D point) {
 				return;
 				
 			case Princess:
-				appendToList(map->princesses, newNodeListItem(node));
+				appendToNodeList(map->princesses, newNodeListItem(node));
 				return;
 				
 			default:
@@ -44,7 +44,12 @@ void addTileToMap(Map *map, char tile, Point2D point) {
 void linkTeleports(NodeList *teleports, TeleportNode *newTeleport) {
 	for (NodeListItem *item = teleports->first; item != NULL; item = item->next) {
 		TeleportNode *teleport = (TeleportNode *)item->node;
-		if (teleport->identifier != newTeleport->identifier) // TODO: Link
-			return;
+		if (teleport->identifier == newTeleport->identifier) {
+			Edge *edge = newEdge((Node *)teleport);
+			Edge *inverseEdge = newEdge((Node *)newTeleport);
+			
+			appendToEdgeList(newTeleport->edges, newEdgeListItem(edge));
+			appendToEdgeList(teleport->edges, newEdgeListItem(inverseEdge));
+		}
 	}
 }

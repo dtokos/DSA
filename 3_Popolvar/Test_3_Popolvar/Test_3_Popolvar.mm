@@ -4,7 +4,7 @@
 char const *map1[] = {
 	"CCHDC",
 	"PCH01",
-	"2CCHH",
+	"1CCHH",
 	"CPHHH",
 	"CHCPC",
 };
@@ -14,6 +14,21 @@ char const *map1[] = {
 @end
 
 @implementation Test_3_Popolvar
+
+- (void)testLinkTeleports {
+	TeleportNode *teleport1 = newTeleportNode({.x = 2, .y = 4}, 0);
+	TeleportNode *teleport2 = newTeleportNode({.x = 1, .y = 1}, 1);
+	TeleportNode *teleport3 = newTeleportNode({.x = 4, .y = 1}, 1);
+	NodeList *teleports = newNodeList();
+	appendToNodeList(teleports, newNodeListItem((Node *)teleport1));
+	appendToNodeList(teleports, newNodeListItem((Node *)teleport2));
+	linkTeleports(teleports, teleport3);
+	XCTAssertEqual(teleport1->edges->count, 0);
+	XCTAssertEqual(teleport2->edges->count, 1);
+	XCTAssertTrue(teleport2->edges->first->edge->target == (Node *)teleport3);
+	XCTAssertEqual(teleport3->edges->count, 1);
+	XCTAssertTrue(teleport3->edges->first->edge->target == (Node *)teleport2);
+}
 
 - (void)testCreateMap {
 	Map map = createMap((char **)map1, 5, 5);

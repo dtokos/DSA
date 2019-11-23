@@ -10,6 +10,8 @@
 #define CHAR_DENSE_FOREST	'H'
 #define CHAR_WALL			'N'
 
+struct EdgeList;
+
 struct Point2D {
 	int x;
 	int y;
@@ -28,12 +30,14 @@ enum NodeType {
 struct Node {
 	NodeType type;
 	Point2D point;
+	EdgeList *edges;
 };
 typedef struct Node Node;
 
 struct TeleportNode {
 	NodeType type;
 	Point2D point;
+	EdgeList *edges;
 	int identifier;
 };
 typedef struct TeleportNode TeleportNode;
@@ -51,12 +55,36 @@ struct NodeList {
 };
 typedef struct NodeList NodeList;
 
+struct Edge {
+	Node *target;
+	int weight;
+};
+typedef struct Edge Edge;
+
+struct EdgeListItem {
+	struct EdgeListItem *next;
+	Edge *edge;
+};
+typedef struct EdgeListItem EdgeListItem;
+
+struct EdgeList {
+	EdgeListItem *first;
+	EdgeListItem *last;
+	int count;
+};
+typedef struct EdgeList EdgeList;
+
 NodeType charToNodeType(char tile);
 Node *newNode(NodeType type, Point2D point);
 TeleportNode *newTeleportNode(Point2D point, int number);
 NodeList *newNodeList();
 NodeListItem *newNodeListItem(Node *node);
-void appendToList(NodeList *list, NodeListItem *item);
+void appendToNodeList(NodeList *list, NodeListItem *item);
+Edge *newEdge(Node *target);
+int calculateEdgeWeight(Node *target);
+EdgeListItem *newEdgeListItem(Edge *edge);
+EdgeList *newEdgeList();
+void appendToEdgeList(EdgeList *list, EdgeListItem *item);
 
 
 #endif
