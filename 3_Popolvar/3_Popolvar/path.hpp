@@ -10,6 +10,12 @@
 #define CHAR_DENSE_FOREST	'H'
 #define CHAR_WALL			'N'
 
+struct Point2D {
+	int x;
+	int y;
+};
+typedef struct Point2D Point2D;
+
 enum NodeType {
 	Dragon,
 	Princess,
@@ -21,33 +27,46 @@ enum NodeType {
 
 struct Node {
 	NodeType type;
-	int x;
-	int y;
+	Point2D point;
 };
 typedef struct Node Node;
 
 struct TeleportNode {
 	NodeType type;
-	int x;
-	int y;
-	int number;
+	Point2D point;
+	int identifier;
 };
+typedef struct TeleportNode TeleportNode;
+
+struct NodeListItem {
+	struct NodeListItem *next;
+	Node *node;
+};
+typedef struct NodeListItem NodeListItem;
+
+struct NodeList {
+	NodeListItem *first;
+	NodeListItem *last;
+	int count;
+};
+typedef struct NodeList NodeList;
 
 struct Map {
 	Node *dragon;
-	Node **princesses;
-	TeleportNode **teleports;
-	int princessCount;
-	int teleportCount;
+	NodeList *princesses;
+	NodeList *teleports;
 };
 typedef struct Map Map;
 
 int *zachran_princezne(char **mapa, int height, int width, int time, int *wayLength);
 
 Map createMap(char **charMap, int height, int width);
-void addTileToMap(Map *map, char tile);
 NodeType charToNodeType(char tile);
-Node *newNode(NodeType type, int x, int y);
-TeleportNode *newTeleportNode(int x, int y, int number);
+Node *newNode(NodeType type, Point2D point);
+TeleportNode *newTeleportNode(Point2D point, int number);
+NodeList *newNodeList();
+NodeListItem *newNodeListItem(Node *node);
+void appendToList(NodeList *list, NodeListItem *item);
+void linkTeleports(NodeList *teleports, TeleportNode *newTeleport);
 
 #endif
