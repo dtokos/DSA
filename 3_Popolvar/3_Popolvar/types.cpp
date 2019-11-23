@@ -22,6 +22,22 @@ NodeType charToNodeType(char tile) {
 	}
 }
 
+Node *nodeForTile(char tile, Point2D point) {
+	NodeType type = charToNodeType(tile);
+	
+	switch (type) {
+		case Teleport:
+			return (Node *)newTeleportNode(point, (int)(tile - '0'));
+			
+		case Wall:
+			return NULL;
+			
+		default:
+			return newNode(type, point);
+	}
+}
+
+
 Node *newNode(NodeType type, Point2D point) {
 	Node *node = (Node *)malloc(sizeof(Node));
 	node->type = type;

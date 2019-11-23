@@ -1,55 +1,54 @@
 #include "path.hpp"
 
-void addTileToMap(Map *map, char tile, Point2D point);
+int calculatePathCount(Map *map);
+int permutatePaths(Node ***paths, Node *nodes[], int remainingSize, int size);
+void swapPaths(Node **nodeA, Node** nodeB);
 
-int *zachran_princezne(char **mapa, int height, int width, int time, int *wayLength) {
+int *zachran_princezne(char **charMap, int height, int width, int time, int *wayLength) {
+	Map map = createMap(charMap, height, width);
+	int pathCount = calculatePathCount(&map);
+	Node *paths[pathCount][map.princesses->count + 1];
+	generateAllPossiblePaths(&map, (Node ***)paths);
+	
 	return wayLength;
 }
 
-Map createMap(char **charMap, int height, int width) {
-	Map map = {.princesses = newNodeList(), .teleports = newNodeList()};
+int calculatePathCount(Map *map) {
+	int count = 1;
+	for (int i = map->princesses->count; i > 0; i--)
+		count *= i;
 	
-	for (int row = 0; row < height; row++)
-		for (int column = 0; column < width; column++)
-			addTileToMap(&map, charMap[row][column], {.x = column, .y = row});
-	
-	return map;
-}
-	
-void addTileToMap(Map *map, char tile, Point2D point) {
-	NodeType type = charToNodeType(tile);
-	
-	if (type == Teleport) {
-		TeleportNode *teleport = newTeleportNode(point, (int)(tile - '0'));
-		linkTeleports(map->teleports, teleport);
-		appendToNodeList(map->teleports, newNodeListItem((Node *)teleport));
-	} else {
-		Node *node = newNode(type, point);
-		
-		switch (node->type) {
-			case Dragon:
-				map->dragon = node;
-				return;
-				
-			case Princess:
-				appendToNodeList(map->princesses, newNodeListItem(node));
-				return;
-				
-			default:
-				return;
-		}
-	}
+	return count + 1;
 }
 
-void linkTeleports(NodeList *teleports, TeleportNode *newTeleport) {
-	for (NodeListItem *item = teleports->first; item != NULL; item = item->next) {
-		TeleportNode *teleport = (TeleportNode *)item->node;
-		if (teleport->identifier == newTeleport->identifier) {
-			Edge *edge = newEdge((Node *)teleport);
-			Edge *inverseEdge = newEdge((Node *)newTeleport);
-			
-			appendToEdgeList(newTeleport->edges, newEdgeListItem(edge));
-			appendToEdgeList(teleport->edges, newEdgeListItem(inverseEdge));
-		}
+void generateAllPossiblePaths(Map *map, Node ***paths) {
+	Node *nodes[map->princesses->count + 1];
+	nodes[0] = map->dragon;
+	
+	int index = 1;
+	for (NodeListItem *item = map->princesses->first; item != NULL; item = item->next)
+		nodes[index++] = item->node;
+	
+	permutatePaths(paths, nodes, index, index);
+}
+
+int permutatePaths(Node ***paths, Node *nodes[], int remainingSize, int size) {
+	if (remainingSize == 1) {
+		memcpy(paths, nodes, size * sizeof(Node *));
+		return 1;
 	}
+	
+	int insertIndex = 0;
+	for (int i = 0; i < remainingSize; i++) {
+		insertIndex += permutatePaths(paths + insertIndex * size, nodes, remainingSize - 1, size);
+		swapPaths(&nodes[((remainingSize % 2) == 0) * i], &nodes[remainingSize - 1]);
+	}
+	
+	return insertIndex;
+}
+
+void swapPaths(Node **nodeA, Node** nodeB) {
+	Node *tmp = *nodeA;
+	*nodeA = *nodeB;
+	*nodeB = tmp;
 }

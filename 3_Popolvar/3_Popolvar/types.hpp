@@ -75,6 +75,7 @@ struct EdgeList {
 typedef struct EdgeList EdgeList;
 
 NodeType charToNodeType(char tile);
+Node *nodeForTile(char tile, Point2D point);
 Node *newNode(NodeType type, Point2D point);
 TeleportNode *newTeleportNode(Point2D point, int number);
 NodeList *newNodeList();
