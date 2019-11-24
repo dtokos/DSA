@@ -98,6 +98,18 @@ void appendToNodeList(NodeList *list, NodeListItem *item) {
 	list->count++;
 }
 
+void prependToNodeList(NodeList *list, NodeListItem *item) {
+	if (list->first == NULL) {
+		list->first = item;
+		list->last = item;
+	} else {
+		item->next = list->first;
+		list->first = item;
+	}
+	
+	list->count++;
+}
+
 Edge *newEdge(Node *target) {
 	Edge *edge = (Edge *)malloc(sizeof(Edge));
 	edge->target = target;
@@ -155,6 +167,7 @@ Path *newPath(Node *start, Node *finish) {
 	path->steps = NULL;
 	path->length = 0;
 	path->wasDragonKilled = false;
+	path->dragonKillDistance = 0;
 	
 	return path;
 }

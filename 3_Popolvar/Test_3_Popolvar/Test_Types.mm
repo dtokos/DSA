@@ -81,6 +81,30 @@
 	XCTAssertEqual(list->count, 3);
 }
 
+- (void)testPrependToNodeList {
+	NodeList *list = newNodeList();
+	NodeListItem* item1 = newNodeListItem(newNode(Princess, {.x = 2, .y = 4}));
+	NodeListItem* item2 = newNodeListItem(newNode(Princess, {.x = 5, .y = 1}));
+	NodeListItem* item3 = newNodeListItem(newNode(Princess, {.x = 9, .y = 8}));
+	
+	prependToNodeList(list, item1);
+	XCTAssertTrue(list->first == item1);
+	XCTAssertTrue(list->last == item1);
+	XCTAssertEqual(list->count, 1);
+	
+	prependToNodeList(list, item2);
+	XCTAssertTrue(list->first == item2);
+	XCTAssertTrue(list->first->next == item1);
+	XCTAssertTrue(list->last == item1);
+	XCTAssertEqual(list->count, 2);
+	
+	prependToNodeList(list, item3);
+	XCTAssertTrue(list->first == item3);
+	XCTAssertTrue(list->first->next->next == item1);
+	XCTAssertTrue(list->last == item1);
+	XCTAssertEqual(list->count, 3);
+}
+
 - (void)testCalculateEdgeWeight {
 	Node dragon = {.type = Dragon};
 	XCTAssertEqual(calculateEdgeWeight(&dragon), 1);
@@ -148,6 +172,8 @@
 	XCTAssertTrue(path->start == &start);
 	XCTAssertTrue(path->finish == &finish);
 	XCTAssertTrue(path->steps == NULL);
+	XCTAssertFalse(path->wasDragonKilled);
+	XCTAssertEqual(path->dragonKillDistance, 0);
 }
 
 - (void)testNewHeap {

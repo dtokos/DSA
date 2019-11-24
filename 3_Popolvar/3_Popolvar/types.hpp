@@ -86,6 +86,7 @@ struct Path {
 	NodeList *steps;
 	int length;
 	bool wasDragonKilled;
+	int dragonKillDistance;
 };
 typedef struct Path Path;
 
@@ -101,6 +102,7 @@ TeleportNode *newTeleportNode(Point2D point, int number);
 NodeList *newNodeList();
 NodeListItem *newNodeListItem(Node *node);
 void appendToNodeList(NodeList *list, NodeListItem *item);
+void prependToNodeList(NodeList *list, NodeListItem *item);
 Edge *newEdge(Node *target);
 int calculateEdgeWeight(Node *target);
 EdgeListItem *newEdgeListItem(Edge *edge);
