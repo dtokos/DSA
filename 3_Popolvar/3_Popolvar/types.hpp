@@ -31,6 +31,9 @@ struct Node {
 	NodeType type;
 	Point2D point;
 	EdgeList *edges;
+	struct Node *parent;
+	unsigned distance;
+	unsigned finalizedFactor;
 };
 typedef struct Node Node;
 
@@ -38,6 +41,9 @@ struct TeleportNode {
 	NodeType type;
 	Point2D point;
 	EdgeList *edges;
+	struct Node *parent;
+	unsigned distance;
+	unsigned finalizedFactor;
 	int identifier;
 };
 typedef struct TeleportNode TeleportNode;

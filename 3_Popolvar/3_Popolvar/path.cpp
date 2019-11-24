@@ -9,7 +9,7 @@ void swapPaths(Node **nodeA, Node** nodeB);
 
 int *zachran_princezne(char **charMap, int height, int width, int time, int *wayLength) {
 	Map map = createMap(charMap, height, width);
-	Node *pathParts[calculatePathVariationsCount(&map)];
+	Path *pathParts[calculatePathVariationsCount(&map)];
 	Node *paths[factorial(map.princesses->count)][map.princesses->count + 1];
 	
 	generateAllPathParts(&map, pathParts);
@@ -30,14 +30,29 @@ int calculatePathVariationsCount(Map *map) {
 	return factorial(map->princesses->count + 1) / factorial(map->princesses->count + 1 - 2);
 }
 
-void generateAllPathParts(Map *map, Node **pathParts) {
+void generateAllPathParts(Map *map, Path **pathParts) {
+	printf("Count: %i\n", calculatePathVariationsCount(map));
 	int count = calculateWaypointCount(map);
 	Node *waypoints[count];
 	generateWaypoints(map, waypoints);
+	NodeHeap *queue = newHeap(map->width * map->height);
+	unsigned finalizedFactor = 1;
+	int insertIndex = 0;
 	
-	for (int i = 0; i < count; i++) {
-		//djikstra waypoints[i]
-		//build paths
+	for (int startIndex = 0; startIndex < count; startIndex++) {
+		//printf("%c%c%c\n", waypoints[startIndex] )
+		dijkstra(waypoints[startIndex], queue, finalizedFactor);
+		printf("\n\n\n");
+		
+		for (int finishIndex = 0; finishIndex < count; finishIndex++) {
+			if (startIndex == finishIndex)
+				continue;
+			
+			pathParts[insertIndex] = newPath(waypoints[startIndex], waypoints[finishIndex]);
+			pathParts[insertIndex++]->length = waypoints[finishIndex]->distance;
+		}
+		
+		finalizedFactor += 2;
 	}
 }
 
@@ -59,6 +74,44 @@ void generateWaypoints(Map *map, Node **buffer) {
 	int index = 1;
 	for (NodeListItem *item = map->princesses->first; item != NULL; item = item->next)
 		buffer[index++] = item->node;
+}
+
+void dijkstra(Node *start, NodeHeap *queue, unsigned finalizedFactor) {
+	appendToNodeHeap(queue, start);
+	start->distance = 0;
+	start->parent = NULL;
+	Node *node, *target;
+	int newDistance;
+	
+	while (queue->size != 0) {
+		node = pollFromNodeHeap(queue);
+		node->finalizedFactor = finalizedFactor + 2;
+		printf("Picked node x: %i y: %i\n", node->point.x, node->point.y);
+		
+		for (EdgeListItem *item = node->edges->first; item != NULL; item = item->next) {
+			target = item->edge->target;
+			newDistance = node->distance + item->edge->weight;
+			printf("Target x: %i y: %i\n", target->point.x, target->point.y);
+			
+			if (finalizedFactor + 1 == target->finalizedFactor && newDistance < target->distance) {
+				printf("Target is neutral\n");
+				printf("Adding to queue x: %i y: %i\n", target->point.x, target->point.y);
+				target->distance = newDistance;
+				target->parent = node;
+				appendToNodeHeap(queue, target);
+			} else if (target->finalizedFactor == finalizedFactor) {
+				printf("Target is reseting\n");
+				printf("Adding to queue x: %i y: %i\n", target->point.x, target->point.y);
+				target->distance = newDistance;
+				target->parent = node;
+				target->finalizedFactor++;
+				appendToNodeHeap(queue, target);
+			} else {
+				printf("Target is finalized\n");
+			}
+		}
+		printf("-----------------\n");
+	}
 }
 
 int permutatePaths(Node ***paths, Node *nodes[], int remainingSize, int size) {

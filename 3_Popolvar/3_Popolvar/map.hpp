@@ -6,6 +6,8 @@
 #include "types.hpp"
 
 struct Map {
+	int width;
+	int height;
 	Node *start;
 	Node *dragon;
 	NodeList *princesses;

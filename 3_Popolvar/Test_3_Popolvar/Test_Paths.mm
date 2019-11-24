@@ -1,18 +1,25 @@
 #import <XCTest/XCTest.h>
 #include "path.hpp"
 
+char const *charMap[] = {
+	"CCP",
+	"DCC",
+	"CPC",
+};
+
 @interface Test_Paths : XCTestCase
 
 @end
 
 @implementation Test_Paths
 
+- (void)testGenerateAllPathParts {
+	Map map = createMap((char **)charMap, 3, 3);
+	Path *pathParts[6];
+	generateAllPathParts(&map, pathParts);
+}
+
 -(void)testGenerateAllPossiblePaths {
-	char const *charMap[] = {
-		"CCP",
-		"DCC",
-		"CPC",
-	};
 	Map map = createMap((char **)charMap, 3, 3);
 	Node *dragon = map.dragon;
 	Node *princess1 = map.princesses->first->node;

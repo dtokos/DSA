@@ -48,6 +48,9 @@ Node *newNode(NodeType type, Point2D point) {
 	node->point.x = point.x;
 	node->point.y = point.y;
 	node->edges = newEdgeList();
+	node->parent = NULL;
+	node->distance = ~0;
+	node->finalizedFactor = 1;
 	
 	return node;
 }
@@ -58,6 +61,9 @@ TeleportNode *newTeleportNode(Point2D point, int number) {
 	node->point.x = point.x;
 	node->point.y = point.y;
 	node->edges = newEdgeList();
+	node->parent = NULL;
+	node->distance = ~0;
+	node->finalizedFactor = 1;
 	node->identifier = number;
 	
 	return node;
@@ -169,8 +175,8 @@ void appendToNodeHeap(NodeHeap *heap, Node *node) {
 void heapifyUp(NodeHeap *heap) {
 	int index = heap->size - 1;
 	int parentIndex = (index - 1) / 2;
-	// TODO: Replace type with distance
-	while (parentIndex >= 0 && heap->items[parentIndex]->type > heap->items[index]->type) {
+
+	while (parentIndex >= 0 && heap->items[parentIndex]->distance > heap->items[index]->distance) {
 		heapSwap(&heap->items[parentIndex], &heap->items[index]);
 		index = parentIndex;
 	}
@@ -194,8 +200,7 @@ void heapifyDown(NodeHeap *heap) {
 		if (rightChildIndex < heap->size && heap->items[rightChildIndex] < heap->items[leftChildIndex])
 			smallerChildIndex = rightChildIndex;
 		
-		// TODO: Replace type with distance
-		if (heap->items[index]->type < heap->items[smallerChildIndex]->type)
+		if (heap->items[index]->distance < heap->items[smallerChildIndex]->distance)
 			return;
 		
 		heapSwap(&heap->items[index], &heap->items[smallerChildIndex]);

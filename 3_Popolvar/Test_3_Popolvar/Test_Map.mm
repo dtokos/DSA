@@ -53,6 +53,8 @@ char const *map1[] = {
 
 - (void)testCreateMap {
 	Map map = createMap((char **)map1, 5, 5);
+	XCTAssertEqual(map.width, 5);
+	XCTAssertEqual(map.height, 5);
 	XCTAssertEqual(map.princesses->count, 3);
 	XCTAssertEqual(map.teleports->count, 3);
 	XCTAssertEqual(map.start->type, ForestPath);

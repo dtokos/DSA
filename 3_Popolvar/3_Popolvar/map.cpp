@@ -4,7 +4,7 @@ void addToMapSpecialNodes(Map *map, Node *node);
 bool isLinked(Node *nodeA, Node *nodeB);
 
 Map createMap(char **charMap, int height, int width) {
-	Map map = {.princesses = newNodeList(), .teleports = newNodeList()};
+	Map map = {.width = width, .height = height, .princesses = newNodeList(), .teleports = newNodeList()};
 	Node* buffer[height][width];
 	
 	for (int row = 0; row < height; row++) {

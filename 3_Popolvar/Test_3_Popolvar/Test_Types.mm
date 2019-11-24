@@ -24,6 +24,9 @@
 	XCTAssertTrue(node->edges->first == NULL);
 	XCTAssertTrue(node->edges->last == NULL);
 	XCTAssertEqual(node->edges->count, 0);
+	XCTAssertTrue(node->parent == NULL);
+	XCTAssertEqual(node->distance, ~0);
+	XCTAssertEqual(node->finalizedFactor, 1);
 }
 
 - (void)testNewTeleportNode {
@@ -34,6 +37,9 @@
 	XCTAssertTrue(teleport->edges->first == NULL);
 	XCTAssertTrue(teleport->edges->last == NULL);
 	XCTAssertEqual(teleport->edges->count, 0);
+	XCTAssertTrue(teleport->parent == NULL);
+	XCTAssertEqual(teleport->distance, ~0);
+	XCTAssertEqual(teleport->finalizedFactor, 1);
 	XCTAssertEqual(teleport->identifier, 9);
 }
 
@@ -152,47 +158,45 @@
 
 - (void)testAppendToNodeHeap {
 	NodeHeap *heap = newHeap(5);
-	// TODO: Replace types with distances
-	Node denseForest = {.type = DenseForest};
-	Node forestPath = {.type = ForestPath};
-	Node dragon = {.type = Dragon};
-	Node teleport = {.type = Teleport};
-	Node princess = {.type = Princess};
-	appendToNodeHeap(heap, &denseForest);
-	appendToNodeHeap(heap, &forestPath);
-	appendToNodeHeap(heap, &dragon);
-	appendToNodeHeap(heap, &teleport);
-	appendToNodeHeap(heap, &princess);
-	XCTAssertTrue(heap->items[0] == &dragon);
-	XCTAssertTrue(heap->items[1] == &princess);
-	XCTAssertTrue(heap->items[2] == &forestPath);
-	XCTAssertTrue(heap->items[3] == &denseForest);
-	XCTAssertTrue(heap->items[4] == &teleport);
+	Node node1 = {.distance = 5};
+	Node node2 = {.distance = 4};
+	Node node3 = {.distance = 1};
+	Node node4 = {.distance = 3};
+	Node node5 = {.distance = 2};
+	appendToNodeHeap(heap, &node1);
+	appendToNodeHeap(heap, &node2);
+	appendToNodeHeap(heap, &node3);
+	appendToNodeHeap(heap, &node4);
+	appendToNodeHeap(heap, &node5);
+	XCTAssertTrue(heap->items[0] == &node3);
+	XCTAssertTrue(heap->items[1] == &node5);
+	XCTAssertTrue(heap->items[2] == &node2);
+	XCTAssertTrue(heap->items[3] == &node1);
+	XCTAssertTrue(heap->items[4] == &node4);
 }
 
 - (void)testPollFromNodeHeap {
 	NodeHeap *heap = newHeap(5);
-	// TODO: Replace types with distances
-	Node denseForest = {.type = DenseForest};
-	Node forestPath = {.type = ForestPath};
-	Node dragon = {.type = Dragon};
-	Node teleport = {.type = Teleport};
-	Node princess = {.type = Princess};
-	appendToNodeHeap(heap, &denseForest);
-	appendToNodeHeap(heap, &forestPath);
-	appendToNodeHeap(heap, &dragon);
-	appendToNodeHeap(heap, &teleport);
-	appendToNodeHeap(heap, &princess);
+	Node node1 = {.distance = 5};
+	Node node2 = {.distance = 4};
+	Node node3 = {.distance = 1};
+	Node node4 = {.distance = 3};
+	Node node5 = {.distance = 2};
+	appendToNodeHeap(heap, &node1);
+	appendToNodeHeap(heap, &node2);
+	appendToNodeHeap(heap, &node3);
+	appendToNodeHeap(heap, &node4);
+	appendToNodeHeap(heap, &node5);
 	Node *poll1 = pollFromNodeHeap(heap);
 	Node *poll2 = pollFromNodeHeap(heap);
 	Node *poll3 = pollFromNodeHeap(heap);
 	Node *poll4 = pollFromNodeHeap(heap);
 	Node *poll5 = pollFromNodeHeap(heap);
-	XCTAssertTrue(poll1 == &dragon);
-	XCTAssertTrue(poll2 == &princess);
-	XCTAssertTrue(poll3 == &teleport);
-	XCTAssertTrue(poll4 == &forestPath);
-	XCTAssertTrue(poll5 == &denseForest);
+	XCTAssertTrue(poll1 == &node3);
+	XCTAssertTrue(poll2 == &node5);
+	XCTAssertTrue(poll3 == &node4);
+	XCTAssertTrue(poll4 == &node2);
+	XCTAssertTrue(poll5 == &node1);
 }
 
 @end
