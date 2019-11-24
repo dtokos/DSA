@@ -74,6 +74,20 @@ struct EdgeList {
 };
 typedef struct EdgeList EdgeList;
 
+struct Path {
+	Node *start;
+	Node *finish;
+	NodeList *steps;
+	int length;
+	bool wasDragonKilled;
+};
+typedef struct Path Path;
+
+struct NodeHeap {
+	Node **items;
+	int size;
+};
+
 NodeType charToNodeType(char tile);
 Node *nodeForTile(char tile, Point2D point);
 Node *newNode(NodeType type, Point2D point);
@@ -86,6 +100,9 @@ int calculateEdgeWeight(Node *target);
 EdgeListItem *newEdgeListItem(Edge *edge);
 EdgeList *newEdgeList();
 void appendToEdgeList(EdgeList *list, EdgeListItem *item);
-
+Path *newPath(Node *start, Node *finish);
+NodeHeap *newHeap(int capacity);
+void appendToNodeHeap(NodeHeap *heap, Node *node);
+Node *pollFromNodeHeap(NodeHeap *heap);
 
 #endif

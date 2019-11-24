@@ -1,5 +1,9 @@
 #include "types.hpp"
 
+void heapifyUp(NodeHeap *heap);
+void heapifyDown(NodeHeap *heap);
+void heapSwap(Node **nodeA, Node **nodeB);
+
 NodeType charToNodeType(char tile) {
 	switch (tile) {
 		case CHAR_DRAGON:
@@ -136,5 +140,74 @@ void appendToEdgeList(EdgeList *list, EdgeListItem *item) {
 	}
 	
 	list->count++;
+}
+
+Path *newPath(Node *start, Node *finish) {
+	Path *path = (Path *)malloc(sizeof(Path));
+	path->start = start;
+	path->finish = finish;
+	path->steps = NULL;
+	path->length = 0;
+	path->wasDragonKilled = false;
+	
+	return path;
+}
+
+NodeHeap *newHeap(int capacity) {
+	NodeHeap *heap = (NodeHeap *)malloc(sizeof(NodeHeap));
+	heap->items = (Node **)malloc(sizeof(Node *) * capacity);
+	heap->size = 0;
+	
+	return heap;
+}
+
+void appendToNodeHeap(NodeHeap *heap, Node *node) {
+	heap->items[heap->size++] = node;
+	heapifyUp(heap);
+}
+
+void heapifyUp(NodeHeap *heap) {
+	int index = heap->size - 1;
+	int parentIndex = (index - 1) / 2;
+	// TODO: Replace type with distance
+	while (parentIndex >= 0 && heap->items[parentIndex]->type > heap->items[index]->type) {
+		heapSwap(&heap->items[parentIndex], &heap->items[index]);
+		index = parentIndex;
+	}
+}
+
+Node *pollFromNodeHeap(NodeHeap *heap) {
+	Node *minItem = heap->items[0];
+	heap->items[0] = heap->items[heap->size-- - 1];
+	heapifyDown(heap);
+	
+	return minItem;
+}
+
+void heapifyDown(NodeHeap *heap) {
+	int index = 0;
+	int leftChildIndex = 2 * index + 1;
+	int rightChildIndex = leftChildIndex + 1;
+	
+	while (leftChildIndex < heap->size) {
+		int smallerChildIndex = leftChildIndex;
+		if (rightChildIndex < heap->size && heap->items[rightChildIndex] < heap->items[leftChildIndex])
+			smallerChildIndex = rightChildIndex;
+		
+		// TODO: Replace type with distance
+		if (heap->items[index]->type < heap->items[smallerChildIndex]->type)
+			return;
+		
+		heapSwap(&heap->items[index], &heap->items[smallerChildIndex]);
+		index = smallerChildIndex;
+		leftChildIndex = 2 * index + 1;
+		rightChildIndex = leftChildIndex + 1;
+	}
+}
+
+void heapSwap(Node **nodeA, Node **nodeB) {
+	Node *tmp = *nodeA;
+	*nodeA = *nodeB;
+	*nodeB = tmp;
 }
 

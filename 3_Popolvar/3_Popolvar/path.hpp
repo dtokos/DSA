@@ -7,6 +7,7 @@
 
 int *zachran_princezne(char **mapa, int height, int width, int time, int *wayLength);
 
+void generateAllPathParts(Map *map, Node **pathParts);
 void generateAllPossiblePaths(Map *map, Node ***paths);
 
 #endif
