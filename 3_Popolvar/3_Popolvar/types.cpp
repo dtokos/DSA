@@ -1,0 +1,72 @@
+#include "types.hpp"
+
+void heapifyUp(Heap *heap, int index);
+void heapifyDown(Heap *heap);
+void heapSwap(Node **nodeA, Node **nodeB);
+
+Map *newMap(int width, int height) {
+	Map *map = (Map *)malloc(sizeof(Map));
+	map->width = width;
+	map->height = height;
+	map->princessCount = 0;
+	map->nodes = (Node *)malloc(width * height * sizeof(Node));
+	map->waypointCount = 1;
+	
+	return map;
+}
+
+Heap *newHeap(int capacity) {
+	Heap *heap = (Heap *)malloc(sizeof(Heap));
+	heap->nodes = (Node **)malloc(sizeof(Node *) * capacity);
+	heap->count = 0;
+	
+	return heap;
+}
+
+void heapInsert(Heap *heap, Node *node) {
+	heap->nodes[heap->count] = node;
+	heapifyUp(heap, heap->count++);
+}
+
+Node *heapPop(Heap *heap) {
+	Node *minItem = heap->nodes[0];
+	heap->nodes[0] = heap->nodes[--heap->count];
+	heapifyDown(heap);
+	
+	return minItem;
+}
+
+void heapifyUp(Heap *heap, int index) {
+	int parentIndex = (index - 1) / 2;
+	
+	while (parentIndex >= 0 && heap->nodes[parentIndex]->distance > heap->nodes[index]->distance) {
+		heapSwap(&heap->nodes[parentIndex], &heap->nodes[index]);
+		index = parentIndex;
+	}
+}
+
+void heapifyDown(Heap *heap) {
+	int index = 0;
+	int leftChildIndex = 2 * index + 1;
+	int rightChildIndex = leftChildIndex + 1;
+	
+	while (leftChildIndex < heap->count) {
+		int smallerChildIndex = leftChildIndex;
+		if (rightChildIndex < heap->count && heap->nodes[rightChildIndex] < heap->nodes[leftChildIndex])
+			smallerChildIndex = rightChildIndex;
+		
+		if (heap->nodes[index]->distance < heap->nodes[smallerChildIndex]->distance)
+			return;
+		
+		heapSwap(&heap->nodes[index], &heap->nodes[smallerChildIndex]);
+		index = smallerChildIndex;
+		leftChildIndex = 2 * index + 1;
+		rightChildIndex = leftChildIndex + 1;
+	}
+}
+
+void heapSwap(Node **nodeA, Node **nodeB) {
+	Node *tmp = *nodeA;
+	*nodeA = *nodeB;
+	*nodeB = tmp;
+}

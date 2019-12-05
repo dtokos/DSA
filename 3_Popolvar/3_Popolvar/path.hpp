@@ -1,8 +1,19 @@
 #ifndef path_hpp
 #define path_hpp
 
+#include <stdio.h>
 #include <stdlib.h>
+#include "types.hpp"
 
-int *zachran_princezne(char **mapa, int height, int width, int time, int *wayLength);
+#define FOREST_PATH 10
+#define DENSE_FOREST 11
+#define WALL 12
+#define DRAGON 13
+#define GENERATOR 14
+#define PRINCESS 15
+
+int *zachran_princezne(char **charMap, int height, int width, int time, int *wayLength);
+Map *createMap(char **map, int width, int height);
+SplitPath *findSplitPaths(Map *map, int *count);
 
 #endif
