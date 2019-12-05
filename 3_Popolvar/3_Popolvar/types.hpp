@@ -4,10 +4,11 @@
 #include <stdlib.h>
 
 struct Node {
-	int x:10;
-	int y:10;
-	int type:6;
-	int resetFactor:3;
+	unsigned x:10;
+	unsigned y:10;
+	unsigned type:5;
+	unsigned weight:2;
+	unsigned resetFactor:2;
 	int distance;
 	struct Node *parent;
 };
@@ -43,5 +44,6 @@ Map *newMap(int width, int height);
 Heap *newHeap(int capacity);
 void heapInsert(Heap *heap, Node *node);
 Node *heapPop(Heap *heap);
+void heapUpdate(Heap *heap, Node *node);
 
 #endif

@@ -36,6 +36,15 @@ Node *heapPop(Heap *heap) {
 	return minItem;
 }
 
+void heapUpdate(Heap *heap, Node *node) {
+	for (int i = 0; i < heap->count; i++) {
+		if (heap->nodes[i] == node) {
+			heapifyUp(heap, i);
+			return;
+		}
+	}
+}
+
 void heapifyUp(Heap *heap, int index) {
 	int parentIndex = (index - 1) / 2;
 	

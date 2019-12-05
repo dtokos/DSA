@@ -9,10 +9,11 @@ do { \
 		XCTAssertEqual(expected[i], result[i]); \
 } while(0);
 
-#define AssertNode(map, x, y, nodeType) \
+#define AssertNode(map, x, y, nodeType, nodeWeight) \
 do { \
 	Node *node = map->nodes + y * map->width + x % map->width; \
 	XCTAssertEqual(node->type, nodeType); \
+	XCTAssertEqual(node->weight, nodeWeight); \
 	XCTAssertEqual(node->resetFactor, 0); \
 	XCTAssertEqual(node->distance, ~0); \
 	XCTAssertTrue(node->parent == NULL); \
@@ -41,26 +42,26 @@ do { \
 	XCTAssertEqual(map->princessCount, 2);
 	XCTAssertEqual(map->waypointCount, 4);
 	
-	AssertNode(map, 4, 0, 0);
-	AssertNode(map, 4, 1, 1);
-	AssertNode(map, 4, 2, 2);
-	AssertNode(map, 5, 0, 3);
-	AssertNode(map, 5, 1, 4);
-	AssertNode(map, 5, 2, 5);
-	AssertNode(map, 6, 0, 6);
-	AssertNode(map, 6, 1, 7);
-	AssertNode(map, 6, 2, 8);
-	AssertNode(map, 7, 0, 9);
+	AssertNode(map, 4, 0, 0, 1);
+	AssertNode(map, 4, 1, 1, 1);
+	AssertNode(map, 4, 2, 2, 1);
+	AssertNode(map, 5, 0, 3, 1);
+	AssertNode(map, 5, 1, 4, 1);
+	AssertNode(map, 5, 2, 5, 1);
+	AssertNode(map, 6, 0, 6, 1);
+	AssertNode(map, 6, 1, 7, 1);
+	AssertNode(map, 6, 2, 8, 1);
+	AssertNode(map, 7, 0, 9, 1);
 	
-	AssertNode(map, 1, 0, PRINCESS);
-	AssertNode(map, 0, 1, PRINCESS + 1);
+	AssertNode(map, 1, 0, PRINCESS, 1);
+	AssertNode(map, 0, 1, PRINCESS + 1, 1);
 	
-	AssertNode(map, 7, 1, GENERATOR);
-	AssertNode(map, 2, 2, DRAGON);
+	AssertNode(map, 7, 1, GENERATOR, 1);
+	AssertNode(map, 2, 2, DRAGON, 1);
 	
-	AssertNode(map, 0, 0, FOREST_PATH);
-	AssertNode(map, 1, 2, DENSE_FOREST);
-	AssertNode(map, 3, 0, WALL);
+	AssertNode(map, 0, 0, FOREST_PATH, 1);
+	AssertNode(map, 1, 2, DENSE_FOREST, 2);
+	AssertNode(map, 3, 0, WALL, 1);
 }
 
 - (void)testFindSplitPaths {

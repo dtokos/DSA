@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980CD8AF23996321005CD372 /* TestTypes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 980CD8AE23996321005CD372 /* TestTypes.mm */; };
 		987DC9EA23991770009CC720 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 987DC9E923991770009CC720 /* main.cpp */; };
 		987DC9FE239917AC009CC720 /* path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 987DC9FC239917AC009CC720 /* path.cpp */; };
 		987DC9FF239917AC009CC720 /* path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 987DC9FC239917AC009CC720 /* path.cpp */; };
@@ -28,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		980CD8AE23996321005CD372 /* TestTypes.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestTypes.mm; sourceTree = "<group>"; };
 		987DC9E623991770009CC720 /* 3_Popolvar */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 3_Popolvar; sourceTree = BUILT_PRODUCTS_DIR; };
 		987DC9E923991770009CC720 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		987DC9F42399178F009CC720 /* Test_3_Popolvar.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test_3_Popolvar.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +92,7 @@
 		987DC9F52399178F009CC720 /* Test_3_Popolvar */ = {
 			isa = PBXGroup;
 			children = (
+				980CD8AE23996321005CD372 /* TestTypes.mm */,
 				987DCA0023991808009CC720 /* TestPath.mm */,
 				987DC9F82399178F009CC720 /* Info.plist */,
 			);
@@ -196,6 +199,7 @@
 				987DCA0123991808009CC720 /* TestPath.mm in Sources */,
 				987DC9FF239917AC009CC720 /* path.cpp in Sources */,
 				987DCA072399356E009CC720 /* types.cpp in Sources */,
+				980CD8AF23996321005CD372 /* TestTypes.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
