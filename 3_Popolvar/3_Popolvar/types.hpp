@@ -33,6 +33,12 @@ struct SplitPath {
 };
 typedef struct SplitPath SplitPath;
 
+struct SplitPaths {
+	SplitPath *splits;
+	int count;
+};
+typedef struct SplitPaths SplitPaths;
+
 struct Heap {
 	Node **nodes;
 	int count;

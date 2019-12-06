@@ -19,6 +19,16 @@ do { \
 	XCTAssertTrue(node->parent == NULL); \
 } while(0);
 
+#define AssertSplitPath(path, startX, startY, finishX, finishY, expectedDistance, expectedLength) \
+do { \
+	XCTAssertEqual(path.start->x, startX); \
+	XCTAssertEqual(path.start->y, startY); \
+	XCTAssertEqual(path.finish->x, finishX); \
+	XCTAssertEqual(path.finish->y, finishY); \
+	XCTAssertEqual(path.distance, expectedDistance); \
+	XCTAssertEqual(path.length, expectedLength); \
+} while(0);
+
 @interface TestPath : XCTestCase
 
 @end
@@ -66,15 +76,23 @@ do { \
 
 - (void)testFindSplitPaths {
 	const char *charMap[] = {
-		"CCC",
-		"CCD",
+		"CNC",
+		"HCD",
 		"PCC",
 	};
-	int count;
 	Map *map = createMap((char **)charMap, 3, 3);
-	SplitPath *splitPaths = findSplitPaths(map, &count);
-	XCTAssertEqual(count, 6);
-	XCTAssertTrue(splitPaths != NULL);
+	SplitPaths splitPaths = findSplitPaths(map);
+	XCTAssertEqual(splitPaths.count, 6);
+	XCTAssertTrue(splitPaths.splits != NULL);
+	SplitPath *splits = splitPaths.splits;
+	
+	AssertSplitPath(splits[0], 0, 0, 2, 1, 4, 3);
+	AssertSplitPath(splits[1], 0, 0, 0, 2, 3, 2);
+	AssertSplitPath(splits[2], 2, 1, 0, 0, 4, 3);
+	AssertSplitPath(splits[3], 2, 1, 0, 2, 3, 3);
+	AssertSplitPath(splits[4], 0, 2, 0, 0, 3, 2);
+	AssertSplitPath(splits[4], 0, 2, 0, 0, 3, 2);
+	AssertSplitPath(splits[5], 0, 2, 2, 1, 3, 3);
 }
 
 - (void)testShouldFindSimplePath {

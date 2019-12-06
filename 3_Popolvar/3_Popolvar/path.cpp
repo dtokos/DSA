@@ -13,12 +13,13 @@ int *zachran_princezne(char **charMap, int height, int width, int time, int *way
 	// Create MAP
 	Map *map = createMap(charMap, width, height);
 	// Find SplitPaths
-	int splitCount;
-	SplitPath *splits = findSplitPaths(map, &splitCount);
+	SplitPaths splits = findSplitPaths(map);
 	// Find Shortest
+	int *path = findShortestPath(map, &splits, time, wayLength);
 	
-	*wayLength = -1;
-	return NULL;
+	//FREE STUFF
+	
+	return path;
 }
 
 Map *createMap(char **charMap, int width, int height) {
@@ -94,9 +95,9 @@ void fillTypeAndWeight(Node *node, char c) {
 	}
 }
 
-SplitPath *findSplitPaths(Map *map, int *count) {
+SplitPaths findSplitPaths(Map *map) {
 	Heap *heap = newHeap(map->width * map->height);
-	SplitPath *paths = (SplitPath *)malloc(map->waypointCount * (map->waypointCount - 1) * sizeof(SplitPath *));
+	SplitPath *paths = (SplitPath *)malloc(map->waypointCount * (map->waypointCount - 1) * sizeof(SplitPath));
 	unsigned resetFactor = 0;
 	int pathIndex = 0;
 	
@@ -111,8 +112,7 @@ SplitPath *findSplitPaths(Map *map, int *count) {
 	free(heap->nodes);
 	free(heap);
 	
-	*count = pathIndex - 1;
-	return NULL;
+	return {.splits = paths, .count = pathIndex};
 }
 
 void dijkstra(Map *map, Node *start, Heap *heap, unsigned resetFactor) {
@@ -129,7 +129,7 @@ void dijkstra(Map *map, Node *start, Heap *heap, unsigned resetFactor) {
 		updateDistance(map, heap, node->x + 1, node->y, resetFactor, node);
 		updateDistance(map, heap, node->x,     node->y + 1, resetFactor, node);
 		updateDistance(map, heap, node->x - 1, node->y, resetFactor, node);
-		updateDistance(map, heap, node->x,     node->y + 1, resetFactor, node);
+		updateDistance(map, heap, node->x,     node->y - 1, resetFactor, node);
 	}
 }
 
@@ -138,21 +138,17 @@ void updateDistance(Map *map, Heap *heap, int x, int y, unsigned resetFactor, No
 		return;
 	
 	Node *node = nodeAt(map, x, y);
-	int newDistance = parent->distance/* + node->weight*/;
+	int newDistance = parent->distance + node->weight;
 	
 	if (isInHeap(node, resetFactor) && newDistance < node->distance) {
-		printf("already in heap\n");
 		node->distance = newDistance;
 		node->parent = parent;
 		heapUpdate(heap, node);
 	} else if (isResetting(node, resetFactor)) {
-		printf("Resetting\n");
 		node->distance = newDistance;
 		node->parent = parent;
 		node->resetFactor++;
 		heapInsert(heap, node);
-	} else {
-		printf("Nothing\n");
 	}
 }
 
@@ -161,14 +157,17 @@ void buildSplitPath(SplitPath *path, Node *start, Node *finish) {
 	path->finish = finish;
 	path->distance = finish->distance;
 	
-	int size = 0;
+	int length = 0;
 	Node *node = finish;
-	printf("[%p]Start: (%i, %i) Finish: (%i, %i)\n",start, start->x, start->y, finish->x, finish->y);
+	
 	while (node != start) {
-		printf("%p (%i, %i)\n", node->parent, node->x, node->y);
-		size++;
+		length++;
 		node = node->parent;
 	}
 	
-	printf("Size: %i\n", size);
+	path->length = length;
+}
+
+int *findShortestPath(Map *map, SplitPaths *splits, int time, int *wayLength) {
+	
 }

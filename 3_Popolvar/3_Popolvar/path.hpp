@@ -14,6 +14,7 @@
 
 int *zachran_princezne(char **charMap, int height, int width, int time, int *wayLength);
 Map *createMap(char **map, int width, int height);
-SplitPath *findSplitPaths(Map *map, int *count);
+SplitPaths findSplitPaths(Map *map);
+int *findShortestPath(Map *map, SplitPaths *splits, int time, int *wayLength);
 
 #endif
