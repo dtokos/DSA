@@ -33,6 +33,14 @@ struct SplitPath {
 };
 typedef struct SplitPath SplitPath;
 
+struct FullPath {
+	Node **waypoints;
+	int waypointCount;
+	int distance;
+	int *steps;
+};
+typedef struct FullPath FullPath;
+
 struct SplitPaths {
 	SplitPath *splits;
 	int count;

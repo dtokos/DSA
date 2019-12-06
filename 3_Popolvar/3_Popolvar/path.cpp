@@ -8,19 +8,19 @@ void fillTypeAndWeight(Node *node, char c);
 void dijkstra(Map *map, Node *start, Heap *heap, unsigned resetFactor);
 void updateDistance(Map *map, Heap *heap, int x, int y, unsigned resetFactor, Node *parent);
 void buildSplitPath(SplitPath *path, Node *start, Node *finish);
-void permutePaths(Node **result, Node **waypoints, SplitPaths *splits, int remainingSize, int size, int *distance);
-int calculatePathDistance(Node **waypoints, SplitPaths *splits, int count);
+void permutePaths(FullPath *result, Node **waypoints, SplitPaths *splits, int remainingSize);
+void calculatePathDistance(FullPath *result, Node **waypoints, SplitPaths *splits);
 SplitPath *findSplit(SplitPaths *splits, Node *start, Node *finish);
 void swapPaths(Node **nodeA, Node **nodeB);
-int *buildPath(SplitPaths *splits, Node **waypoints, int count);
+int *buildPath(FullPath *path, SplitPaths *splits);
 
 int *zachran_princezne(char **charMap, int height, int width, int time, int *wayLength) {
-	*wayLength = ~0;
 	// Create MAP
 	Map *map = createMap(charMap, width, height);
 	// Find SplitPaths
 	SplitPaths splits = findSplitPaths(map);
 	// Find Shortest
+	printf("kjfdsb\n");
 	int *path = findShortestPath(map, &splits, time, wayLength);
 	
 	//FREE STUFF
@@ -115,8 +115,9 @@ SplitPaths findSplitPaths(Map *map) {
 				buildSplitPath(&paths[pathIndex++], map->waypoints[i], map->waypoints[j]);
 	}
 	
-	free(heap->nodes);
-	free(heap);
+	//free(heap->nodes);
+	//free(heap);
+	printf("findSplitPaths\n");
 	
 	return {.splits = paths, .count = pathIndex};
 }
@@ -171,42 +172,63 @@ void buildSplitPath(SplitPath *path, Node *start, Node *finish) {
 		node = node->parent;
 	}
 	
+	node = finish;
 	path->length = length;
+	path->steps = (int *)malloc(path->length);
+	int copyIndex = (path->length - 1) * 2;
+	//int copyIndex = path->length - 2 * sizeof(int);
+	
+	while (node != start) {
+		printf("%i\n", copyIndex);
+		*(path->steps + copyIndex) = node->x;
+		*(path->steps + copyIndex + 1) = node->y;
+		node = node->parent;
+		copyIndex -= 2;
+	}
 }
 
 int *findShortestPath(Map *map, SplitPaths *splits, int time, int *wayLength) {
+	printf("findShortestPath\n");
 	Node *waypoints[map->waypointCount];
 	memcpy(waypoints, map->waypoints, map->waypointCount * sizeof(Node));
+	FullPath fullPath = {
+		.waypoints = waypoints,
+		.waypointCount = map->waypointCount,
+		.distance = ~0,
+		.steps = wayLength,
+	};
 	
-	permutePaths(waypoints, map->waypoints, splits, map->waypointCount, map->waypointCount, wayLength);
+	permutePaths(&fullPath, map->waypoints, splits, map->waypointCount);
+	printf("###%i\n", *fullPath.steps);
 	
-	return buildPath(splits, waypoints, map->waypointCount);
+	return buildPath(&fullPath, splits);
 }
 
-void permutePaths(Node **result, Node **waypoints, SplitPaths *splits, int remainingSize, int size, int *distance) {
-	if (remainingSize == 1) {
-		int newDistance = calculatePathDistance(waypoints, splits, size);
-		
-		if (newDistance < *distance) {
-			*distance = newDistance;
-			memcpy(result, waypoints, size * sizeof(Node));
-		}
-		return;
-	}
+void permutePaths(FullPath *result, Node **waypoints, SplitPaths *splits, int remainingSize) {
+	if (remainingSize == 1)
+		return calculatePathDistance(result, waypoints, splits);
 	
 	for (int i = 0; i < remainingSize - 1; i++) {
-		permutePaths(result, waypoints, splits, remainingSize - 1, size, distance);
+		permutePaths(result, waypoints, splits, remainingSize - 1);
 		swapPaths(&waypoints[((remainingSize % 2) == 0) * i + 1], &waypoints[remainingSize - 1]);
 	}
 }
 
-int calculatePathDistance(Node **waypoints, SplitPaths *splits, int count) {
-	int distance = 0;
+void calculatePathDistance(FullPath *result, Node **waypoints, SplitPaths *splits) {
+	int distance = 0, steps = 0;
+	SplitPath *split;
 	
-	for (int i = 1; i < count; i++)
-		distance += findSplit(splits, waypoints[i - 1], waypoints[i])->distance;
+	for (int i = 1; i < result->waypointCount; i++) {
+		split = findSplit(splits, waypoints[i - 1], waypoints[i]);
+		distance += split->distance;
+		steps += split->length;
+		
+		if (distance > result->distance)
+			return;
+	}
 	
-	return ~0;
+	result->distance = distance;
+	*result->steps = steps;
 }
 
 SplitPath *findSplit(SplitPaths *splits, Node *start, Node *finish) {
@@ -224,6 +246,18 @@ void swapPaths(Node **nodeA, Node **nodeB) {
 	*nodeB = tmp;
 }
 
-int *buildPath(SplitPaths *splits, Node **waypoints, int count) {
-	return NULL;
+int *buildPath(FullPath *path, SplitPaths *splits) {
+	printf("Result length: %i\n", *path->steps);
+	int *result = (int *)malloc(*path->steps), copyIndex = 0;
+	SplitPath *split;
+	
+	printf("buildPath\n");
+	for (int i = 1; i < path->waypointCount; i++) {
+		printf("%i\n", copyIndex);
+		split = findSplit(splits, path->waypoints[i - 1], path->waypoints[i]);
+		memcpy(result + copyIndex, split->steps, split->length);
+		copyIndex += split->length / 2 / sizeof(int);
+	}
+	
+	return result;
 }

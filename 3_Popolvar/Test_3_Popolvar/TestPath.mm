@@ -26,7 +26,7 @@ do { \
 	XCTAssertEqual(path.finish->x, finishX); \
 	XCTAssertEqual(path.finish->y, finishY); \
 	XCTAssertEqual(path.distance, expectedDistance); \
-	XCTAssertEqual(path.length, expectedLength); \
+	XCTAssertEqual(path.length, expectedLength * 2 * sizeof(int)); \
 } while(0);
 
 @interface TestPath : XCTestCase
