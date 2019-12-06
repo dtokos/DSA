@@ -8,8 +8,14 @@ void fillTypeAndWeight(Node *node, char c);
 void dijkstra(Map *map, Node *start, Heap *heap, unsigned resetFactor);
 void updateDistance(Map *map, Heap *heap, int x, int y, unsigned resetFactor, Node *parent);
 void buildSplitPath(SplitPath *path, Node *start, Node *finish);
+void permutePaths(Node **result, Node **waypoints, SplitPaths *splits, int remainingSize, int size, int *distance);
+int calculatePathDistance(Node **waypoints, SplitPaths *splits, int count);
+SplitPath *findSplit(SplitPaths *splits, Node *start, Node *finish);
+void swapPaths(Node **nodeA, Node **nodeB);
+int *buildPath(SplitPaths *splits, Node **waypoints, int count);
 
 int *zachran_princezne(char **charMap, int height, int width, int time, int *wayLength) {
+	*wayLength = ~0;
 	// Create MAP
 	Map *map = createMap(charMap, width, height);
 	// Find SplitPaths
@@ -169,5 +175,55 @@ void buildSplitPath(SplitPath *path, Node *start, Node *finish) {
 }
 
 int *findShortestPath(Map *map, SplitPaths *splits, int time, int *wayLength) {
+	Node *waypoints[map->waypointCount];
+	memcpy(waypoints, map->waypoints, map->waypointCount * sizeof(Node));
 	
+	permutePaths(waypoints, map->waypoints, splits, map->waypointCount, map->waypointCount, wayLength);
+	
+	return buildPath(splits, waypoints, map->waypointCount);
+}
+
+void permutePaths(Node **result, Node **waypoints, SplitPaths *splits, int remainingSize, int size, int *distance) {
+	if (remainingSize == 1) {
+		int newDistance = calculatePathDistance(waypoints, splits, size);
+		
+		if (newDistance < *distance) {
+			*distance = newDistance;
+			memcpy(result, waypoints, size * sizeof(Node));
+		}
+		return;
+	}
+	
+	for (int i = 0; i < remainingSize - 1; i++) {
+		permutePaths(result, waypoints, splits, remainingSize - 1, size, distance);
+		swapPaths(&waypoints[((remainingSize % 2) == 0) * i + 1], &waypoints[remainingSize - 1]);
+	}
+}
+
+int calculatePathDistance(Node **waypoints, SplitPaths *splits, int count) {
+	int distance = 0;
+	
+	for (int i = 1; i < count; i++)
+		distance += findSplit(splits, waypoints[i - 1], waypoints[i])->distance;
+	
+	return ~0;
+}
+
+SplitPath *findSplit(SplitPaths *splits, Node *start, Node *finish) {
+	for (int i = 0; i < splits->count; i++) {
+		if (splits->splits[i].start == start && splits->splits[i].finish == finish)
+			return &splits->splits[i];
+	}
+	
+	return NULL;
+}
+
+void swapPaths(Node **nodeA, Node **nodeB) {
+	Node *tmp = *nodeA;
+	*nodeA = *nodeB;
+	*nodeB = tmp;
+}
+
+int *buildPath(SplitPaths *splits, Node **waypoints, int count) {
+	return NULL;
 }
