@@ -141,6 +141,26 @@ if (i % 2 == 0) printf("Expected (%i, %i) result (%i, %i)\n", expectedPath[i], e
 	AssertSplitPath(splits[5], 0, 2, 2, 1, 3, 3, expected5);
 }
 
+- (void)testTeleportSplitPaths {
+	self.continueAfterFailure = true;
+	const char *charMap[] = {
+		"C0C",
+		"HCC",
+		"HC0",
+		"1CC",
+		"HC1",
+		"0CD",
+	};
+	Map *map = createMap((char **)charMap, 3, 6);
+	SplitPaths splitPaths = findSplitPaths(map);
+	XCTAssertEqual(splitPaths.count, 2);
+	XCTAssertTrue(splitPaths.splits != NULL);
+	SplitPath *splits = splitPaths.splits;
+	
+	int expected0[] = {1, 0, 0, 5, 1, 5, 2, 5};
+	AssertSplitPath(splits[0], 0, 0, 2, 5, 3, 4, expected0);
+}
+
 - (void)testFindComplexSplitPaths {
 	const char *charMap[] = {
 		"CCCCC",

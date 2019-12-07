@@ -7,6 +7,7 @@
 void fillTypeAndWeight(Node *node, char c);
 void dijkstra(Map *map, Node *start, Heap *heap, unsigned resetFactor);
 void updateDistance(Map *map, Heap *heap, int x, int y, unsigned resetFactor, Node *parent);
+void updateTeleportDistance(Map *map, Heap *heap, Node *teleport, unsigned resetFactor);
 void buildSplitPath(SplitPath *path, Node *start, Node *finish);
 void permutePaths(FullPath *result, Node **waypoints, SplitPaths *splits, int remainingSize);
 void calculatePathDistance(FullPath *result, Node **waypoints, SplitPaths *splits);
@@ -137,6 +138,9 @@ void dijkstra(Map *map, Node *start, Heap *heap, unsigned resetFactor) {
 		updateDistance(map, heap, node->x,     node->y + 1, resetFactor, node);
 		updateDistance(map, heap, node->x - 1, node->y, resetFactor, node);
 		updateDistance(map, heap, node->x,     node->y - 1, resetFactor, node);
+		
+		if (node->type >= 0 && node->type <= 9)
+			updateTeleportDistance(map, heap, node, resetFactor);
 	}
 }
 
@@ -156,6 +160,23 @@ void updateDistance(Map *map, Heap *heap, int x, int y, unsigned resetFactor, No
 		node->parent = parent;
 		node->resetFactor++;
 		heapInsert(heap, node);
+	}
+}
+
+void updateTeleportDistance(Map *map, Heap *heap, Node *node, unsigned resetFactor) {
+	for (Teleport *teleport = map->teleports[node->type].first; teleport != NULL; teleport = teleport->next) {
+		if (teleport->node != node) {
+			if (isInHeap(teleport->node, resetFactor) && node->distance < teleport->node->distance) {
+				teleport->node->distance = node->distance;
+				teleport->node->parent = node;
+				heapUpdate(heap, teleport->node);
+			} else if (isResetting(teleport->node, resetFactor)) {
+				teleport->node->distance = node->distance;
+				teleport->node->parent = node;
+				teleport->node->resetFactor++;
+				heapInsert(heap, teleport->node);
+			}
+		}
 	}
 }
 
