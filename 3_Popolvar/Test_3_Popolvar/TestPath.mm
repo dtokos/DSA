@@ -251,7 +251,6 @@ if (i % 2 == 0) printf("Expected (%i, %i) result (%i, %i)\n", expectedPath[i], e
 }
 
 - (void)testExampleTest3 {
-	self.continueAfterFailure = true;
 	const char *map[] = {
 		"HHHHCHHCCCH",
 		"HCHHCCCCCHC",
