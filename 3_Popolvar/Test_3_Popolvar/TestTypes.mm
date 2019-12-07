@@ -19,6 +19,16 @@
 	XCTAssertTrue(map->nodes != NULL);
 	XCTAssertTrue(map->waypoints != NULL);
 	XCTAssertEqual(map->waypointCount, 1);
+	XCTAssertTrue(map->teleports[0].first == map->teleports[0].last && map->teleports[0].first == NULL);
+	XCTAssertTrue(map->teleports[1].first == map->teleports[1].last && map->teleports[1].first == NULL);
+	XCTAssertTrue(map->teleports[2].first == map->teleports[2].last && map->teleports[2].first == NULL);
+	XCTAssertTrue(map->teleports[3].first == map->teleports[3].last && map->teleports[3].first == NULL);
+	XCTAssertTrue(map->teleports[4].first == map->teleports[4].last && map->teleports[4].first == NULL);
+	XCTAssertTrue(map->teleports[5].first == map->teleports[5].last && map->teleports[5].first == NULL);
+	XCTAssertTrue(map->teleports[6].first == map->teleports[6].last && map->teleports[6].first == NULL);
+	XCTAssertTrue(map->teleports[7].first == map->teleports[7].last && map->teleports[7].first == NULL);
+	XCTAssertTrue(map->teleports[8].first == map->teleports[8].last && map->teleports[8].first == NULL);
+	XCTAssertTrue(map->teleports[9].first == map->teleports[9].last && map->teleports[9].first == NULL);
 }
 
 - (void)testHeap {

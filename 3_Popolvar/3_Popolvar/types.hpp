@@ -15,11 +15,24 @@ struct Node {
 };
 typedef struct Node Node;
 
+struct Teleport {
+	struct Teleport *next;
+	Node *node;
+};
+typedef struct Teleport Teleport;
+
+struct TeleportList {
+	Teleport *first;
+	Teleport *last;
+};
+typedef struct TeleportList TeleportList;
+
 struct Map {
 	int width:10;
 	int height:10;
 	int princessCount:5;
 	Node *nodes;
+	TeleportList teleports[10];
 	Node *waypoints[7];
 	int waypointCount;
 };
@@ -55,6 +68,8 @@ struct Heap {
 typedef struct Heap Heap;
 
 Map *newMap(int width, int height);
+void addTeleport(Map *map, Node *node);
+Teleport *newTeleport(Node *node);
 
 Heap *newHeap(int capacity);
 void heapInsert(Heap *heap, Node *node);

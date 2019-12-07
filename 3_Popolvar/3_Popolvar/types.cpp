@@ -11,8 +11,38 @@ Map *newMap(int width, int height) {
 	map->princessCount = 0;
 	map->nodes = (Node *)malloc(width * height * sizeof(Node));
 	map->waypointCount = 1;
+	map->teleports[0].first = map->teleports[0].last =
+		map->teleports[1].first = map->teleports[1].last =
+		map->teleports[2].first = map->teleports[2].last =
+		map->teleports[3].first = map->teleports[3].last =
+		map->teleports[4].first = map->teleports[4].last =
+		map->teleports[5].first = map->teleports[5].last =
+		map->teleports[6].first = map->teleports[6].last =
+		map->teleports[7].first = map->teleports[7].last =
+		map->teleports[8].first = map->teleports[8].last =
+		map->teleports[9].first = map->teleports[9].last =
+		NULL;
 	
 	return map;
+}
+
+void addTeleport(Map *map, Node *node) {
+	TeleportList *list = &map->teleports[node->type];
+	
+	if (list->first != NULL) {
+		list->last->next = newTeleport(node);
+		list->last = list->last->next;
+	} else {
+		list->last = list->first = newTeleport(node);
+	}
+}
+
+Teleport *newTeleport(Node *node) {
+	Teleport *teleport = (Teleport *)malloc(sizeof(Teleport));
+	teleport->node = node;
+	teleport->next = NULL;
+	
+	return teleport;
 }
 
 Heap *newHeap(int capacity) {

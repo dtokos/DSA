@@ -47,6 +47,8 @@ Map *createMap(char **charMap, int width, int height) {
 			
 			if (node->type >= PRINCESS || node->type == DRAGON)
 				map->waypoints[map->waypointCount++] = node;
+			else if (node->type >= 0 && node->type <= 9)
+				addTeleport(map, node);
 		}
 	}
 	
