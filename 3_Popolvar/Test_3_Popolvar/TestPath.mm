@@ -6,8 +6,7 @@ do { \
 	int length, *result = zachran_princezne((char **)map, height, width, ttl, &length); \
 	XCTAssertEqual(expectedLength, length); \
 for (int i = 0; i < length * 2; i++){ \
-if (i %2 == 0) \
-printf("Expected (%i, %i) Result (%i, %i)\n",expected[i], expected[i+1], result[i], result[i+1]);\
+if (i % 2 == 0) printf("%i %i\n", result[i], result[i+1]); \
 		XCTAssertEqual(expected[i], result[i]); \
 }\
 } while(0);
@@ -123,34 +122,33 @@ if (i % 2 == 0) printf("Expected (%i, %i) result (%i, %i)\n", expectedPath[i], e
 	XCTAssertTrue(splitPaths.splits != NULL);
 	SplitPath *splits = splitPaths.splits;
 	
-	/*int expected0[] = {1, 0, 2, 0, 2, 1};
+	int expected0[] = {1, 0, 2, 0, 2, 1};
 	AssertSplitPath(splits[0], 0, 0, 2, 1, 3, 3, expected0);
-	int expected1[] = {1, 0, 2, 0, 2, 1, 2, 2, 2, 3, 1, 3, 0, 3};
+	int expected1[] = {1, 0, 2, 0, 2, 1, 2, 2, 1, 2, 1, 3, 0, 3};
 	AssertSplitPath(splits[1], 0, 0, 0, 3, 9, 7, expected1);
 	int expected2[] = {1, 0, 2, 0, 3, 0, 4, 0, 4, 1, 4, 2, 4, 3, 4, 4};
 	AssertSplitPath(splits[2], 0, 0, 4, 4, 8, 8, expected2);
 	
 	int expected3[] = {2, 0, 1, 0, 0, 0};
 	AssertSplitPath(splits[3], 2, 1, 0, 0, 3, 3, expected3);
-	int expected4[] = {2, 2, 2, 3, 1, 3, 0, 3};
+	int expected4[] = {2, 2, 1, 2, 1, 3, 0, 3};
 	AssertSplitPath(splits[4], 2, 1, 0, 3, 6, 4, expected4);
-	int expected5[] = {3, 1, 4, 1, 4, 2, 4, 3, 4, 4};
+	int expected5[] = {3, 1, 3, 2, 3, 3, 3, 4, 4, 4};
 	AssertSplitPath(splits[5], 2, 1, 4, 4, 5, 5, expected5);
 	
-	int expected6[] = {1, 3, 2, 3, 2, 2, 2, 1, 2, 0, 1, 0, 0, 0};
+	int expected6[] = {1, 3, 1, 2, 2, 2, 2, 1, 2, 0, 1, 0, 0, 0};
 	AssertSplitPath(splits[6], 0, 3, 0, 0, 9, 7, expected6);
-	int expected7[] = {1, 3, 2, 3, 2, 2, 2, 1};
+	int expected7[] = {1, 3, 1, 2, 2, 2, 2, 1};
 	AssertSplitPath(splits[7], 0, 3, 2, 1, 6, 4, expected7);
 	int expected8[] = {1, 3, 1, 4, 2, 4, 3, 4, 4, 4};
 	AssertSplitPath(splits[8], 0, 3, 4, 4, 5, 5, expected8);
 	
-	int expected9[] = {3, 4, 3, 3, 3, 2, 3, 1, 2, 1, 2, 0, 1, 0, 0, 0};
+	int expected9[] = {4, 3, 4, 2, 4, 1, 4, 0, 3, 0, 2, 0, 1, 0, 0, 0};
 	AssertSplitPath(splits[9], 4, 4, 0, 0, 8, 8, expected9);
 	int expected10[] = {3, 4, 3, 3, 3, 2, 3, 1, 2, 1};
-	AssertSplitPath(splits[10], 4, 4, 2, 1, 5, 5, expected10);*/
-	printf("\n\n");
+	AssertSplitPath(splits[10], 4, 4, 2, 1, 5, 5, expected10);
 	int expected11[] = {3, 4, 2, 4, 1, 4, 0, 4, 0, 3};
-	AssertSplitPath(splits[11], 4, 4, 0, 3, 6, 5, expected11);
+	AssertSplitPath(splits[11], 4, 4, 0, 3, 5, 5, expected11);
 }
 
 - (void)testShouldFindSimplePath {
@@ -202,8 +200,79 @@ if (i % 2 == 0) printf("Expected (%i, %i) result (%i, %i)\n", expectedPath[i], e
 		"PCHCC",
 		"CCCCP",
 	};
-	int expected[] = {1, 0, 2, 0, 2, 1, 2, 2, 2, 3, 1, 3, 0, 3, 0, 4, 1, 4, 2, 4, 3, 4, 4, 4};
-	//AssertPath(map, 5, 5, 10, expected, 13);
+	int expected[] = {1, 0, 2, 0, 2, 1, 3, 1, 3, 2, 3, 3, 3, 4, 4, 4, 3, 4, 2, 4, 1, 4, 0, 4, 0, 3};
+	AssertPath(map, 5, 5, 10, expected, 13);
 }
+
+- (void)testExample {
+	const char *map[] = {
+		"PPHHH",
+		"HCHHC",
+		"CCHCC",
+		"CHCHC",
+		"HPCDC",
+	};
+	int expected[] = {1, 0, 1, 1, 1, 2, 1, 3, 1, 4, 2, 4, 3, 4};
+	AssertPath(map, 5, 5, 30, expected, 7);
+}
+
+- (void)testExampleTest1 {
+	const char *map[] = {
+		"CCCHHCH",
+		"CCHHHCH",
+		"HCDCHHC",
+		"HHHCHHC",
+		"HCHHCCC",
+		"HCHHPHH",
+		"PCHCHHP",
+	};
+	int expected[] = {
+		1, 0, 1, 1, 1, 2, 2, 2, 1, 2, 1, 3,
+		1, 4, 1, 5, 1, 6, 0, 6, 1, 6, 2, 6,
+		3, 6, 3, 5, 4, 5, 5, 5, 6, 5, 6, 6,
+	};
+	AssertPath(map, 7, 7, 47, expected, 18);
+}
+
+- (void)testExampleTest2 {
+	const char *map[] = {
+		"HHHHHCHCCCHHHCHHHHPDHCCCCHCCCH",
+		"CCHCCCCCCHCCCCCHCHHHCCCCCCHCCH",
+		"CCCCCHPCCCHHCCHCCCCHCCCCHCCCCH",
+		"CCCCHHHHCHCCCHCCCCCHCCHCCCCHCH",
+		"CPHHCCHHCCCHHCHHHCCHCHCHHCCHCC",
+	};
+	int expected[] = {
+		0, 1, 1, 1, 1, 2, 1, 3, 1, 4, 1, 3, 1, 2, 2, 2, 3, 2,
+		4, 2, 5, 2, 6, 2, 7, 2, 8, 2, 9, 2, 9, 1, 10, 1, 11, 1,
+		12, 1, 13, 1, 14, 1, 15, 1, 16, 1, 16, 0, 17, 0, 18, 0, 19, 0,
+	};
+	AssertPath(map, 30, 5, 108, expected, 27);
+}
+
+- (void)testExampleTest3 {
+	self.continueAfterFailure = true;
+	const char *map[] = {
+		"HHHHCHHCCCH",
+		"HCHHCCCCCHC",
+		"HPHCCCHHHHC",
+		"CHHCHHCHCCC",
+		"HCHCCCCCHHC",
+		"HCHCCCHHHCH",
+		"HHHHCHHHCCH",
+		"HHCHCPHHCCP",
+		"HHHCHCHCCCC",
+		"CCDCCHCHCCC",
+		"CCCCCHCCCHH",
+	};
+	int expected[] = {
+		1, 0, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6,
+		2, 6, 2, 7, 2, 8, 2, 9, 3, 9, 4, 9, 5, 9,
+		5, 8, 5, 7, 6, 7, 7, 7, 8, 7, 9, 7, 10, 7,
+	};
+	AssertPath(map, 11, 11, 66, expected, 21);
+}
+
+
 
 @end

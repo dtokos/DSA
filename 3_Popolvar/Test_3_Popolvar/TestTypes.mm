@@ -51,14 +51,14 @@
 	XCTAssertTrue(heap->nodes[1] == &nodeC);
 }
 
-- (void)testHeap2 {
+- (void)testHeapAddressBug {
 	Heap *heap = newHeap(10);
 	Node nodeA = {.distance = 3, .x = 4, .y = 1},
-		nodeB = {.distance = 4, .x = 2, .y = 3},
-		nodeC = {.distance = 3, .x = 1, .y = 4},
-		nodeD = {.distance = 5, .x = 2, .y = 2},
+		nodeF = {.distance = 4, .x = 4, .y = 0},
 		nodeE = {.distance = 4, .x = 3, .y = 1},
-		nodeF = {.distance = 4, .x = 4, .y = 0};
+		nodeD = {.distance = 5, .x = 2, .y = 2},
+		nodeC = {.distance = 3, .x = 1, .y = 4},
+		nodeB = {.distance = 4, .x = 2, .y = 3};
 	
 	heapInsert(heap, &nodeA);
 	heapInsert(heap, &nodeB);
@@ -66,22 +66,14 @@
 	heapInsert(heap, &nodeD);
 	heapInsert(heap, &nodeE);
 	
-	for (int i = 0; i < heap->count; i++) {
-		printf("Heap[%i] (%i, %i) - %i\n", i, heap->nodes[i]->x, heap->nodes[i]->y, heap->nodes[i]->distance);
-	}
-	printf("\n\n");
-	
 	heapPop(heap);
-	for (int i = 0; i < heap->count; i++) {
-		printf("Heap[%i] (%i, %i) - %i\n", i, heap->nodes[i]->x, heap->nodes[i]->y, heap->nodes[i]->distance);
-	}
-	
 	heapInsert(heap, &nodeF);
-	printf("\n\n");
 	
-	for (int i = 0; i < heap->count; i++) {
-		printf("Heap[%i] (%i, %i) - %i\n", i, heap->nodes[i]->x, heap->nodes[i]->y, heap->nodes[i]->distance);
-	}
+	XCTAssertTrue(heap->nodes[0] == &nodeC);
+	XCTAssertTrue(heap->nodes[1] == &nodeB);
+	XCTAssertTrue(heap->nodes[2] == &nodeE);
+	XCTAssertTrue(heap->nodes[3] == &nodeD);
+	XCTAssertTrue(heap->nodes[4] == &nodeF);
 }
 
 @end

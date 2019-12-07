@@ -117,8 +117,8 @@ SplitPaths findSplitPaths(Map *map) {
 		printf("\n\n");
 	}
 	
-	//free(heap->nodes);
-	//free(heap);
+	free(heap->nodes);
+	free(heap);
 	//printf("findSplitPaths %i wayp %i\n", pathIndex, map->waypointCount);
 	
 	return {.splits = paths, .count = pathIndex};
@@ -269,18 +269,21 @@ void permutePaths(FullPath *result, Node **waypoints, SplitPaths *splits, int re
 void calculatePathDistance(FullPath *result, Node **waypoints, SplitPaths *splits) {
 	int distance = 0, steps = 0;
 	SplitPath *split;
-	
+	printf("-------------\n");
 	for (int i = 1; i < result->waypointCount; i++) {
 		split = findSplit(splits, waypoints[i - 1], waypoints[i]);
 		distance += split->distance;
 		steps += split->length;
-		printf("Buildup %i Best %i\n", distance, result->distance);
+		printf("Split DST: %i\n", split->distance);
+		printf("(%i, %i) -> (%i, %i)\n", waypoints[i-1]->x, waypoints[i-1]->y, waypoints[i]->x, waypoints[i]->y);
+		printf("(%i, %i) -> (%i, %i) Buildup %i Best %i\n", split->start->x, split->start->y, split->finish->x, split->finish->y, distance, result->distance);
 		if (distance > result->distance)
 			return;
 	}
 	printf("setting distance %i and steps %i\n", distance, steps);
 	result->distance = distance;
 	*result->steps = steps;
+	memcpy(result->waypoints, waypoints, result->waypointCount * sizeof(Node *));
 }
 
 SplitPath *findSplit(SplitPaths *splits, Node *start, Node *finish) {
@@ -305,11 +308,11 @@ int *buildPath(FullPath *path, SplitPaths *splits) {
 	
 	printf("buildPath\n");
 	for (int i = 1; i < path->waypointCount; i++) {
-		printf("%p\n", path->waypoints[i]);
+		printf("(%i, %i) -> (%i, %i)\n", path->waypoints[i-1]->x, path->waypoints[i-1]->y, path->waypoints[i]->x, path->waypoints[i]->y);
 		split = findSplit(splits, path->waypoints[i - 1], path->waypoints[i]);
 		printf("Copy index: %i Bytes: %i\n", copyIndex, split->length * 2 * sizeof(int));
 		memcpy(result + copyIndex, split->steps, split->length * 2 * sizeof(int));
-		copyIndex += split->length;
+		copyIndex += split->length * 2;
 	}
 	
 	return result;
