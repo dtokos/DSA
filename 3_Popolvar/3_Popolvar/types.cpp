@@ -29,8 +29,10 @@ void heapInsert(Heap *heap, Node *node) {
 }
 
 Node *heapPop(Heap *heap) {
+	printf("\t POP (%i, %i) - %i\n", heap->nodes[0]->x, heap->nodes[0]->y, heap->nodes[0]->distance);
 	Node *minItem = heap->nodes[0];
 	heap->nodes[0] = heap->nodes[--heap->count];
+	printf("\t NEW (%i, %i) - %i\n", heap->nodes[0]->x, heap->nodes[0]->y, heap->nodes[0]->distance);
 	heapifyDown(heap);
 	
 	return minItem;
@@ -61,12 +63,27 @@ void heapifyDown(Heap *heap) {
 	
 	while (leftChildIndex < heap->count) {
 		int smallerChildIndex = leftChildIndex;
-		if (rightChildIndex < heap->count && heap->nodes[rightChildIndex] < heap->nodes[leftChildIndex])
+		printf("\t %i < %i && %i < %i = %i\n",
+			   rightChildIndex, heap->count, heap->nodes[rightChildIndex]->distance, heap->nodes[leftChildIndex]->distance,
+			   rightChildIndex < heap->count && heap->nodes[rightChildIndex]->distance < heap->nodes[leftChildIndex]->distance);
+		
+		if (rightChildIndex < heap->count && heap->nodes[rightChildIndex]->distance < heap->nodes[leftChildIndex]->distance)
 			smallerChildIndex = rightChildIndex;
+		
+		printf("\t SIZE: %i\n", heap->count);
+		printf("\t LC: (%i, %i) - %i RC: (%i, %i) - %i SC: (%i, %i) - %i\n",
+			   heap->nodes[leftChildIndex]->x, heap->nodes[leftChildIndex]->y, heap->nodes[leftChildIndex]->distance,
+			   heap->nodes[rightChildIndex]->x, heap->nodes[rightChildIndex]->y, heap->nodes[rightChildIndex]->distance,
+			   heap->nodes[smallerChildIndex]->x, heap->nodes[smallerChildIndex]->y, heap->nodes[smallerChildIndex]->distance);
+		
+		printf("\t DOWN (%i, %i) - %i < (%i, %i) - %i\n",
+			   heap->nodes[index]->x, heap->nodes[index]->y, heap->nodes[index]->distance,
+			   heap->nodes[smallerChildIndex]->x, heap->nodes[smallerChildIndex]->y, heap->nodes[smallerChildIndex]->distance);
 		
 		if (heap->nodes[index]->distance < heap->nodes[smallerChildIndex]->distance)
 			return;
 		
+		printf("\t SWAP\n");
 		heapSwap(&heap->nodes[index], &heap->nodes[smallerChildIndex]);
 		index = smallerChildIndex;
 		leftChildIndex = 2 * index + 1;

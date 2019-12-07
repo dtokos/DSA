@@ -1,6 +1,7 @@
 #ifndef types_hpp
 #define types_hpp
 
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
