@@ -10,7 +10,7 @@ Map *newMap(int width, int height) {
 	map->height = height;
 	map->princessCount = 0;
 	map->nodes = (Node *)malloc(width * height * sizeof(Node));
-	map->waypointCount = 1;
+	map->waypointCount = 2;
 	map->teleports[0].first = map->teleports[0].last =
 		map->teleports[1].first = map->teleports[1].last =
 		map->teleports[2].first = map->teleports[2].last =

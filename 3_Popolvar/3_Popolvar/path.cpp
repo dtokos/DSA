@@ -14,16 +14,13 @@ void calculatePathDistance(FullPath *result, Node **waypoints, SplitPaths *split
 SplitPath *findSplit(SplitPaths *splits, Node *start, Node *finish);
 void swapPaths(Node **nodeA, Node **nodeB);
 int *buildPath(FullPath *path, SplitPaths *splits);
+void freeMemory(Map *map, SplitPaths *splits);
 
 int *zachran_princezne(char **charMap, int height, int width, int time, int *wayLength) {
-	// Create MAP
 	Map *map = createMap(charMap, width, height);
-	// Find SplitPaths
 	SplitPaths splits = findSplitPaths(map);
-	// Find Shortest
 	int *path = findShortestPath(map, &splits, time, wayLength);
-	
-	//FREE STUFF
+	freeMemory(map, &splits);
 	
 	return path;
 }
@@ -43,12 +40,13 @@ Map *createMap(char **charMap, int width, int height) {
 			node->distance = ~0;
 			node->parent = NULL;
 			
-			if (node->type == PRINCESS)
+			if (node->type == DRAGON)
+				map->waypoints[1] = node;
+			else if (node->type == PRINCESS) {
 				node->type += map->princessCount++;
-			
-			if (node->type >= PRINCESS || node->type == DRAGON)
-				map->waypoints[map->waypointCount++] = node;
-			else if (node->type >= 0 && node->type <= 9)
+				map->waypoints[1 + map->princessCount] = node;
+				map->waypointCount++;
+			} else if (node->type >= 0 && node->type <= 9)
 				addTeleport(map, node);
 		}
 	}
@@ -120,14 +118,14 @@ SplitPaths findSplitPaths(Map *map) {
 	free(heap->nodes);
 	free(heap);
 	
-	return {.splits = paths, .count = pathIndex};
+	return (SplitPaths){.splits = paths, .count = pathIndex};
 }
 
 void dijkstra(Map *map, Node *start, Heap *heap, unsigned resetFactor) {
 	heap->count = 0;
-	heapInsert(heap, start);
 	start->distance = 0;
 	start->parent = NULL;
+	heapInsert(heap, start);
 	Node *node;
 	
 	while (heap->count != 0) {
@@ -188,7 +186,7 @@ void buildSplitPath(SplitPath *path, Node *start, Node *finish) {
 	int length = 0;
 	Node *node = finish;
 	
-	while (node != start) {
+	while (node != NULL) {
 		length++;
 		node = node->parent;
 	}
@@ -198,7 +196,7 @@ void buildSplitPath(SplitPath *path, Node *start, Node *finish) {
 	path->steps = (int *)malloc(path->length * 2 * sizeof(int));
 	int copyIndex = path->length * 2 - 1;
 	
-	while (node != start) {
+	while (node != NULL) {
 		path->steps[copyIndex--] = node->y;
 		path->steps[copyIndex--] = node->x;
 		node = node->parent;
@@ -214,30 +212,35 @@ int *findShortestPath(Map *map, SplitPaths *splits, int time, int *wayLength) {
 		.distance = (unsigned)(~0) >> 1,
 		.steps = wayLength,
 	};
-
+	
 	permutePaths(&fullPath, map->waypoints, splits, map->waypointCount);
 	
 	return buildPath(&fullPath, splits);
 }
 
 void permutePaths(FullPath *result, Node **waypoints, SplitPaths *splits, int remainingSize) {
-	if (remainingSize == 1)
+	if (remainingSize == 2)
 		return calculatePathDistance(result, waypoints, splits);
 	
-	for (int i = 0; i < remainingSize - 1; i++) {
+	for (int i = 0; i < remainingSize - 2; i++) {
 		permutePaths(result, waypoints, splits, remainingSize - 1);
-		swapPaths(&waypoints[((remainingSize % 2) == 0) * i + 1], &waypoints[remainingSize - 1]);
+		swapPaths(&waypoints[((remainingSize % 2) == 0) * i + 2], &waypoints[remainingSize - 1]);
 	}
 }
 
 void calculatePathDistance(FullPath *result, Node **waypoints, SplitPaths *splits) {
 	int distance = 0, steps = 0;
-	SplitPath *split;
+	SplitPath *split = findSplit(splits, waypoints[0], waypoints[1]);
+	distance += split->distance;
+	steps += split->length;
 	
-	for (int i = 1; i < result->waypointCount; i++) {
+	if (distance > result->distance)
+		return;
+	
+	for (int i = 2; i < result->waypointCount; i++) {
 		split = findSplit(splits, waypoints[i - 1], waypoints[i]);
 		distance += split->distance;
-		steps += split->length;
+		steps += split->length - 1;
 		
 		if (distance > result->distance)
 			return;
@@ -265,13 +268,33 @@ void swapPaths(Node **nodeA, Node **nodeB) {
 
 int *buildPath(FullPath *path, SplitPaths *splits) {
 	int *result = (int *)malloc(*path->steps * 2 * sizeof(int)), copyIndex = 0;
-	SplitPath *split;
 	
-	for (int i = 1; i < path->waypointCount; i++) {
+	SplitPath *split = findSplit(splits, path->waypoints[0], path->waypoints[1]);
+	memcpy(result + copyIndex, split->steps, split->length * 2 * sizeof(int));
+	copyIndex += split->length * 2;
+	
+	for (int i = 2; i < path->waypointCount; i++) {
 		split = findSplit(splits, path->waypoints[i - 1], path->waypoints[i]);
-		memcpy(result + copyIndex, split->steps, split->length * 2 * sizeof(int));
-		copyIndex += split->length * 2;
+		memcpy(result + copyIndex, split->steps + 2, (split->length - 1) * 2 * sizeof(int));
+		copyIndex += (split->length - 1) * 2;
 	}
 	
 	return result;
+}
+
+void freeMemory(Map *map, SplitPaths *splits) {
+	Teleport *next;
+	for (int i = 0; i < 10; i++) {
+		for (Teleport *teleport = map->teleports[i].first; teleport != NULL; teleport = teleport->next) {
+			next = teleport->next;
+			free(teleport);
+			teleport = next;
+		}
+	}
+	free(map->nodes);
+	free(map);
+	
+	for (int i = 0; i < splits->count; i++)
+		free(splits->splits[i].steps);
+	free(splits->splits);
 }

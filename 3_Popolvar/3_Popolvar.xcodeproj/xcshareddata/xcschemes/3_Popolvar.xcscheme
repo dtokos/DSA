@@ -37,6 +37,11 @@
                BlueprintName = "Test_3_Popolvar"
                ReferencedContainer = "container:3_Popolvar.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "TestPath/testExampleTest4">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

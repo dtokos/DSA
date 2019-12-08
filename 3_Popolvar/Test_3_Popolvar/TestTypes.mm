@@ -18,7 +18,7 @@
 	XCTAssertEqual(map->princessCount, 0);
 	XCTAssertTrue(map->nodes != NULL);
 	XCTAssertTrue(map->waypoints != NULL);
-	XCTAssertEqual(map->waypointCount, 1);
+	XCTAssertEqual(map->waypointCount, 2);
 	XCTAssertTrue(map->teleports[0].first == map->teleports[0].last && map->teleports[0].first == NULL);
 	XCTAssertTrue(map->teleports[1].first == map->teleports[1].last && map->teleports[1].first == NULL);
 	XCTAssertTrue(map->teleports[2].first == map->teleports[2].last && map->teleports[2].first == NULL);
