@@ -4,8 +4,10 @@
 #define AssertSorted(items, expected, length) \
 do { \
 	utried(items, length); \
-	for (int i = 0; i < length; i++) \
+	for (int i = 0; i < length; i++) { \
+	printf("[%i] %i == %i\n", i, items[i], expected[i]); \
 		XCTAssertEqual(items[i], expected[i]); \
+	} \
 } while (false);
 
 @interface TestSort : XCTestCase

@@ -1,24 +1,38 @@
 #include "sort.hpp"
 
 int findMax(int *array, int length);
+#define BUCKET_SIZE 1000
 
 void utried(int *array, int length) {
-	int max = findMax(array, length) + 1;
-	int *counts = (int*)malloc(max * sizeof(int));
-	int output[length];
-	memset(counts, 0, max * sizeof(int));
+	int swapBuffer[length];
+	int *buffer = swapBuffer, *tmp = NULL;
+	int max = array[0];
 	
 	for (int i = 0; i < length; i++)
-		counts[array[i]]++;
+		if (array[i] > max)
+			max = array[i];
 	
-	for (int i = 1; i < max; i++)
-		counts[i] += counts[i - 1];
+	for (int exp = 1; max / exp > 0; exp *= BUCKET_SIZE) {
+		int counts[BUCKET_SIZE] = {0}, i;
+		
+		for (i = 0; i < length; i++)
+			counts[(array[i] / exp) % BUCKET_SIZE]++;
+		
+		for (i = 1; i < BUCKET_SIZE; i++)
+			counts[i] += counts[i - 1];
+		
+		for (i = length - 1; i >= 0; i--)
+			buffer[counts[(array[i] / exp) % BUCKET_SIZE]-- - 1] = array[i];
+		
+		tmp = array;
+		array = buffer;
+		buffer = tmp;
+	}
 	
-	for (int i = length - 1; i >= 0; i--)
-		output[--counts[array[i]]] = array[i];
-	
-	memcpy(array, output, length * sizeof(int));
-	free(counts);
+	if (array == swapBuffer)
+		memcpy(tmp, array, length * sizeof(int));
+	else
+		memcpy(array, swapBuffer, length * sizeof(int));
 }
 
 int findMax(int *array, int length) {
