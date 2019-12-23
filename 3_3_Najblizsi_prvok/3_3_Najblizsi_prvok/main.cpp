@@ -1,7 +1,12 @@
-#include <iostream>
+#include "tree.hpp"
 
 int main(int argc, const char * argv[]) {
-	// insert code here...
-	std::cout << "Hello, World!\n";
+	BSTNode *tree = NULL;
+	int n;
+	
+	while (scanf("%i", &n) != EOF) {
+		tree = avlInsert(tree, n);
+		printf("%i\n", bstFindClosest(tree, n));
+	}
 	return 0;
 }
