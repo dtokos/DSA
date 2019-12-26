@@ -89,7 +89,7 @@ int bstFindClosest(BSTNode *tree, int value) {
 	int min = mins[0];
 	
 	for (int i = 1; i < 3; i++) {
-		if (deltas[i] < minDelta && mins[i] != -1) {
+		if ((deltas[i] < minDelta || (deltas[i] == minDelta && mins[i] < min)) && mins[i] != -1) {
 			min = mins[i];
 			minDelta = deltas[i];
 		}
@@ -102,7 +102,10 @@ BSTNode *findNode(BSTNode *tree, int *min, int value) {
 	if (tree->value == value)
 		return tree;
 	
-	if (*min == -1 || delta(tree->value, value) < delta(*min, value))
+	int delta = delta(*min, value);
+	int newDelta = delta(tree->value, value);
+	
+	if (*min == -1 || newDelta < delta || (newDelta == delta && tree->value < *min))
 		*min = tree->value;
 	
 	if (value < tree->value)
@@ -119,7 +122,7 @@ int findClosestGreater(BSTNode *tree, int value) {
 	int delta = abs(min - value);
 	for (; tree != NULL; tree = tree->left) {
 		int newDelta = abs(tree->value - value);
-		if (newDelta < delta) {
+		if (newDelta < delta || (newDelta == delta && tree->value < min)) {
 			delta = newDelta;
 			min = tree->value;
 		}
@@ -136,7 +139,7 @@ int findClosestLesser(BSTNode *tree, int value) {
 	int delta = abs(min - value);
 	for (; tree != NULL; tree = tree->right) {
 		int newDelta = abs(tree->value - value);
-		if (newDelta < delta) {
+		if (newDelta < delta || (newDelta == delta && tree->value < min)) {
 			delta = newDelta;
 			min = tree->value;
 		}
