@@ -32,16 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "98B513CA23AD17BF008412C1"
-               BuildableName = "Test_3_1_Vkladanie_do_binarneho_vyhladavacieho_stromu.xctest"
-               BlueprintName = "Test_3_1_Vkladanie_do_binarneho_vyhladavacieho_stromu"
-               ReferencedContainer = "container:3_1_Vkladanie_do_binarneho_vyhladavacieho_stromu.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "98B513DC23AD1C9A008412C1"
                BuildableName = "Test_3_1_Vkladanie_do_binarneho_vyhladavacieho_stromu.xctest"
                BlueprintName = "Test_3_1_Vkladanie_do_binarneho_vyhladavacieho_stromu"
