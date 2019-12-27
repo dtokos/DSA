@@ -6,7 +6,7 @@ const int INITIAL_TABLE_SIZE = 512;
 const int MAX_FULFILLMENT = 10;
 
 struct KeyValuePair {
-	char *key;
+	unsigned long key;
 	struct KeyValuePair *next;
 };
 typedef struct KeyValuePair KeyValuePair;
@@ -19,14 +19,15 @@ typedef struct HashTable HashTable;
 
 HashTable *htMake();
 int htInsert(HashTable *table, char *key);
-unsigned htCalculateIndex(char *key, int tableSize);
+unsigned long htCalculateKey(char *key);
+unsigned htCalculateIndex(unsigned long key, int tableSize);
 void htFree(HashTable *table);
 
 KeyValuePair **allocPairs(unsigned count);
 void resize(HashTable *table);
 void movePairs(KeyValuePair **oldPairs, KeyValuePair **newPairs, unsigned size, unsigned newSize);
 void movePair(KeyValuePair *pair, KeyValuePair **newPairs, unsigned newSize);
-KeyValuePair *newKeyValuePair(char *key);
+KeyValuePair *newKeyValuePair(unsigned long key);
 
 int vyhadzovac(char *ids[], int count) {
 	HashTable *table = htMake();
@@ -34,6 +35,8 @@ int vyhadzovac(char *ids[], int count) {
 	
 	for (int i = 0; i < count; i++)
 		result += htInsert(table, ids[i]);
+	
+	htFree(table);
 	
 	return result;
 }
@@ -59,14 +62,15 @@ int htInsert(HashTable *table, char *key) {
 	if (shouldResize(table))
 		resize(table);
 	
-	unsigned index = htCalculateIndex(key, table->size);
+	unsigned long intKey = htCalculateKey(key);
+	unsigned index = htCalculateIndex(intKey, table->size);
 	KeyValuePair **insertPosition = &table->pairs[index];
 	
-	while (*insertPosition != NULL && strcmp((*insertPosition)->key, key) != 0)
+	while (*insertPosition != NULL && (*insertPosition)->key != intKey)
 		insertPosition = &(*insertPosition)->next;
 	
 	if (*insertPosition == NULL) {
-		*insertPosition = newKeyValuePair(key);
+		*insertPosition = newKeyValuePair(intKey);
 		table->count++;
 		
 		return 0;
@@ -108,16 +112,37 @@ void movePair(KeyValuePair *pair, KeyValuePair **newPairs, unsigned newSize) {
 	*insertPosition = pair;
 }
 
-unsigned htCalculateIndex(char *key, int tableSize) {
-	unsigned index = 0;
+unsigned long htCalculateKey(char *key) {
+	unsigned long result = 0;
 	
-	for (; *key != '\0'; key++)
-		index += *key;
+	for (int i = 0; *key != '\0'; key++, i++) {
+		switch(*key) {
+			case '0': case '1': case '2': case '3': case '4':
+			case '5': case '6': case '7': case '8': case '9':
+				result += (unsigned long)(*key - '0') << (i * 6);
+				break;
+			case 'A': case 'B': case 'C': case 'D': case 'E':
+			case 'F': case 'G': case 'H': case 'I': case 'J':
+			case 'K': case 'L': case 'M': case 'N': case 'O':
+			case 'P': case 'Q': case 'R': case 'S': case 'T':
+			case 'U': case 'V': case 'W': case 'X': case 'Y':
+			case 'Z':
+				result += (unsigned long)(*key - 'A' + 10) << (i * 6);
+				break;
+			default:
+				result += (unsigned long)(*key - 'a' + 10 + 26) << (i * 6);
+				break;
+		}
+	}
 	
-	return index % tableSize;
+	return result;
 }
 
-KeyValuePair *newKeyValuePair(char *key) {
+unsigned htCalculateIndex(unsigned long key, int tableSize) {
+	return key % tableSize;
+}
+
+KeyValuePair *newKeyValuePair(unsigned long key) {
 	KeyValuePair *pair = (KeyValuePair *)malloc(sizeof(KeyValuePair));
 	pair->key = key;
 	pair->next = NULL;
