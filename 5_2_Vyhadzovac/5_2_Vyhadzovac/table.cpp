@@ -6,7 +6,7 @@ const int INITIAL_TABLE_SIZE = 512;
 const int MAX_FULFILLMENT = 10;
 
 struct KeyValuePair {
-	int key;
+	char *key;
 	struct KeyValuePair *next;
 };
 typedef struct KeyValuePair KeyValuePair;
@@ -18,19 +18,24 @@ struct HashTable {
 typedef struct HashTable HashTable;
 
 HashTable *htMake();
-void htInsert(HashTable *table, int key);
-KeyValuePair *htSearch(HashTable *table, int key);
-unsigned htCalculateIndex(int key, int tableSize);
+int htInsert(HashTable *table, char *key);
+unsigned htCalculateIndex(char *key, int tableSize);
 void htFree(HashTable *table);
 
 KeyValuePair **allocPairs(unsigned count);
 void resize(HashTable *table);
 void movePairs(KeyValuePair **oldPairs, KeyValuePair **newPairs, unsigned size, unsigned newSize);
 void movePair(KeyValuePair *pair, KeyValuePair **newPairs, unsigned newSize);
-KeyValuePair *newKeyValuePair(int key);
+KeyValuePair *newKeyValuePair(char *key);
 
 int vyhadzovac(char *ids[], int count) {
-	return 0;
+	HashTable *table = htMake();
+	int result = 0;
+	
+	for (int i = 0; i < count; i++)
+		result += htInsert(table, ids[i]);
+	
+	return result;
 }
 
 HashTable *htMake() {
@@ -50,20 +55,23 @@ KeyValuePair **allocPairs(unsigned count) {
 	return pairs;
 }
 
-void htInsert(HashTable *table, int key) {
+int htInsert(HashTable *table, char *key) {
 	if (shouldResize(table))
 		resize(table);
 	
 	unsigned index = htCalculateIndex(key, table->size);
 	KeyValuePair **insertPosition = &table->pairs[index];
 	
-	while (*insertPosition != NULL && (*insertPosition)->key != key)
+	while (*insertPosition != NULL && strcmp((*insertPosition)->key, key) != 0)
 		insertPosition = &(*insertPosition)->next;
 	
 	if (*insertPosition == NULL) {
 		*insertPosition = newKeyValuePair(key);
 		table->count++;
-	}
+		
+		return 0;
+	} else
+		return 1;
 }
 
 void resize(HashTable *table) {
@@ -100,28 +108,19 @@ void movePair(KeyValuePair *pair, KeyValuePair **newPairs, unsigned newSize) {
 	*insertPosition = pair;
 }
 
-unsigned htCalculateIndex(int key, int tableSize) {
-	unsigned index = ~(~(key & 0xFFFF0000) >> 16) + ((key & 0xFFFF) << 16);
-	index ^= key ^ 0xE5B46A9B;
-	index ^= key ^ 0xAB5C4357;
+unsigned htCalculateIndex(char *key, int tableSize) {
+	unsigned index = 0;
+	
+	for (; *key != '\0'; key++)
+		index += *key;
 	
 	return index % tableSize;
 }
 
-KeyValuePair *newKeyValuePair(int key) {
+KeyValuePair *newKeyValuePair(char *key) {
 	KeyValuePair *pair = (KeyValuePair *)malloc(sizeof(KeyValuePair));
 	pair->key = key;
 	pair->next = NULL;
-	
-	return pair;
-}
-
-KeyValuePair *htSearch(HashTable *table, int key) {
-	unsigned index = htCalculateIndex(key, table->size);
-	KeyValuePair *pair = table->pairs[index];
-	
-	while (pair != NULL && pair->key != key)
-		pair = pair->next;
 	
 	return pair;
 }
