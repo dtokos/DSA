@@ -3,6 +3,7 @@
 Edge *newEdge(TreeNode *node, int length);
 void insertEdge(TreeNode *node, Edge *edge);
 EdgeListItem *newEdgeListItem(Edge *edge);
+int distanceBetween(TreeNode *start, TreeNode *finish, TreeNode *cameFrom);
 
 void addEdge(TreeNode *nodeA, TreeNode *nodeB, int length) {
 	Edge *edgeAB = newEdge(nodeB, length);
@@ -45,5 +46,24 @@ EdgeListItem *newEdgeListItem(Edge *edge) {
 }
 
 int distance(TreeNode *start, TreeNode *finish) {
-	return 0;
+	return distanceBetween(start, finish, start);
+}
+
+int distanceBetween(TreeNode *start, TreeNode *finish, TreeNode *cameFrom) {
+	if (start == finish)
+		return 0;
+	
+	int distance;
+	
+	for (EdgeListItem *item = start->edges; item != NULL; item = item->next) {
+		if (item->edge->node == cameFrom)
+			continue;
+		
+		distance = distanceBetween(item->edge->node, finish, start);
+		
+		if (distance != -1)
+			return distance + item->edge->length;
+	}
+			
+	return -1;
 }
