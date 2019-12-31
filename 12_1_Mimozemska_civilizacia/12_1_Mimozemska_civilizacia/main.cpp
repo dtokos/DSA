@@ -1,4 +1,4 @@
-#include <iostream>
+#include <stdio.h>
 #include "palindrome.hpp"
 
 int main(int argc, const char * argv[]) {

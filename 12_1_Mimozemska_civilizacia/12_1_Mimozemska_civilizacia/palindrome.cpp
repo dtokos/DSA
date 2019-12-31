@@ -21,7 +21,7 @@ int length(char *string, int length) {
 			int subEnd = subStart + subLength - 1;
 			
 			if (table[subStart + 1][subEnd - 1] && string[subStart] == string[subEnd]) {
-				table[subStart][subEnd] = true;
+				table[subStart][subEnd] = 1;
 				
 				if (subLength > maxLength) {
 					maxStart = subStart;
