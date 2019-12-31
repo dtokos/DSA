@@ -2,7 +2,7 @@
 
 #define shouldResize(table) (table->count / table->size > MAX_FULFILLMENT)
 
-const int INITIAL_TABLE_SIZE = 512;
+const int PRRIMES[] = {769, 1543, 3079, 6151, 12289};
 const int MAX_FULFILLMENT = 10;
 
 struct KeyValuePair {
@@ -13,7 +13,7 @@ typedef struct KeyValuePair KeyValuePair;
 
 struct HashTable {
 	KeyValuePair **pairs;
-	unsigned size, count;
+	unsigned size, sizeIndex, count;
 };
 typedef struct HashTable HashTable;
 
@@ -43,8 +43,9 @@ int vyhadzovac(char *ids[], int count) {
 
 HashTable *htMake() {
 	HashTable *table = (HashTable *)malloc(sizeof(HashTable));
-	table->pairs = allocPairs(INITIAL_TABLE_SIZE);
-	table->size = INITIAL_TABLE_SIZE;
+	table->sizeIndex = 0;
+	table->size = PRRIMES[table->sizeIndex];
+	table->pairs = allocPairs(table->size);
 	table->count = 0;
 	
 	return table;
@@ -79,11 +80,12 @@ int htInsert(HashTable *table, char *key) {
 }
 
 void resize(HashTable *table) {
-	unsigned newSize = table->size * 2;
+	unsigned newSize = PRRIMES[table->sizeIndex + 1];
 	KeyValuePair **newPairs = allocPairs(newSize);
 	movePairs(table->pairs, newPairs, table->size, newSize);
 	free(table->pairs);
 	table->size = newSize;
+	table->sizeIndex++;
 	table->pairs = newPairs;
 }
 
