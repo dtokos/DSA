@@ -107,7 +107,7 @@ void updateDistance(Map *map, Heap *heap, int x, int y, Node *parent) {
 		return;
 	
 	Node *node = nodeAt(map, x, y);
-	int newDistance = parent->state + 1;
+	int newDistance = parent->startDistance + 1;
 	
 	if (node->state == STATE_HEAP && newDistance < node->startDistance) {
 		node->startDistance = newDistance;
