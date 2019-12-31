@@ -25,15 +25,31 @@ struct Map {
 };
 typedef struct Map Map;
 
+struct Direction {
+	char x:4;
+	char y:4;
+};
+typedef struct Direction Direction;
+
+Direction directions[][4] = {
+	{{.x = 1, .y = 0}, {.x = -1, .y = 0}, {.x = 0, .y = 1}, {.x = 0, .y = -1}},
+	{{.x = 0, .y = -1}, {.x = 1, .y = 0}, {.x = 0, .y = 1}, {.x = -1, .y = 0}},
+	{{.x = 0, .y = 1}, {.x = 1, .y = 0}, {.x = 0, .y = -1}, {.x = -1, .y = 0}},
+	{{.x = 1, .y = 0}, {.x = 0, .y = 1}, {.x = -1, .y = 0}, {.x = 0, .y = -1}},
+};
+
 Map buildMap(char **charMap, int width, int height);
-void depthFirstSearch(Node *node, Node *parent, Map *map, int *pathCount);
+int depthFirstSearch(Node *node, Node *parent, Map *map, int *pathCount, Direction *dirs);
 void updatePathCounts(Node *node, int *totalCount);
 void drawPath(Map *map, char **charMap, int pathCount);
 
 void find(char **charMap, int width, int height) {
 	int pathCount = 0;
 	Map map = buildMap(charMap, width, height);
-	depthFirstSearch(map.start, NULL, &map, &pathCount);
+	
+	for (int i = 0; i < sizeof(directions); i++)
+		depthFirstSearch(map.start, NULL, &map, &pathCount, directions[i]);
+	
 	drawPath(&map, charMap, pathCount);
 	
 	free(map.nodes);
@@ -63,27 +79,32 @@ Map buildMap(char **charMap, int width, int height) {
 	return map;
 }
 
-void depthFirstSearch(Node *node, Node *parent, Map *map, int *pathCount) {
+int depthFirstSearch(Node *node, Node *parent, Map *map, int *pathCount, Direction *dirs) {
 	if (node->visited || node->type == 0)
-		return;
+		return 0;
 	
 	node->parent = parent;
 	node->visited = 1;
 	
-	if (node == map->end)
+	if (node == map->end) {
 		updatePathCounts(node, pathCount);
+		node->visited = 0;
+		return 1;
+	}
 	
-	if (node->x + 1 < map->width)
-		depthFirstSearch(nodeAt(map, node->x + 1, node->y), node, map, pathCount);
-	if (node->x - 1 >= 0)
-		depthFirstSearch(nodeAt(map, node->x - 1, node->y), node, map, pathCount);
-	if (node->y + 1 < map->height)
-		depthFirstSearch(nodeAt(map, node->x, node->y + 1), node, map, pathCount);
-	if (node->y - 1 >= 0)
-		depthFirstSearch(nodeAt(map, node->x, node->y - 1), node, map, pathCount);
-	
+	for (int i = 0; i < 4; i++) {
+		if (0 <= node->x + dirs[i].x && node->x + dirs[i].x < map->width && 0 <= node->y + dirs[i].y && node->y + dirs[i].y < map->height) {
+			if (depthFirstSearch(nodeAt(map, node->x + dirs[i].x, node->y + dirs[i].y), node, map, pathCount, dirs)) {
+				node->visited = 0;
+				return 1;
+			}
+		}
+	}
+		
 	node->parent = NULL;
 	node->visited = 0;
+	
+	return 0;
 }
 
 void updatePathCounts(Node *node, int *totalCount) {
